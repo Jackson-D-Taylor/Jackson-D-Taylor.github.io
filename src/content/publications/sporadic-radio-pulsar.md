@@ -35,48 +35,44 @@ lay:
     value: "3.1 kJy"
     label: "the brightest pulse we recorded, strong enough that FAST could still catch it from the edge of the Local Group"
   whatWeDid: >-
-    Some neutron stars do not pulse steadily. They go quiet for long stretches and then emit a
-    single burst, which makes them easy to miss and hard to study. Astronomers call them
-    rotating radio transients, or RRATs. We found one with CHIME, a radio telescope in British
-    Columbia, using the instrument built there to catch fast radio bursts. The star is
-    PSR J2108+5055 and it turns once every 0.495 seconds. It also changes modes: the character
-    of its emission switches between states rather than holding steady.
+    Some neutron stars go quiet for long stretches and then emit a single burst, which makes
+    them easy to miss and hard to study. Astronomers call them rotating radio transients, or
+    RRATs. We found one with CHIME, a radio telescope in British Columbia, using the instrument
+    built there to catch fast radio bursts. The star is PSR J2108+5055 and it turns once every
+    0.495 seconds. It also changes modes, meaning its emission switches between different
+    states.
   whatWeFound: >-
     Its brightest pulse reached 3.1 kilojanskys. At an estimated distance of 1.6 kiloparsecs,
     about 5,000 light years, that works out to a spectral luminosity of 7.5 × 10²³ erg per
-    second per hertz. The star is quiet nearly all the time. Its duty cycle is below 0.002, so
-    it is emitting for less than two thousandths of the time. We measured a surface magnetic
-    field of 5.8 × 10¹¹ gauss and a characteristic age of 12 million years. If the star sat at
-    the edge of the Local Group of galaxies, the FAST telescope would still catch that
-    brightest pulse. The second brightest, at 1.5 kilojanskys, would be detectable out to
-    about a megaparsec, which takes in Andromeda.
+    second per hertz. Its duty cycle (the fraction of the time it is emitting) is below 0.002.
+    We measured a surface magnetic field of 5.8 × 10¹¹ gauss and a characteristic age of 12
+    million years. If the star sat at the edge of the Local Group of galaxies, the FAST
+    telescope would still catch that brightest pulse. The second brightest, at 1.5 kilojanskys,
+    would be detectable out to about a megaparsec, which takes in Andromeda.
   whyItMatters: >-
-    A source that is switched off more than 99.8 percent of the time is easy to walk straight
-    past. Using a simple model of the Green Bank North Celestial Cap survey, we put an upper
-    limit of about 80 on the number of similarly bright sources sitting unnoticed in that
-    survey's patch of sky. The other point is reach. A pulse this strong would still register
-    from well outside our own galaxy, at distances where an ordinary pulsar is far out of
-    range.
+    A source that is switched off more than 99.8 percent of the time is easy to miss. Using a
+    simple model of the Green Bank North Celestial Cap survey, we put an upper limit of about 80
+    on the number of sources like this one in that survey's patch of sky. A pulse this strong
+    could also be detected from well outside our own galaxy, at distances where an ordinary
+    pulsar is far out of range.
   analogy: >-
-    This one is a lighthouse that turns as steadily as any other, but whose lamp almost never
-    catches. Most nights
-    nothing happens at all. Then, once in a long while, it fires off a single flash bright
-    enough to see from the next county, which only helps if somebody is looking in the right
-    direction at the right second. Finding one is partly a matter of staring at a lot of empty
-    sky and being patient.
+    Imagine a lighthouse that turns as steadily as any other, but whose lamp almost never
+    lights. Most nights nothing happens. Then, once in a long while, it fires off a single flash
+    bright enough to see from the next county, and you only catch it if you happen to be looking
+    in the right direction at the right second. Finding one takes a lot of staring at empty sky.
   glossary:
     - term: "RRAT"
       definition: >-
-        A rotating radio transient: a neutron star found through occasional single pulses
-        rather than a steady train of them. Most of the time it shows nothing at all.
+        Short for rotating radio transient, a neutron star that is found through occasional
+        single pulses. Most of the time it shows nothing at all.
     - term: "Jansky"
       definition: >-
         The unit radio astronomers use for the brightness of a source. A kilojansky is a
         thousand of them, which is an enormous reading for a pulsar.
     - term: "Duty cycle"
       definition: >-
-        The fraction of the time a source is actually emitting. Below 0.002, this one is
-        switched off for more than 99.8 percent of its life.
+        The fraction of the time a source is emitting. Below 0.002, this one is switched off for
+        more than 99.8 percent of the time.
     - term: "Dispersion measure"
       definition: >-
         A measure of how much a radio pulse has been smeared out by gas on its way to us. More

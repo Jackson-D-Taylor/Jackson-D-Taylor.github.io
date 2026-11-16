@@ -120,8 +120,10 @@ const RH = 96; // residual half height
 const xOf = (t: number) => PX0 + (t / SPAN) * (PX1 - PX0);
 
 const start = states[START_N - NMIN];
-const scaleFor = (ym: number) => Math.max(ym * 1.18, 3.2 * SIG);
-const S0 = scaleFor(start.ym);
+// One vertical scale for every count on the slider, wide enough for the worst
+// one and rounded up to a tidy number. Keeping it fixed is the point: the reader
+// should see the residuals grow and shrink, which a rescaling axis would hide.
+const S0 = Math.ceil(Math.max(...states.map((s) => s.ym * 1.18), 3.2 * SIG) / 10) * 10;
 const yOf = (r: number, s: number) => RY - (r / s) * RH;
 const band0 = (SIG / S0) * RH;
 
@@ -152,13 +154,14 @@ const payload = {
   startN: START_N,
   nmin: NMIN,
   sig: SIG,
+  yscale: S0,
   s: states,
   geom: { PX0, PX1, RY, RH, SPAN, IX0, IX1, IAY, ITOP },
 };
 
 const words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six'];
 const sayN = (n: number) => (n === 0 ? 'zero' : (n > 0 ? 'plus ' : 'minus ') + words[Math.abs(n)]);
-const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? start.c.toFixed(2) : start.c.toFixed(0)}. The points bend away from the line in a smooth curve instead of scattering about it.`;
+const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? start.c.toFixed(2) : start.c.toFixed(0)}. The points bend away from the line in a smooth curve.`;
 ---
 
 <figure class="ex" data-explainer="count-the-turns">
@@ -167,8 +170,8 @@ const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? sta
     <p>
       A millisecond pulsar turns a few hundred times a second. Timing one means
       accounting for every rotation, including the ones that happened while the
-      telescope was pointed somewhere else. The count is a whole number, so the
-      answers are countable. A wrong one does not look like noise.
+      telescope was pointed somewhere else. The count is a whole number, and a
+      wrong count leaves a smooth pattern in the data.
     </p>
   </figcaption>
 
@@ -214,8 +217,8 @@ const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? sta
   </svg>
 
   <p class="scalenote">
-    Vertical scale: <span id="ct-scale">±{S0.toFixed(0)}</span> microseconds (arbitrary units).
-    The grey band stays one uncertainty wide, so it shrinks as the residuals grow.
+    Vertical scale: <span id="ct-scale">±{S0.toFixed(0)}</span> microseconds (arbitrary units),
+    the same for every count. The grey band is one uncertainty wide.
   </p>
 
   <noscript>
@@ -283,18 +286,18 @@ const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? sta
   <div class="honesty">
     <p>
       <strong>Really true of the method.</strong> The count can only be a whole
-      number. A wrong count leaves a smooth pattern rather than scatter. The fit
+      number. A wrong count leaves a smooth pattern in the residuals. The fit
       score follows a parabola near its lowest point, and the curve in the small
-      panel is fitted to the scores you have tried rather than drawn in advance.
+      panel is fitted to the scores you have tried.
       A longer gap leaves more counts that fit almost as well as each other.
     </p>
     <p>
       <strong>Made up for the picture.</strong> The arrival times are invented.
       The fit is a three-term polynomial, not a timing model, and there is no
       binary orbit in it. The units are arbitrary. The order the search tries
-      candidates shows how a tree gets pruned, but it prunes on the fit score
-      alone; the paper decides which branch to keep with an F-test, which is not
-      what happens here.
+      candidates shows how a tree gets pruned. The paper also prunes on reduced
+      χ², but before cutting a branch it uses an F-test to decide whether adding
+      a fit parameter rescues it. That step is not shown here.
     </p>
   </div>
 
@@ -316,16 +319,14 @@ const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? sta
       </p>
       <p>
         At the correct count the points sit inside or near the grey band with no
-        order to them. Some high, some low, no drift. The smooth line is flat on
+        order to them. The smooth line is flat on
         zero, and the fit score is about one.
       </p>
       <p>
-        At any other count the picture changes in a particular way. The points
-        leave the band and lie along a curve that sags on one side and rises on
-        the other. They are not scattered more widely; they are arranged. That is
-        the signature of a count that is off by a whole number, and it is why the
-        right answer is findable: a wrong count produces structure, and structure
-        is easy to see.
+        At any other count, the points leave the band and lie along a curve that
+        sags on one side and rises on the other. That curve is the signature of a
+        count that is off by a whole number, and it is easy to see, which is what
+        makes the right answer findable.
       </p>
       <p>
         The small panel on the right keeps a record. Every whole number from
@@ -343,8 +344,8 @@ const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? sta
       <p>
         The longer the gap, the more counts give a score close to the best one, and
         the harder the problem gets. A gap of a few days can usually be bridged by
-        eye. A gap of a year, with a binary orbit on top of it, is where the
-        automated search earns its keep.
+        eye. A gap of a year, with a binary orbit on top of it, is where an
+        automated search helps the most.
       </p>
     </div>
   </details>
@@ -683,7 +684,7 @@ const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? sta
 
     function draw(n: number) {
       const s = st(n);
-      const S = Math.max(s.ym * 1.18, 3.2 * sig);
+      const S: number = M.yscale;
       const yOf = (r: number) => g.RY - (r / S) * g.RH;
       for (let i = 0; i < dots.length; i++) dots[i].setAttribute('cy', yOf(s.r[i]).toFixed(1));
       const path = (ts: number[], vs: number[]) =>
@@ -786,8 +787,8 @@ const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? sta
         const e = Math.abs(cur - M.trueN);
         let shape: string;
         if (e === 0) shape = 'The points scatter above and below the line with no shape left in them. This is the count that fits.';
-        else if (e === 1) shape = 'The points lean into a shallow curve instead of scattering about the line.';
-        else shape = 'The points curve away from the line instead of scattering around it, and the bend is deeper than it was.';
+        else if (e === 1) shape = 'The points lean into a shallow curve.';
+        else shape = 'The points curve away from the line, and the bend is deeper than it was.';
         status.textContent =
           (extra ? extra + ' ' : '') +
           'Missed turns: ' + say(cur) + '. Fit score ' + (s.c < 10 ? s.c.toFixed(2) : s.c.toFixed(0)) + '. ' + shape;

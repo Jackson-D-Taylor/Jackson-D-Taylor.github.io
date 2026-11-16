@@ -4,7 +4,7 @@
  *
  *   result     a scientific figure. Numbered, captioned, optionally linked
  *              to the full-resolution original.
- *   logo       an identity mark. Small, never numbered, never captioned.
+ *   logo       an identity mark. Never numbered, never captioned.
  *   animation  a video. Poster frame until the reader presses play; it does
  *              not autoplay, and the poster is what gets printed.
  *
@@ -31,7 +31,7 @@ const captionId = `fig-${src.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}
 
 {
   kind === 'logo' && (
-    <img class="logo" src={src} alt={alt} width="64" height="64" loading="lazy" decoding="async" />
+    <img class="logo" src={src} alt={alt} width="220" height="220" loading="lazy" decoding="async" />
   )
 }
 
@@ -148,9 +148,9 @@ const captionId = `fig-${src.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}
      read as white rectangles in dark mode. Sitting them on an explicit white
      card with a border makes that deliberate in both themes. */
   .logo {
-    width: 56px;
+    width: 220px;
+    max-width: 100%;
     height: auto;
-    max-height: 64px;
     object-fit: contain;
     margin-block: 1.25rem;
     background: #fff;

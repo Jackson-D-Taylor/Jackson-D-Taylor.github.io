@@ -85,7 +85,7 @@ function verdict(amp: number): string {
   if (amp >= NOISE * 0.35) {
     return 'A wide pass. The disturbance has dropped below the timing noise and would be missed.';
   }
-  return 'A distant pass. The disturbance is now so small that no amount of looking at these data would turn it up.';
+  return 'A distant pass. The disturbance is far too small to find in these data.';
 }
 
 const start = flyby(B_DEFAULT);
@@ -145,8 +145,7 @@ const startText = verdict(startWobble.amp);
         <text class="hf-tag" x={PX + 12} y={PY + 20}>pulsar</text>
       </svg>
       <figcaption class="exp-cap">
-        The object comes in from the left, bends around the pulsar, and leaves. It is
-        not captured: it passes once and is gone.
+        The object comes in from the left, bends around the pulsar, and leaves for good.
       </figcaption>
     </figure>
 
@@ -182,12 +181,11 @@ const startText = verdict(startWobble.amp);
   <p class="exp-status hf-status" role="status" aria-live="polite">{startText}</p>
 
   <p class="exp-note">
-    Move the slider out and the wobble collapses quickly. Only very close passes leave
-    anything a telescope could find, which is the reason a search that finds nothing
-    still says something. Dey et al. looked at 68 millisecond pulsars in the NANOGrav
-    15 yr narrowband dataset and found no event of this kind. From that silence they set
-    the first limits on how many free-floating objects can be packed into our part of
-    the galaxy: for Jupiter-mass objects, fewer than 6.03 &#215; 10<sup>5</sup> per cubic
+    Move the slider out and the wobble shrinks quickly, so only very close passes leave
+    anything a telescope could find. We looked at 68 millisecond pulsars in the NANOGrav
+    15 yr narrowband dataset and found no event of this kind. From that we set the first pulsar-timing
+    limits on how many free-floating objects there can be in our part of the galaxy. For
+    Jupiter-mass objects, that is fewer than 6.03 &#215; 10<sup>5</sup> per cubic
     parsec once all the pulsars are combined.
   </p>
 
@@ -215,11 +213,10 @@ const startText = verdict(startWobble.amp);
         encounter leaves nothing a search could recover.
       </p>
       <p>
-        That is the whole argument of the paper in one picture. Only objects that come
-        very close are detectable at all, so finding nothing across 68 pulsars does not
-        mean the Galaxy is empty of them. It means there cannot be so many that one of
-        these rare close passes should have happened while the pulsars were watched, and
-        that upper bound is the result.
+        Only objects that come very close are detectable at all. Finding nothing across
+        68 pulsars means there cannot be so many of them that one of these rare close
+        passes should have happened while the pulsars were watched. That upper bound is
+        the result of the paper.
       </p>
     </div>
   </details>
@@ -508,7 +505,7 @@ const startText = verdict(startWobble.amp);
     if (amp >= NOISE * 0.35) {
       return 'A wide pass. The disturbance has dropped below the timing noise and would be missed.';
     }
-    return 'A distant pass. The disturbance is now so small that no amount of looking at these data would turn it up.';
+    return 'A distant pass. The disturbance is far too small to find in these data.';
   }
 
   function shortText(amp: number) {

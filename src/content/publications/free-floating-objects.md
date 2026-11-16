@@ -38,9 +38,8 @@ figures:
       light-seconds, where the added scatter falls to a tenth of the scatter already present
       in the data.
     caption: >-
-      Past the critical distance, a passing object no longer leaves a mark this pulsar's
-      timing could pick up. That distance is what sets how much space around each pulsar the
-      search actually covers.
+      Past the critical distance, a passing object no longer leaves a mark this pulsar's timing
+      could pick up. That distance sets how much space around each pulsar the search covers.
   - src: "/figures/free-floating-objects/critical-impact-parameter.webp"
     kind: "result"
     unpublished: true
@@ -62,9 +61,9 @@ figures:
       zooms in on three orbits of the smooth wave underneath. The bottom panel is a histogram
       of residual size, peaking near three microseconds.
     caption: >-
-      What a flyby would look like in the data: a slow drift in the pulse arrival times, a
-      kink at closest approach, then a slow recovery. The whole effect here is a few millionths
-      of a second.
+      A flyby would show up in the data as a slow drift in the pulse arrival times, a kink at
+      closest approach, then a slow recovery. The whole effect here is a few millionths of a
+      second.
   - src: "/figures/free-floating-objects/milky-way-xy.webp"
     kind: "result"
     unpublished: true
@@ -74,8 +73,8 @@ figures:
       the 68 pulsars used in this search, nearly all of them packed into a small region around
       the Sun's position, and coloured by the density limit each one sets.
     caption: >-
-      The pulsars used here are all relatively close by, so the limits apply to our own part
-      of the Galaxy rather than to the Galaxy as a whole.
+      The pulsars used here are all relatively close by, so the limits only apply to our own
+      part of the Galaxy.
   - src: "/figures/free-floating-objects/all-sky-aitoff.webp"
     kind: "result"
     unpublished: true
@@ -85,8 +84,8 @@ figures:
       the 68 pulsars in this search, are spread far more evenly across the whole sky and
       coloured by the limit each one sets.
     caption: >-
-      Millisecond pulsars timed precisely enough for this search sit all over the sky, not
-      only along the Galactic plane where most pulsars are found.
+      Most pulsars are found along the Galactic plane, but the millisecond pulsars timed
+      precisely enough for this search sit all over the sky.
   - src: "/figures/free-floating-objects/hyperbolic-flyby-poster.webp"
     kind: "animation"
     unpublished: true
@@ -97,8 +96,8 @@ figures:
     alt: >-
       An animation of a flyby. A star sits at the centre with a companion on a small circular
       orbit around it. A second body comes in from the bottom of the frame on a fading track,
-      bends sharply as it rounds the star at closest approach, and leaves in a new direction
-      off the top, never to return.
+      bends sharply as it rounds the star at closest approach, and leaves in a new direction off
+      the top.
     caption: >-
       A hyperbolic flyby. The passing object is deflected, and the star is pulled in return by
       a far smaller amount. That return tug is what would show up in the pulse arrival times.
@@ -155,40 +154,37 @@ figures:
 lay:
   reviewed: false
   hook: >-
-    Rogue planets drift through the Galaxy attached to no star. We looked for one passing
-    close to any of 68 pulsars, found none, and turned that into the first limits on how many
-    are out there.
+    Rogue planets drift through the Galaxy without orbiting any star. We looked for one passing
+    close to any of 68 pulsars and did not find any, which let us set the first limits from
+    pulsar timing on how many are out there.
   keyNumber:
     value: "68 pulsars"
-    label: "watched for fifteen years for the tug of a passing rogue planet. Not one event turned up."
+    label: "watched for up to fifteen years for the tug of a passing rogue planet, with no events found"
   whatWeDid: >-
-    Not everything in the Galaxy orbits a star. Rogue planets, brown dwarfs and large
-    asteroids drift between the stars on their own, and they are expected to be everywhere. A
-    few have been seen. Microlensing surveys have turned up free-floating planets, and three
-    objects, 1I/'Oumuamua, 2I/Borisov and 3I/ATLAS, have passed through our own solar system
-    on paths that will never bring them back. Counting the rest is hard. So we tried a
-    different sort of detector. If one of these objects swings past a millisecond pulsar, its
-    gravity nudges the pulsar, and the pulses arrive slightly early or slightly late. We
-    searched for that signature in fifteen years of timing data on 68 millisecond pulsars.
+    Rogue planets, brown dwarfs and large asteroids can drift between the stars without orbiting
+    any of them, and they are expected to be everywhere in the Galaxy. Some have been
+    seen. Microlensing surveys have turned up free-floating planets, and three objects
+    (1I/'Oumuamua, 2I/Borisov and 3I/ATLAS) have passed through our own solar system on paths
+    that will never bring them back. We tried a different way of finding them. If one of these
+    objects swings past a millisecond pulsar, its gravity nudges the pulsar and the pulses
+    arrive slightly early or slightly late. We searched for that signature in up to fifteen
+    years of timing data on 68 millisecond pulsars.
   whatWeFound: >-
-    Nothing. No statistically significant event in any of the 68 pulsars. A search that comes
-    up empty still sets a ceiling: if rogue planets were thicker on the ground than some
-    number, we should have caught a nudge somewhere in fifteen years of data, and we did not.
-    Combining all 68 pulsars, there can be
-    no more than about 600,000 Jupiter-mass objects per cubic parsec near us. Taken one at a
-    time, the pulsars give weaker limits, ranging from about five million to about five
-    billion per cubic parsec depending on the pulsar.
+    No flybys detected. None of the 68 pulsars shows a statistically significant event. That still tells
+    us something, because if there were enough rogue planets nearby we should have caught a
+    nudge somewhere in up to fifteen years of data. Combining all 68 pulsars, there can be no more
+    than about 600,000 Jupiter-mass objects per cubic parsec near us. Taken one at a time, the
+    pulsars give weaker limits, from about five million to about five billion per cubic parsec
+    depending on the pulsar.
   whyItMatters: >-
     These are the first limits on the free-floating object population to come out of pulsar
-    timing. They are not tight yet. Microlensing has found the free-floating planets we know
-    about, and it is worth checking that count with a method whose blind spots are somewhere
-    else.
+    timing. They are not tight yet. Microlensing has found many of the free-floating planets we
+    know about, so it is worth checking that count with a completely different method.
   analogy: >-
-    A metronome in a dark room makes a decent detector. Nothing is visible, but if something
-    heavy walks past, the floor flexes a little and the next tick slips by a hair. Fifteen
-    years of listening to 68 metronomes, and not one of them slipped. Nobody walked past. That
-    does not mean the building is empty. It does put a limit on how many people can be
-    wandering around in it.
+    Imagine a metronome ticking in a dark room. You can't see anything, but if somebody heavy
+    walks past, the floor flexes a little and the next tick comes slightly early or late. We
+    listened to 68 metronomes for up to fifteen years and none of them slipped, so there can only be
+    so many people wandering around the building.
   glossary:
     - term: "Free-floating object"
       definition: >-
@@ -200,16 +196,16 @@ lay:
         as clocks, which is what makes a small gravitational nudge measurable.
     - term: "Hyperbolic orbit"
       definition: >-
-        A path too fast to be captured. The object swings past once and leaves for good
-        instead of settling into an orbit.
+        The path of an object moving too fast to be captured. It swings past once and leaves for
+        good.
     - term: "Parsec"
       definition: >-
         A distance of about 3.3 light years, a little less than the gap between the Sun and
         the next star over. Densities here are counted per cubic parsec.
     - term: "Upper limit"
       definition: >-
-        The largest value still consistent with having seen nothing. It is the normal result
-        of a search that finds no signal, and it is a real measurement.
+        The largest value still consistent with having seen nothing. It is the normal result of
+        a search that finds no signal.
 ---
 
 ## Abstract

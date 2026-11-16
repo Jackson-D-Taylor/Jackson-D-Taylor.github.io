@@ -18,6 +18,7 @@ doi: "10.3847/1538-4357/ad1ce9"
 topic: "Pulsar timing"
 weight: 100
 explainer: "count-the-turns"
+explainerReviewed: true
 figures:
   - src: "/figures/algorithmic-pulsar-timer/solution-tree-j2109.webp"
     kind: "result"

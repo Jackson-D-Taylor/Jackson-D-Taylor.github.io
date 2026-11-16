@@ -49,21 +49,21 @@ const STEPS = [
     phi: 135,
     eclipse: true,
     text:
-      'The companion is coming round towards the front. Material around it has started to cover the line of sight and the radio pulses disappear.',
+      'The companion is coming round towards the front. This is where material around it would start to cover the line of sight and cut off the radio pulses.',
   },
   {
     n: 5,
     phi: 180,
     eclipse: true,
     text:
-      'The companion is directly in front of the pulsar. The radio pulses are gone and the cool, unheated side faces us, so the optical light curve is at its lowest. Two different instruments register the same moment in the orbit.',
+      'The companion is directly in front of the pulsar. An eclipse would block the radio pulses here, and the cool, unheated side faces us, so the optical light curve is at its lowest.',
   },
   {
     n: 6,
     phi: 225,
     eclipse: true,
     text:
-      'The companion is moving out from in front. The pulses are about to come back.',
+      'The companion is moving out from in front. If the pulses were eclipsed, they would come back about here.',
   },
   {
     n: 7,
@@ -155,19 +155,18 @@ const SYMMETRIC = curve((p) => (1 + Math.cos(2 * Math.PI * p)) / 2);
 
   <p class="exp-lede">
     PSR J2053+6905 is a 1.68-millisecond pulsar with a companion close enough that the
-    pulsar's radiation heats the side of it that faces the pulsar. Twice over, that
-    arrangement leaves a mark. A radio telescope sees the pulses vanish for part of every
-    orbit. An optical telescope sees the system brighten and fade as the heated face
+    pulsar's radiation heats the side of it that faces the pulsar. A radio telescope may lose the pulses for part of the orbit: in one of our four
+    observing sessions the pulsar faded out partway through, most likely in an eclipse. An optical telescope sees the system brighten and fade as the heated face
     turns towards us and away. Step around the orbit and watch both at once.
   </p>
 
   <p class="exp-fidelity">
-    <strong>Faithful:</strong> the orbit is drawn close to edge-on, which is why there
-    are eclipses at all, and the eclipse lines up with the minimum of the light curve for
-    the reason the diagram shows. The asymmetry in the optical curve is reported in the
-    paper. <strong>Schematic:</strong> the sizes, the separation, the width of the
-    eclipse, and the shape and size of the asymmetry. None of those are fitted values,
-    and this paper is an unedited advance article.
+    <strong>Faithful:</strong> an eclipse would line up with the minimum of the light
+    curve, for the reason the diagram shows, and the asymmetry in the optical curve is
+    reported in the paper. <strong>Schematic:</strong> the viewing angle (the paper fits
+    an inclination of about 66 degrees), the sizes, the separation, the width of the
+    possible eclipse, and the shape and size of the asymmetry. Apart from the inclination,
+    none of those are fitted values, and this paper is an unedited advance article.
   </p>
 
   <input class="rb-state" type="radio" name="rb-step" id="rb-1" checked />
@@ -198,7 +197,7 @@ const SYMMETRIC = curve((p) => (1 + Math.cos(2 * Math.PI * p)) / 2);
           class="rb-svg"
           viewBox="0 0 300 236"
           role="img"
-          aria-label="The companion's position in its orbit around the pulsar, seen almost edge-on, with Earth off to the left."
+          aria-label="The companion's position in its orbit around the pulsar, seen from the side, with Earth off to the left."
         >
           <ellipse class="rb-orbit" cx={CX} cy={CY} rx={RX} ry={RY} />
           <line class="rb-sight" x1={CX} y1={CY} x2="14" y2={CY} />
@@ -224,8 +223,8 @@ const SYMMETRIC = curve((p) => (1 + Math.cos(2 * Math.PI * p)) / 2);
           </text>
         </svg>
         <figcaption class="exp-cap">
-          We are looking at the orbit almost edge-on, from the left. That is the only
-          geometry in which the companion ever gets in the way.
+          Earth is off to the left. The companion can only get in the way when it
+          passes between us and the pulsar.
         </figcaption>
       </figure>
 
@@ -234,7 +233,7 @@ const SYMMETRIC = curve((p) => (1 + Math.cos(2 * Math.PI * p)) / 2);
           class="rb-svg"
           viewBox="0 0 300 236"
           role="img"
-          aria-label="Radio pulses across one orbit with a gap during the eclipse, above an optical light curve with its minimum at the same phase."
+          aria-label="Radio pulses across one orbit with a gap where a possible eclipse would fall, above an optical light curve with its minimum at the same phase."
         >
           <text class="rb-tag rb-dim" x={X0} y="24">radio pulses</text>
           <rect
@@ -246,7 +245,7 @@ const SYMMETRIC = curve((p) => (1 + Math.cos(2 * Math.PI * p)) / 2);
             rx="3"
           />
           <text class="rb-tag rb-dim" x={(ECL_FROM + ECL_TO) / 2} y="50" text-anchor="middle"
-            >eclipse</text
+            >possible eclipse</text
           >
           <line class="rb-axis" x1={X0} y1={RADIO_BASE} x2={X0 + XW} y2={RADIO_BASE} />
           {TICKS.map((x) => <line class="rb-pulse" x1={x} y1={RADIO_BASE} x2={x} y2={RADIO_BASE - 34} />)}
@@ -312,7 +311,7 @@ const SYMMETRIC = curve((p) => (1 + Math.cos(2 * Math.PI * p)) / 2);
       <p>
         The right panel shows one full orbit twice over, in two strips. The upper strip
         is the radio view: a row of evenly spaced pulses with a gap in the middle, shaded
-        and marked as the eclipse. The lower strip is the optical view: a curve that
+        and marked as a possible eclipse. The lower strip is the optical view: a curve that
         peaks at both ends and dips to a minimum in the middle. A dashed version of the
         same curve, symmetric about the minimum, sits underneath for comparison, and the
         solid curve departs from it on one shoulder. A vertical line crossing both strips
@@ -320,12 +319,11 @@ const SYMMETRIC = curve((p) => (1 + Math.cos(2 * Math.PI * p)) / 2);
       </p>
       <p>
         The thing to notice is that the gap in the radio pulses and the dip in the
-        optical curve happen at the same place. Both are caused by the companion being
-        between us and the pulsar. At that point its material blocks the radio pulses,
+        optical curve happen at the same place. Both come from the companion being
+        between us and the pulsar. At that point its material would block the radio pulses,
         and the face it turns towards us is the cool one, pointing away from the heat.
         Half an orbit later the companion is behind the pulsar, the pulses are clear, and
-        the heated face is in full view. One orbit, two instruments, the same geometry
-        underneath. The asymmetry in the solid curve is the part a simple heating model
+        the heated face is in full view. The asymmetry in the solid curve is the part a simple heating model
         does not account for.
       </p>
     </div>

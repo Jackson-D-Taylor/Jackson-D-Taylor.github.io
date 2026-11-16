@@ -112,6 +112,7 @@ one changes, change the other and update this page too.
 | `topic` | no | Two or three words for the index page, e.g. `Pulsar timing`. |
 | `weight` | no | Ordering within a year on the index; higher sorts first. Defaults to 0 and usually stays there. |
 | `explainer` | no | Key into `src/components/explainers/index.ts`, when a paper has an interactive explainer. |
+| `explainerReviewed` | no | `false` by default. The interactive is hidden until this is `true` — same idea as `lay.reviewed`, below. |
 
 The abstract goes in the body of the file, below the closing `---`. Verbatim,
 with the journal's own characters (−, ⊙, ∼, χ²) left alone.
@@ -160,6 +161,11 @@ lay:
 
 Any time the summary is edited again, the flag goes back to `false` until I've
 re-read it. The build never flips it — only I do.
+
+The interactive explainer has its own switch, `explainerReviewed`, and works the
+same way: hidden until I've played with it and set it to `true`. The two are
+separate so a summary can go up before its interactive is ready, or the other
+way round.
 
 ---
 

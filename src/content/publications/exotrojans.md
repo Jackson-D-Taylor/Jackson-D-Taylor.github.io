@@ -25,6 +25,7 @@ doi: "10.3847/1538-4357/ae4317"
 topic: "Exotrojans"
 weight: 100
 explainer: "trojan-libration"
+explainerReviewed: true
 figures:
   - src: "/figures/exotrojans/tadpole-orbit.webp"
     kind: "result"
@@ -37,18 +38,10 @@ figures:
       at its lower-right end near x = 0.75 and tapering towards the upper left at x = 0.13, with a
       narrow split running along its middle.
     caption: >-
-      A Trojan started away from the stable point and followed for many orbits, in a frame that
-      turns with the binary so only the Trojan moves. It swings around the point and comes back,
-      tracing the same tadpole as the explainer above. The path is computed. We looked for this
-      signal around eight pulsars and found no Trojan.
-  - src: "/figures/exotrojans/zombies-logo.webp"
-    kind: "logo"
-    unpublished: true
-    alt: >-
-      The ZOMBIES project logo: a small grey clock face at the centre of a set of nested
-      orbits, with a red star and a tiny green companion circling each other on one side, a
-      blue body on a wider shared orbit, and a black body on the outermost circle, while a
-      pale blue object swings past from outside on an open curve.
+      This is a computed path of a Trojan that starts away from the stable point, followed for
+      many orbits in a frame that turns with the binary so only the Trojan moves. It swings
+      around the point and comes back, tracing the same tadpole as the explainer above. We
+      looked for this signal around eight pulsars and found no Trojan.
   - src: "/figures/exotrojans/trojan-libration-poster.webp"
     kind: "animation"
     unpublished: true
@@ -57,14 +50,22 @@ figures:
       webm: "/figures/exotrojans/trojan-libration.webm"
       poster: "/figures/exotrojans/trojan-libration-poster.webp"
     alt: >-
-      An animation of a three-body system seen from above. A green pulsar sits at the centre,
-      a red planet orbits it, and a blue asteroid starts 60 degrees ahead of the planet on the
-      same orbit. As the animation runs, the asteroid does not stay put at that point. It
-      drifts slowly back and forth around it while the planet keeps circling.
+      An animation of a three-body system seen from above. A green pulsar sits at the centre, a
+      red planet orbits it, and a blue asteroid starts 60 degrees ahead of the planet on the
+      same orbit. As the animation runs, the asteroid drifts slowly back and forth around that
+      point while the planet keeps circling.
     caption: >-
       A Trojan sits near one of the two points 60 degrees ahead of or behind a companion in its
       orbit, and swings slowly back and forth about that point. The slow swing, called
       libration, is what tugs on the pulsar and shows up in the arrival times of its pulses.
+  - src: "/figures/exotrojans/zombies-logo.webp"
+    kind: "logo"
+    unpublished: true
+    alt: >-
+      The ZOMBIES project logo: a small grey clock face at the centre of a set of nested
+      orbits, with a red star and a tiny green companion circling each other on one side, a
+      blue body on a wider shared orbit, and a black body on the outermost circle, while a
+      pale blue object swings past from outside on an open curve.
 lay:
   reviewed: true
   hook: >-
@@ -102,7 +103,10 @@ lay:
     Imagine driving on a highway. The cars next to you won't appear to be driving that fast,
     because you're cruising along with them. From Jupiter's perspective, the Trojans appear
     to hardly move at all, just like how a driver doesn't perceive neighboring cars to be
-    moving.
+    moving. What makes Trojans interesting is that if you give them a tiny shove, then they
+    will oscillate back and forth while in orbit, so from Jupiter's perspective they would
+    be moving. This jostling back and forth is what we can measure with respect to Trojans
+    in pulsar systems.
   glossary:
     - term: "Trojan"
       definition: >-

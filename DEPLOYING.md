@@ -182,8 +182,10 @@ jacksondtaylorastro.com
 ```
 
 Not `https://`, not `www.`, no trailing slash. It has to match exactly what is
-in Settings → Pages. Anything in `public/` is copied verbatim into the build,
-so this ends up at the root of the published site where Pages looks for it.
+in Settings → Pages. Note that this site deploys through GitHub Actions, and
+Pages does not read this file in that mode. The domain has to be typed into
+Settings → Pages → Custom domain by hand. The file is kept as a record of
+the domain.
 
 If you ever change the domain, change it in both files and in Settings → Pages.
 Two out of three leaves the site broken in ways that are hard to spot.

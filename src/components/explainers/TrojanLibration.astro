@@ -65,7 +65,7 @@ const presets = [
     label: 'Far away',
     deg: 120,
     words:
-      'Started a hundred and twenty degrees off the point, which is too far to be held. It drifts all the way around the orbit instead of swinging back, and its distance from the pulsar changes a lot. The pulsar trace wanders rather than repeating.',
+      'Started a hundred and twenty degrees off the point, which is too far to be held. It drifts all the way around the orbit, and its distance from the pulsar changes a lot. The pulsar trace wanders and never repeats.',
   },
 ];
 const START = 'd20';
@@ -78,10 +78,9 @@ const startWords = presets.find((p) => p.id === START)!.words;
     <p>
       Two bodies in orbit make two places, sixty degrees ahead of and behind the
       smaller one, where a third object can stay put. Thousands of asteroids sit
-      in those places in the Sun–Jupiter system. An object parked there does not
-      hold still. It swings slowly around the point, and its pull shifts the
-      pulsar by a small amount. The pulsar's shift is the only part of this a
-      telescope can measure.
+      in those places in the Sun–Jupiter system. An object parked there swings
+      slowly around the point, and its pull shifts the pulsar by a small amount.
+      That shift is the only part of this a telescope can measure.
     </p>
   </figcaption>
 
@@ -132,9 +131,9 @@ const startWords = presets.find((p) => p.id === START)!.words;
 
   <p class="geocap">
     Drawn in a frame that turns once per orbit, so the companion stays put and
-    only the asteroid moves. The loop is a real one: a Trojan started twenty
-    degrees off L4, followed for one complete swing. It is wide and slow. One
-    swing takes about four orbits of the binary.
+    only the asteroid moves. The loop is calculated for a Trojan started twenty
+    degrees off L4 and followed for one complete swing. The swing is wide and slow,
+    taking about four orbits of the binary.
   </p>
 
   <noscript>
@@ -226,7 +225,7 @@ const startWords = presets.find((p) => p.id === START)!.words;
       </p>
       <p>
         An object placed exactly at L4 stays there. Place it a little off and it
-        does not fall in or fall out; it swings around the point and comes back.
+        swings around the point and comes back.
         The closed loop drawn around L4 is one of those swings, for an object
         started twenty degrees away. The shape is why these are called tadpole
         orbits. Going round the loop once takes about four orbits of
@@ -235,17 +234,17 @@ const startWords = presets.find((p) => p.id === START)!.words;
       <p>
         Start it far enough from the point and it is not held at all. It drifts
         around the whole orbit, its distance from the pulsar changing as it goes,
-        and never comes back to sixty degrees.
+        and never settles into a loop around sixty degrees.
       </p>
       <p>
         The strip below the running version is the part that matters for the
         search. The asteroid pulls on the pulsar, so the pulsar is not quite where
         it would be without it, and that shows up as a change in when its pulses
-        arrive. Nobody sees the asteroid. The trace repeats once per orbit, and a
+        arrive. The trace repeats once per orbit, and a
         signal at exactly the orbital period is difficult to separate from the
         orbit itself, since fitting the binary absorbs it. The part that would
         give a Trojan away is the slow swell riding on top, at the libration
-        period. That is what the paper looked for.
+        period. That is what we looked for.
       </p>
       <p>
         Eight pulsars were searched and no Trojan held up in any of them, which is where the
@@ -730,7 +729,7 @@ const startWords = presets.find((p) => p.id === START)!.words;
 
       octx.fillStyle = col.muted;
       octx.font = '11px system-ui, sans-serif';
-      octx.fillText('rotating frame — the companion holds still', 8, Ht - 8);
+      octx.fillText('rotating frame, companion held still', 8, Ht - 8);
       octx.fillText('orbits: ' + (t / TAU).toFixed(2), 8, 16);
     }
 
@@ -752,7 +751,7 @@ const startWords = presets.find((p) => p.id === START)!.words;
       if (trace.length < 8) {
         sctx.fillStyle = col.muted;
         sctx.font = '12px system-ui, sans-serif';
-        sctx.fillText('Nothing recorded yet \u2014 press play.', 10, mid - 8);
+        sctx.fillText('Nothing recorded yet. Press play.', 10, mid - 8);
         return;
       }
 

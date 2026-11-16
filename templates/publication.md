@@ -94,6 +94,8 @@ weight: 0
 # OPTIONAL. Key into src/components/explainers/index.ts, when this paper has
 # an interactive explainer. Leave it out otherwise.
 explainer: ""
+# The interactive stays hidden until you've checked it. Set to true to show it.
+explainerReviewed: false
 
 # ---------------------------------------------------------------------------
 # Figures. An entry here means Jackson has approved that figure for the public

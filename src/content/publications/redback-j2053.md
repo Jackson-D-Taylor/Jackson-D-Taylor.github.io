@@ -29,43 +29,40 @@ lay:
   reviewed: false
   hook: >-
     We pointed the Green Bank Telescope at a gamma-ray source that looked like it might be
-    hiding a pulsar, and found one: a 1.68-millisecond pulsar in a tight orbit with a
-    companion star it is heating from one side.
+    hiding a pulsar. We found a 1.68-millisecond pulsar in a tight orbit with a companion star
+    that it heats from one side.
   keyNumber:
     value: "1.68 ms"
     label: "one full rotation of the pulsar, which means it turns nearly 600 times every second"
   whatWeDid: >-
-    Gamma-ray surveys have catalogued many sources with no identified counterpart. A few of
-    them turn out to be pulsars in close binaries. One such source, 4FGL J2054.2+6904, had
-    already been flagged as a candidate from optical and X-ray observations, so we aimed the
-    Green Bank Telescope at it and searched for radio pulsations. We found them. Then we
-    followed the system in two other ways: photometry from a 2.1 metre telescope in Mexico and
-    a 1.5 metre in Uzbekistan, to watch the companion brighten and fade, and spectroscopy from
-    the 10.4 metre Gran Telescopio Canarias, to measure how fast the companion moves toward
-    and away from us.
+    Gamma-ray surveys have catalogued many sources with no identified counterpart. A few of them
+    turn out to be pulsars in close binaries. One such source, 4FGL J2054.2+6904, had already
+    been flagged as a candidate from optical and X-ray observations, so we aimed the Green Bank
+    Telescope at it and searched for radio pulsations, which we found. We then followed the
+    system with photometry from a 2.1 metre telescope in Mexico and a 1.5 metre in Uzbekistan,
+    to watch the companion brighten and fade, and with spectroscopy from the 10.4 metre Gran
+    Telescopio Canarias, to measure how fast the companion moves toward and away from us.
   whatWeFound: >-
     PSR J2053+6905 turns once every 1.68 milliseconds. From the radio timing we measured the
     spin period, the amount of gas along the line of sight, the shape of the orbit, and the
-    pulsar's mass function. For long stretches of each orbit the radio signal looks like it drops
-    out, hidden behind material around the companion, and there are hints of scintillation
-    too. Both are suggestive; neither is settled. The
-    optical light curve is lopsided, and it changes from one observing run to the next, which
-    is likely a cool spot on the companion fading or drifting across it. Putting the
-    spectroscopy together with the timing gives a mass ratio of 7.05 to 1 and component masses
-    near 2.1 and 0.3 times the Sun.
+    pulsar's mass function. We also see potential evidence of long radio eclipses, where the
+    signal drops out behind material around the companion, and of scintillation. The optical
+    light curve is lopsided, and it changes from one observing run to the next, which is likely
+    a cool spot on the companion fading or drifting across it. Putting the spectroscopy together
+    with the timing gives a mass ratio of 7.05 to 1 and component masses near 2.1 and 0.3 times
+    the Sun.
   whyItMatters: >-
-    The mass of a neutron star is hard to measure, and this system yields one near 2.1 times
-    the Sun, at the heavy end of the range neutron stars are known to occupy. The
-    number comes from combining radio timing with optical photometry and spectroscopy, so
-    three different kinds of observation have to agree before it holds. The light curve is
-    also still changing from year to year, which gives a reason to keep watching.
+    The mass of a neutron star is hard to measure, and this system gives an estimate near 2.1
+    times the Sun which, if it holds up, puts it at the heavy end for neutron stars. The number comes from combining radio
+    timing with optical photometry and spectroscopy, so three different kinds of observation
+    have to agree before it holds. The light curve is also still changing from year to year, so
+    it is worth continuing to watch.
   analogy: >-
-    A marshmallow held a few inches from a campfire and turned slowly gets scorched on one
-    side and stays cool on the other. Make the marshmallow a small star and the campfire a
-    neutron star spinning nearly 600 times a second a short distance off, and the same thing
-    happens. Watching the light rise and fall as the hot side turns toward us and away again
-    gives the size of the companion, the temperature of each side of it, and the masses of
-    both.
+    Imagine holding a marshmallow a few inches from a campfire without turning it. One side gets
+    scorched and the other stays cool. Now make the marshmallow a small star and the campfire a
+    neutron star spinning nearly 600 times a second, and the same thing happens. Watching the
+    light rise and fall as the hot side turns toward us and away again gives the size of the
+    companion, the temperature of each side of it, and the masses of both.
   glossary:
     - term: "Redback"
       definition: >-

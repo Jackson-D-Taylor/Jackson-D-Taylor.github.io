@@ -61,6 +61,8 @@ Put the abstract in the body, below the frontmatter.
 
 Fill in the `lay` block and leave `lay.reviewed: false`. Nothing in it renders on the site until Jackson flips that to true, which he does after reading every sentence.
 
+If the paper gets an interactive `explainer`, leave `explainerReviewed: false` too. The widget stays hidden until Jackson has tried it and flips that himself.
+
 Write for someone with no astronomy background. Watch the character limits in the schema (`hook` 220, `whatWeDid` and `whatWeFound` 800 each, `whyItMatters` 600, `analogy` 600, 3 to 5 glossary entries). Find a `keyNumber` if the paper has one — on a paper with no figures it's the only thing on the page that isn't text.
 
 On voice: this is Jackson's site and nothing on it should read as though a machine wrote it. No "delve", "showcase", "seamless", "robust", "leverage", "crucial", "intricate", "landscape". No "not just X, but Y". No three-item lists in every sentence. No telling the reader the work is exciting or important. Vary your sentence lengths. Plain declarative prose, the way a careful person explains their work to someone they respect.

@@ -30,3 +30,4 @@ npm-debug.log*
 
 # Local review copy of the lay summaries — not part of the site.
 one-pagers-for-review.md
+.claude/launch.json

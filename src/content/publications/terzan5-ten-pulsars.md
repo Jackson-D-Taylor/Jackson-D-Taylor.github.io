@@ -71,17 +71,16 @@ lay:
     PSR J1748−2446ar is an eclipsing redback, and its properties confirm it as the counterpart
     of a source already seen in radio and X-ray images.
   whyItMatters: >-
-    Terzan 5 keeps producing. Each new pulsar is another clock inside the same cluster, and
-    the unusual ones are worth chasing on their own. The candidate double neutron star is the
-    one to watch here. If it holds up, it would set the records for both the fastest spin and
-    the longest orbit among known double neutron star systems, which is the sort of object
-    formation models have to account for.
+    Each new pulsar is another clock inside the same cluster, and the unusual ones are
+    interesting in their own right. The one to watch is the candidate double neutron star. If
+    confirmed, it would have both the fastest spin and the longest orbit among known double
+    neutron star systems, and formation models would have to account for that.
   analogy: >-
-    A globular cluster is a city centre next to the quiet suburb the Sun lives in. Hundreds of
-    thousands of stars are packed into a space that, out where we are, would hold only a
-    handful. Listening for pulsars in there is like trying to pick out individual ticking
-    watches in a crowded hall. MeerKAT split its view of the cluster into 288 narrow beams, so
-    each beam listens to a small part of the crowd at a time.
+    Imagine a globular cluster as a city centre, and the part of the Galaxy the Sun lives in as
+    a quiet suburb. Hundreds of thousands of stars are packed into a space that would hold only
+    a handful out where we are. Listening for pulsars in there is like trying to pick out
+    individual ticking watches in a crowded hall. MeerKAT split its view of the cluster into 288
+    narrow beams, so each beam listens to a small part of the crowd at a time.
   glossary:
     - term: "Globular cluster"
       definition: >-
@@ -89,15 +88,15 @@ lay:
         galaxy. Terzan 5 is one, and it is the richest in pulsars.
     - term: "Eccentricity"
       definition: >-
-        How stretched an orbit is. Zero is a circle. The 0.905 of PSR J1748−2446ap is a long,
-        narrow ellipse.
+        How stretched an orbit is, where zero is a circle. PSR J1748−2446ap, at 0.905, moves on
+        a long, narrow ellipse.
     - term: "Recycled pulsar"
       definition: >-
         An old pulsar that has been spun back up to high speed by material pulled off a
         companion star.
     - term: "Double neutron star"
       definition: >-
-        A binary in which both members are neutron stars. Only a handful are known.
+        A binary in which both members are neutron stars. Only about two dozen are known.
     - term: "Acceleration search"
       definition: >-
         A search method that allows for a pulsar's motion along its orbit. Without it, the

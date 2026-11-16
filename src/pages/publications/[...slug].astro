@@ -34,7 +34,8 @@ const { entry } = Astro.props;
 const d = entry.data;
 const { Content } = await render(entry);
 
-const Explainer = getExplainer(d.explainer);
+/* Hidden until Jackson green-lights it with `explainerReviewed: true`. */
+const Explainer = d.explainerReviewed ? getExplainer(d.explainer) : undefined;
 
 /* Citation line. Volume and article number where the paper has them;
    `status` where it does not — the MNRAS paper is an advance article and

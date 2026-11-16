@@ -103,6 +103,8 @@ const publications = defineCollection({
     weight: z.number().default(0),
     /** Key into the explainer registry (src/components/explainers/index.ts). */
     explainer: z.string().optional(),
+    /** The interactive stays hidden until Jackson has checked it and sets this true. */
+    explainerReviewed: z.boolean().default(false),
     figures: z.array(figure).default([]),
     lay,
   }),
