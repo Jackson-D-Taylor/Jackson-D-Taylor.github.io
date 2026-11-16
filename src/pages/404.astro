@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page not found" description="That page does not exist on this site.">
+  <div class="wrap measure">
+    <h1>Page not found</h1>
+    <p>
+      Nothing lives at that address. It was probably a typo, or a link to something that was never
+      here.
+    </p>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/publications/">Publications</a></li>
+      <li><a href="/research/">Research</a></li>
+      <li><a href="/cv/">CV</a></li>
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  p {
+    margin-top: 1rem;
+  }
+
+  ul {
+    margin-top: 1.5rem;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.4rem;
+  }
+</style>

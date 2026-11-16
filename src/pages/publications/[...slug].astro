@@ -1,0 +1,225 @@
+---
+/**
+ * One paper.
+ *
+ * Order on the page: title, authors, citation, the plain-language one-pager
+ * (only once Jackson has reviewed it), the interactive explainer, the
+ * figures, then the abstract.
+ *
+ * Two of the six papers have no figures at all. When `figures` is empty the
+ * whole figure block — heading, notice and all — is simply not rendered.
+ */
+import type { CollectionEntry } from 'astro:content';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AuthorList from '../../components/AuthorList.astro';
+import LayOnePager from '../../components/LayOnePager.astro';
+import Figure from '../../components/Figure.astro';
+import FigureNotice from '../../components/FigureNotice.astro';
+import { getExplainer } from '../../components/explainers/index';
+
+export async function getStaticPaths() {
+  const papers = await getCollection('publications');
+  return papers.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'publications'>;
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const { Content } = await render(entry);
+
+const Explainer = getExplainer(d.explainer);
+
+/* Citation line. Volume and article number where the paper has them;
+   `status` where it does not — the MNRAS paper is an advance article and
+   has no volume yet. */
+const numbers: string[] = [];
+if (d.volume) numbers.push(d.volume);
+if (d.articleNumber) numbers.push(d.articleNumber);
+if (d.pages) numbers.push(d.pages);
+const numbersText = numbers.join(', ');
+const statusText = !d.volume && d.status ? d.status : '';
+
+const publishedText = d.published
+  ? new Intl.DateTimeFormat('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      timeZone: 'UTC',
+    }).format(d.published)
+  : '';
+
+const doiUrl = `https://doi.org/${d.doi}`;
+const arxivUrl = d.arxiv ? `https://arxiv.org/abs/${d.arxiv}` : '';
+
+/* Figures. Logos are never numbered; everything else is numbered in order. */
+const figures = d.figures ?? [];
+const hasFigures = figures.length > 0;
+const showNotice = figures.some((f) => f.unpublished);
+
+let counter = 0;
+const numbered = figures.map((figure) => ({
+  figure,
+  number: figure.kind === 'logo' ? undefined : ++counter,
+}));
+
+const shortCitation = [d.journal, numbersText, statusText && `— ${statusText}`, `(${d.year})`]
+  .filter(Boolean)
+  .join(' ');
+
+const description = `${d.title}. ${shortCitation}.`;
+---
+
+<BaseLayout title={d.title} description={description} ogType="article">
+  <article class="wrap paper">
+    {/* Printed at the top of the sheet; never shown on screen. */}
+    <div class="print-header">
+      <p class="print-title">{d.title}</p>
+      <p class="print-line">
+        {d.authors[0]}{d.authorCount > 1 ? ' et al.' : ''} · {shortCitation}
+      </p>
+      <p class="print-line print-doi">doi:{d.doi}</p>
+    </div>
+
+    <header class="head">
+      <h1>{d.title}</h1>
+
+      <AuthorList
+        authors={d.authors}
+        authorPosition={d.authorPosition}
+        authorsTruncated={d.authorsTruncated}
+        authorCount={d.authorCount}
+      />
+
+      <p class="citation">
+        <cite>{d.journal}</cite>
+        {numbersText && <span class="numbers">{numbersText}</span>}
+        {statusText && <span class="status">{statusText}</span>}
+        <span class="year">({d.year})</span>
+      </p>
+
+      {
+        (publishedText || d.collaboration) && (
+          <p class="meta sub">
+            {publishedText && <span>Published {publishedText}</span>}
+            {publishedText && d.collaboration && <span aria-hidden="true"> · </span>}
+            {d.collaboration && <span>{d.collaboration}</span>}
+          </p>
+        )
+      }
+
+      <p class="ids">
+        <a class="mono" href={doiUrl}>doi:{d.doi}</a>
+        {arxivUrl && <a class="mono" href={arxivUrl}>arXiv:{d.arxiv}</a>}
+      </p>
+    </header>
+
+    {/* Hidden until `lay.reviewed` is true for this paper. */}
+    <LayOnePager lay={d.lay} />
+
+    {
+      Explainer && (
+        <section class="explainer" aria-labelledby="explainer-heading">
+          <h2 id="explainer-heading">A closer look</h2>
+          <Explainer />
+        </section>
+      )
+    }
+
+    {
+      hasFigures && (
+        <section class="figures" aria-labelledby="figures-heading">
+          <h2 id="figures-heading">Figures</h2>
+          {showNotice && <FigureNotice />}
+          {numbered.map(({ figure, number }) => (
+            <Figure figure={figure} number={number} />
+          ))}
+        </section>
+      )
+    }
+
+    <div class="prose body">
+      <Content />
+    </div>
+
+    <p class="back">
+      <a href="/publications/">All publications</a>
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .paper {
+    padding-top: 0.5rem;
+  }
+
+  .head h1 {
+    margin-bottom: 0.85rem;
+    max-width: 48rem;
+  }
+
+  .citation {
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+
+  .citation cite {
+    font-style: normal;
+  }
+
+  .citation .numbers {
+    font-weight: 600;
+  }
+
+  .citation .status {
+    color: var(--text-muted);
+  }
+
+  .citation .numbers,
+  .citation .status,
+  .citation .year {
+    margin-left: 0.35em;
+  }
+
+  .sub {
+    margin-top: 0.3rem;
+  }
+
+  .ids {
+    margin-top: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    font-size: 0.92rem;
+  }
+
+  .explainer,
+  .figures {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .explainer h2,
+  .figures h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .body {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .back {
+    margin-top: 3rem;
+    font-size: 0.95rem;
+  }
+</style>

@@ -1,0 +1,143 @@
+---
+/**
+ * The plain-language one-pager.
+ *
+ * Nothing here reaches a reader until `lay.reviewed` is true for that paper.
+ * The gate is checked again inside this component, so there is no route to
+ * the page that skips it. All six papers are currently false, which is why
+ * this renders nothing today.
+ *
+ * The length caps in the schema are what keep this to one printed sheet, so
+ * the layout below assumes short blocks and does not scroll or truncate.
+ */
+import type { CollectionEntry } from 'astro:content';
+import KeyNumber from './KeyNumber.astro';
+
+type Lay = CollectionEntry<'publications'>['data']['lay'];
+
+interface Props {
+  lay: Lay;
+}
+
+const { lay } = Astro.props;
+const show = lay?.reviewed === true;
+---
+
+{
+  show && (
+    <section class="lay" aria-labelledby="lay-heading">
+      <h2 id="lay-heading">In plain language</h2>
+
+      <p class="hook">{lay.hook}</p>
+
+      {lay.keyNumber && <KeyNumber value={lay.keyNumber.value} label={lay.keyNumber.label} />}
+
+      <div class="blocks">
+        <section aria-labelledby="lay-did">
+          <h3 id="lay-did">What we did</h3>
+          <p>{lay.whatWeDid}</p>
+        </section>
+
+        <section aria-labelledby="lay-found">
+          <h3 id="lay-found">What we found</h3>
+          <p>{lay.whatWeFound}</p>
+        </section>
+
+        <section aria-labelledby="lay-matters">
+          <h3 id="lay-matters">Why it matters</h3>
+          <p>{lay.whyItMatters}</p>
+        </section>
+      </div>
+
+      <aside class="lay-analogy" aria-labelledby="lay-analogy-heading">
+        <h3 id="lay-analogy-heading">Put another way</h3>
+        <p>{lay.analogy}</p>
+      </aside>
+
+      <section class="lay-glossary" aria-labelledby="lay-glossary-heading">
+        <h3 id="lay-glossary-heading">Words used here</h3>
+        <dl>
+          {lay.glossary.map((item) => (
+            <div>
+              <dt>{item.term}</dt>
+              <dd>{item.definition}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    </section>
+  )
+}
+
+<style>
+  .lay {
+    margin-block: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    max-width: var(--measure);
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .hook {
+    margin-top: 0.85rem;
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    line-height: 1.4;
+    color: var(--text);
+  }
+
+  .blocks {
+    margin-top: 1.5rem;
+  }
+
+  .blocks section + section {
+    margin-top: 1.6rem;
+  }
+
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .blocks p {
+    line-height: 1.65;
+  }
+
+  .lay-analogy {
+    margin-top: 2rem;
+    padding: 1.1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius);
+  }
+
+  .lay-glossary {
+    margin-top: 2rem;
+  }
+
+  .lay-glossary dl {
+    margin-top: 0.6rem;
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .lay-glossary dt {
+    font-weight: 600;
+  }
+
+  .lay-glossary dd {
+    margin: 0.15rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+</style>

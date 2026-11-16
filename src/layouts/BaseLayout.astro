@@ -1,0 +1,104 @@
+---
+/**
+ * The one page shell. Every route renders inside it.
+ *
+ * Nothing here is hardcoded content: the name, tagline and canonical host all
+ * come from src/data/site.yaml and astro.config.mjs.
+ */
+import { getEntry } from 'astro:content';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+import '../styles/print.css';
+
+interface Props {
+  /** Page title, without the site name. Omit on the home page. */
+  title?: string;
+  /** Meta description. Falls back to the tagline in site.yaml. */
+  description?: string;
+  /** og:type — 'article' on a paper page, 'website' elsewhere. */
+  ogType?: string;
+}
+
+const { title, description, ogType = 'website' } = Astro.props;
+
+const profile = (await getEntry('site', 'profile'))!.data;
+
+const siteName: string = profile.name;
+const pageTitle = title ? `${title} · ${siteName}` : `${siteName} · ${profile.tagline}`;
+const metaDescription = description ?? profile.tagline;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonical.href} />
+    <meta name="author" content={siteName} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title ?? siteName} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:site_name" content={siteName} />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    {/* The two font files the first screenful always needs. */}
+    <link
+      rel="preload"
+      href="/fonts/inter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/source-serif-4-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    {/*
+      Runs before first paint, so a reader who chose a theme never sees the
+      other one flash. It also marks the document as scripted, which is what
+      reveals the toggle button — no dead control without JavaScript.
+      localStorage throws in some private-browsing modes, hence the catch.
+    */}
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var stored = localStorage.getItem('theme');
+          if (stored === 'light' || stored === 'dark') {
+            root.setAttribute('data-theme', stored);
+          }
+        } catch (err) {
+          /* no stored preference available; the OS setting stands */
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  main:focus {
+    outline: none;
+  }
+</style>

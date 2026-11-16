@@ -1,0 +1,72 @@
+---
+/**
+ * Every paper, newest first, grouped by year.
+ */
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PublicationCard from '../../components/PublicationCard.astro';
+
+const papers = (await getCollection('publications')).sort((a, b) => {
+  if (b.data.year !== a.data.year) return b.data.year - a.data.year;
+  if (b.data.weight !== a.data.weight) return b.data.weight - a.data.weight;
+  const at = a.data.published?.getTime() ?? 0;
+  const bt = b.data.published?.getTime() ?? 0;
+  return bt - at;
+});
+
+/* Keep the sorted order while collecting each year's papers together. */
+const byYear = new Map<number, typeof papers>();
+for (const paper of papers) {
+  const list = byYear.get(paper.data.year);
+  if (list) list.push(paper);
+  else byYear.set(paper.data.year, [paper]);
+}
+const years = [...byYear.keys()];
+
+const firstAuthorCount = papers.filter((p) => p.data.firstAuthor).length;
+---
+
+<BaseLayout
+  title="Publications"
+  description="Refereed papers by Jackson D. Taylor on pulsar timing, millisecond pulsars and dynamics."
+>
+  <div class="wrap">
+    <div class="page-head">
+      <h1>Publications</h1>
+      <p>
+        {papers.length} refereed {papers.length === 1 ? 'paper' : 'papers'}, {firstAuthorCount} of
+        them as first author. Each one links to a page with the abstract and, where there are any,
+        the figures.
+      </p>
+    </div>
+
+    {
+      years.map((year) => (
+        <section class="year" aria-labelledby={`year-${year}`}>
+          <h2 id={`year-${year}`}>{year}</h2>
+          {byYear.get(year)!.map((entry) => (
+            <PublicationCard entry={entry} headingLevel={3} />
+          ))}
+        </section>
+      ))
+    }
+
+    {papers.length === 0 && <p class="meta">No papers have been added yet.</p>}
+  </div>
+</BaseLayout>
+
+<style>
+  .year {
+    margin-top: 2.5rem;
+  }
+
+  .year h2 {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--border);
+  }
+</style>

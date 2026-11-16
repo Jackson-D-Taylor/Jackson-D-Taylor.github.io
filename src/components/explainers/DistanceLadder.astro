@@ -1,0 +1,567 @@
+---
+/**
+ * DistanceLadder — explainer for
+ * "Discovery of an Extremely Luminous Sporadic Radio Pulsar" (Dong et al. 2026).
+ *
+ * The paper has no figures, so this is the page's main visual.
+ *
+ * Three stops, three radio buttons, no JavaScript. The state lives in the radio
+ * group and the figure is switched with CSS sibling selectors, so the component
+ * ships zero bytes of script. With CSS unavailable or the selectors unsupported
+ * the first stop stays rendered and the figure is still correct and complete.
+ */
+
+// Ladder panel (viewBox 300 x 236). Rung spacing is schematic, not to scale.
+const RUNGS = [
+  { id: 1, y: 180, big: '1.6 ± 0.3 kpc', small: 'where the pulsar actually is' },
+  { id: 2, y: 112, big: 'about 1 Mpc', small: 'Andromeda, the inner Local Group' },
+  { id: 3, y: 44, big: 'edge of the Local Group', small: 'the far edge of our galaxy group' },
+];
+
+// Bar panel (viewBox 300 x 236). Heights are schematic.
+const FLOOR = 40; // bar height that FAST can just reach
+const BASE = 200;
+const BARS = [
+  { id: 1, first: 180, second: 150 },
+  { id: 2, first: 95, second: 48 },
+  { id: 3, first: 52, second: 22 },
+];
+---
+
+<section class="dl-root exp" aria-labelledby="dl-title">
+  <h3 id="dl-title" class="exp-title">How far away could it still be seen?</h3>
+
+  <p class="exp-lede">
+    PSR J2108+5055 spends almost all of its time silent. Its duty cycle is under 0.002,
+    so on a 0.495-second rotation there is very little to catch. When it does flash,
+    though, it is bright enough that the usual question gets turned around: instead of
+    asking whether a telescope could find it here, the paper asks how far away it could
+    be moved and still be found. Pick a stop.
+  </p>
+
+  <p class="exp-fidelity">
+    <strong>Faithful:</strong> the three distances, the flux densities quoted in the
+    text, and both statements about what FAST would detect come straight from the
+    paper. <strong>Schematic:</strong> the spacing of the rungs and the height of the bars.
+    Neither is to scale. They are spaced so the labels fit.
+  </p>
+
+  <input class="dl-state" type="radio" name="dl-stop" id="dl-1" checked />
+  <input class="dl-state" type="radio" name="dl-stop" id="dl-2" />
+  <input class="dl-state" type="radio" name="dl-stop" id="dl-3" />
+
+  <p class="dl-prompt">Move the pulsar to:</p>
+  <div class="dl-chips">
+    <label class="dl-chip" for="dl-1">
+      <span class="dl-chip-big">1.6 kpc</span>
+      <span class="dl-chip-small">where it is</span>
+    </label>
+    <label class="dl-chip" for="dl-2">
+      <span class="dl-chip-big">1 Mpc</span>
+      <span class="dl-chip-small">Andromeda</span>
+    </label>
+    <label class="dl-chip" for="dl-3">
+      <span class="dl-chip-big">Local Group edge</span>
+      <span class="dl-chip-small">as far as the paper goes</span>
+    </label>
+  </div>
+
+  <div class="exp-panels">
+    <figure class="exp-panel">
+      <svg
+        class="dl-svg"
+        viewBox="0 0 300 236"
+        role="img"
+        aria-label="A ladder of three distances, from the pulsar's real distance out to the edge of the Local Group."
+      >
+        <line class="dl-axis" x1="56" y1="36" x2="56" y2="210" />
+        <rect class="dl-here" x="50" y="206" width="12" height="8" />
+        <text class="dl-tag dl-dim" x="40" y="215" text-anchor="end">here</text>
+
+        {
+          RUNGS.map((r) => (
+            <g>
+              <line class="dl-tick" x1="44" y1={r.y} x2="68" y2={r.y} />
+              <text class={`dl-tag dl-rung-${r.id}`} x="78" y={r.y - 2}>
+                {r.big}
+              </text>
+              <text class="dl-tag dl-dim dl-sub" x="78" y={r.y + 14}>
+                {r.small}
+              </text>
+            </g>
+          ))
+        }
+
+        {
+          RUNGS.map((r) => (
+            <circle class={`dl-mark dl-mark-${r.id}`} cx="56" cy={r.y} r="7" />
+          ))
+        }
+      </svg>
+      <figcaption class="exp-cap">
+        The ladder runs from us, at the bottom, out past Andromeda. The filled marker is
+        the stop you picked.
+      </figcaption>
+    </figure>
+
+    <figure class="exp-panel">
+      <svg
+        class="dl-svg"
+        viewBox="0 0 300 236"
+        role="img"
+        aria-label="Two bars showing how bright the brightest and second-brightest pulses would look from the chosen distance, against the line FAST can reach."
+      >
+        <line class="dl-base" x1="24" y1={BASE} x2="288" y2={BASE} />
+        {
+          BARS.map((b) => (
+            <g class={`dl-bars dl-bars-${b.id}`}>
+              <rect
+                class="dl-bar dl-bar-first"
+                x="66"
+                y={BASE - b.first}
+                width="52"
+                height={b.first}
+                rx="2"
+              />
+              <rect
+                class="dl-bar dl-bar-second"
+                x="146"
+                y={BASE - b.second}
+                width="52"
+                height={b.second}
+                rx="2"
+              />
+            </g>
+          ))
+        }
+        <line class="dl-floor" x1="24" y1={BASE - FLOOR} x2="288" y2={BASE - FLOOR} />
+        <text class="dl-tag dl-dim" x="288" y={BASE - FLOOR - 7} text-anchor="end"
+          >FAST's reach</text
+        >
+        <text class="dl-tag" x="92" y={BASE + 17} text-anchor="middle">brightest</text>
+        <text class="dl-tag" x="92" y={BASE + 31} text-anchor="middle">pulse</text>
+        <text class="dl-tag" x="172" y={BASE + 17} text-anchor="middle">second</text>
+        <text class="dl-tag" x="172" y={BASE + 31} text-anchor="middle">brightest</text>
+      </svg>
+      <figcaption class="exp-cap">
+        How bright the two pulses would look from the stop you picked. A bar that rises
+        above the dashed line is a pulse FAST would detect. A bar below it is one that
+        would be lost.
+      </figcaption>
+    </figure>
+  </div>
+
+  <p class="exp-status" role="status" aria-live="polite">
+    <span class="dl-s dl-s1"
+      >The pulsar is at its real distance, 1.6 kiloparsecs, inside our own galaxy. This
+      is where CHIME found it. The brightest pulse measured 3.1 &#177; 1.0 kJy and the
+      second brightest 1.5 &#177; 0.7 kJy, both far above what any of these telescopes
+      need.</span
+    >
+    <span class="dl-s dl-s2"
+      >The pulsar has been moved out to about a megaparsec, which takes in Andromeda and
+      the inner Local Group. FAST would still detect a pulse like the second-brightest
+      one from here.</span
+    >
+    <span class="dl-s dl-s3"
+      >The pulsar has been moved to the edge of the Local Group. FAST would still detect
+      its brightest pulse. The second-brightest is past the roughly one-megaparsec reach
+      the paper gives for it, so that one would be lost.</span
+    >
+  </p>
+
+  <div class="dl-notes">
+    <p class="dl-n dl-n1">
+      Everything else in the paper is measured here: a surface magnetic field of
+      5.8 &#215; 10<sup>11</sup> G, a characteristic age of 1.2 &#215; 10<sup>7</sup> yr,
+      and a spindown luminosity of 2.2 &#215; 10<sup>32</sup> erg s<sup>&#8722;1</sup>.
+      The distance itself comes from the dispersion measure, which is why it carries an
+      error bar.
+    </p>
+    <p class="dl-n dl-n2">
+      A megaparsec is roughly six hundred times further than the pulsar's real distance.
+      Radio flux falls off with the square of distance, so a source has to be
+      extraordinary to survive that trip. This one does.
+    </p>
+    <p class="dl-n dl-n3">
+      That is the point of the paper's title. A single pulse from a rotating radio
+      transient in our own galaxy would, if the same source sat at the outer edge of the
+      Local Group, still land in FAST's data. The spectral luminosity of the brightest
+      pulse is (7.5 &#177; 2.3) &#215; 10<sup>23</sup> erg s<sup>&#8722;1</sup> Hz<sup
+        >&#8722;1</sup
+      >.
+    </p>
+  </div>
+
+  <details class="exp-describe">
+    <summary>Describe this figure in words</summary>
+    <div class="exp-prose">
+      <p>
+        On the left is a vertical ladder. At the bottom is a small square marked "here".
+        Above it sit three rungs. The lowest, closest to us, is the pulsar's real
+        distance of 1.6 plus or minus 0.3 kiloparsecs. The middle rung is about one
+        megaparsec, the range that takes in Andromeda and the inner part of the Local
+        Group. The top rung is the edge of the Local Group. A filled marker sits on
+        whichever rung is selected. The gaps between rungs are drawn evenly so the
+        labels fit; the real gaps are enormous and get bigger as you go up.
+      </p>
+      <p>
+        On the right are two bars, one for the brightest pulse the paper measured and one
+        for the second brightest. A dashed line across the panel is the level FAST can
+        reach. At the first stop both bars tower over that line. At the second stop both
+        have come down a long way, but both still clear it, and the second-brightest bar
+        sits only just above. At the third stop the brightest pulse still clears the line
+        while the second-brightest has dropped underneath it.
+      </p>
+      <p>
+        The ordering is the whole argument. These are single pulses from one rotating
+        radio transient in our own galaxy, and the brighter of them would still be
+        detectable if the source were sitting at the outer edge of the Local Group. The
+        reason it took a wide-field instrument like CHIME to find it is the other half of
+        the story: the pulsar flashes rarely, with a duty cycle under 0.002, so you have
+        to be watching a long time or watching a lot of sky.
+      </p>
+    </div>
+  </details>
+</section>
+
+<style>
+  .exp {
+    margin: 2.5rem 0;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    position: relative;
+  }
+
+  .exp-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+    line-height: 1.3;
+  }
+
+  .exp-lede {
+    margin: 0 0 0.9rem;
+    max-width: var(--measure, 38rem);
+  }
+
+  .exp-fidelity {
+    margin: 0 0 1.1rem;
+    padding: 0.6rem 0.75rem;
+    border-left: 3px solid var(--accent-2);
+    background: var(--bg);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+
+  .exp-fidelity strong {
+    color: var(--text);
+  }
+
+  /* The radios hold the state. Hidden from sight, never from the keyboard. */
+  .dl-state {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .dl-prompt {
+    margin: 0 0 0.45rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .dl-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .dl-chip {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 44px;
+    flex: 1 1 8rem;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    cursor: pointer;
+    line-height: 1.25;
+  }
+
+  .dl-chip-big {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .dl-chip-small {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  #dl-1:checked ~ .dl-chips label[for='dl-1'],
+  #dl-2:checked ~ .dl-chips label[for='dl-2'],
+  #dl-3:checked ~ .dl-chips label[for='dl-3'] {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  #dl-1:checked ~ .dl-chips label[for='dl-1'] .dl-chip-small,
+  #dl-2:checked ~ .dl-chips label[for='dl-2'] .dl-chip-small,
+  #dl-3:checked ~ .dl-chips label[for='dl-3'] .dl-chip-small {
+    color: var(--bg);
+    opacity: 0.85;
+  }
+
+  #dl-1:focus-visible ~ .dl-chips label[for='dl-1'],
+  #dl-2:focus-visible ~ .dl-chips label[for='dl-2'],
+  #dl-3:focus-visible ~ .dl-chips label[for='dl-3'] {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .exp-panels {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 46rem) {
+    .exp-panels {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .exp-panel {
+    margin: 0;
+  }
+
+  .dl-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+  }
+
+  .exp-cap {
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+
+  /* --- svg pieces --- */
+  .dl-axis {
+    stroke: var(--border);
+    stroke-width: 2;
+  }
+
+  .dl-tick {
+    stroke: var(--text-muted);
+    stroke-width: 1.25;
+  }
+
+  .dl-here {
+    fill: var(--text-muted);
+  }
+
+  .dl-tag {
+    font-size: 12.5px;
+    fill: var(--text);
+  }
+
+  .dl-dim {
+    fill: var(--text-muted);
+  }
+
+  .dl-sub {
+    font-size: 11px;
+  }
+
+  .dl-mark {
+    fill: var(--accent);
+    stroke: var(--bg);
+    stroke-width: 2;
+  }
+
+  .dl-mark-2,
+  .dl-mark-3 {
+    display: none;
+  }
+
+  #dl-2:checked ~ .exp-panels .dl-mark-1,
+  #dl-3:checked ~ .exp-panels .dl-mark-1 {
+    display: none;
+  }
+
+  #dl-2:checked ~ .exp-panels .dl-mark-2,
+  #dl-3:checked ~ .exp-panels .dl-mark-3 {
+    display: inline;
+  }
+
+  #dl-2:checked ~ .exp-panels .dl-rung-2,
+  #dl-3:checked ~ .exp-panels .dl-rung-3 {
+    font-weight: 700;
+    fill: var(--accent);
+  }
+
+  #dl-1:checked ~ .exp-panels .dl-rung-1 {
+    font-weight: 700;
+    fill: var(--accent);
+  }
+
+  .dl-base {
+    stroke: var(--border);
+    stroke-width: 1.5;
+  }
+
+  .dl-floor {
+    stroke: var(--accent-2);
+    stroke-width: 1.75;
+    stroke-dasharray: 6 4;
+  }
+
+  .dl-bar-first {
+    fill: var(--accent);
+  }
+
+  .dl-bar-second {
+    fill: var(--accent);
+    opacity: 0.55;
+  }
+
+  .dl-bars-2,
+  .dl-bars-3 {
+    display: none;
+  }
+
+  #dl-2:checked ~ .exp-panels .dl-bars-1,
+  #dl-3:checked ~ .exp-panels .dl-bars-1 {
+    display: none;
+  }
+
+  #dl-2:checked ~ .exp-panels .dl-bars-2,
+  #dl-3:checked ~ .exp-panels .dl-bars-3 {
+    display: inline;
+  }
+
+  .exp-status {
+    margin: 1.1rem 0 0;
+    padding: 0.6rem 0.75rem;
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .dl-s2,
+  .dl-s3 {
+    display: none;
+  }
+
+  #dl-2:checked ~ .exp-status .dl-s1,
+  #dl-3:checked ~ .exp-status .dl-s1 {
+    display: none;
+  }
+
+  #dl-2:checked ~ .exp-status .dl-s2,
+  #dl-3:checked ~ .exp-status .dl-s3 {
+    display: inline;
+  }
+
+  .dl-notes {
+    margin-top: 0.9rem;
+    max-width: var(--measure, 38rem);
+    font-size: 0.95rem;
+  }
+
+  .dl-notes p {
+    margin: 0;
+  }
+
+  .dl-n2,
+  .dl-n3 {
+    display: none;
+  }
+
+  #dl-2:checked ~ .dl-notes .dl-n1,
+  #dl-3:checked ~ .dl-notes .dl-n1 {
+    display: none;
+  }
+
+  #dl-2:checked ~ .dl-notes .dl-n2,
+  #dl-3:checked ~ .dl-notes .dl-n3 {
+    display: block;
+  }
+
+  .exp-describe {
+    margin-top: 1rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+  }
+
+  .exp-describe > summary {
+    cursor: pointer;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .exp-describe > summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .exp-prose {
+    max-width: var(--measure, 38rem);
+    font-size: 0.95rem;
+  }
+
+  .exp-prose p {
+    margin: 0 0 0.8rem;
+  }
+
+  .dl-chip,
+  .dl-mark {
+    transition: background-color 120ms ease, border-color 120ms ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dl-chip,
+    .dl-mark {
+      transition: none;
+    }
+  }
+
+  @media print {
+    .dl-prompt,
+    .dl-chips,
+    .exp-describe {
+      display: none;
+    }
+
+    .exp {
+      break-inside: avoid;
+    }
+  }
+</style>

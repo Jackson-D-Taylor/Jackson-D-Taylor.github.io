@@ -1,0 +1,132 @@
+---
+/**
+ * Site footer: who, where, and how to get in touch.
+ * Every value comes from src/data/site.yaml.
+ */
+import { getEntry } from 'astro:content';
+
+const profile = (await getEntry('site', 'profile'))!.data;
+const links = (await getEntry('site', 'links'))!.data;
+
+interface Email {
+  address: string;
+  label: string;
+}
+interface ProfileLink {
+  label: string;
+  url: string;
+  handle?: string;
+}
+
+const emails: Email[] = links.emails ?? [];
+const profiles: ProfileLink[] = links.profiles ?? [];
+const departments: string[] = profile.departments ?? [];
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap inner">
+    <div class="who">
+      <p class="name">{profile.name}</p>
+      <p class="meta">
+        {profile.role}, {profile.institution}
+      </p>
+      {departments.map((d: string) => <p class="meta dept">{d}</p>)}
+    </div>
+
+    <div class="reach">
+      <h2 class="label">Contact</h2>
+      <ul class="link-list">
+        {
+          emails.map((email) => (
+            <li>
+              <a href={`mailto:${email.address}`} class="mono">
+                {email.address}
+              </a>
+              <span class="meta"> ({email.label})</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h2 class="label">Elsewhere</h2>
+      <ul class="link-list">
+        {
+          profiles.map((p) => (
+            <li>
+              <a href={p.url} rel="me noopener">
+                {p.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap colophon">
+    <p class="meta">© {year} {profile.name}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    padding-block: 2.5rem 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .inner {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 44em) {
+    .inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .name {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  .dept {
+    font-size: 0.9rem;
+  }
+
+  .label {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 1.25rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .reach .label:first-child {
+    margin-top: 0;
+  }
+
+  .link-list {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  @media (min-width: 44em) {
+    .reach ul.link-list:last-of-type {
+      flex-direction: row;
+    }
+  }
+
+  .colophon {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+</style>

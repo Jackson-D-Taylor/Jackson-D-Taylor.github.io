@@ -1,0 +1,200 @@
+/* ==========================================================================
+   Print styles.
+
+   The target is the plain-language one-pager: it has to come off a printer
+   on a single sheet, in light colours, with the figures and the glossary
+   kept whole. Everything that only works on screen is removed.
+
+   The whole file is wrapped in @media print so it can be imported alongside
+   the global stylesheet without a second network request.
+   ========================================================================== */
+
+@media print {
+  /* ------------------------------------------------------------------
+     Colour. Force the light palette regardless of the reader's theme,
+     and drop backgrounds so nothing burns through a ream of toner.
+     ------------------------------------------------------------------ */
+  :root,
+  :root[data-theme='dark'],
+  :root[data-theme='light'] {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --text: #000000;
+    --text-muted: #333333;
+    --accent: #000000;
+    --accent-2: #000000;
+    --border: #999999;
+    --accent-wash: transparent;
+    --accent-2-wash: transparent;
+    color-scheme: light;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+
+  @page {
+    margin: 16mm 14mm;
+  }
+
+  /* ------------------------------------------------------------------
+     Chrome that has no business on paper.
+     ------------------------------------------------------------------ */
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .theme-toggle,
+  nav,
+  video,
+  .explainer-controls,
+  .no-print {
+    display: none !important;
+  }
+
+  /* An explainer keeps its server-rendered SVG; only its controls go. */
+  .explainer input,
+  .explainer button,
+  .explainer select,
+  .explainer .explainer-controls {
+    display: none !important;
+  }
+
+  /* A video is replaced by its poster frame, which the component renders
+     as a print-only image. */
+  .figure-poster-print {
+    display: block !important;
+  }
+
+  main {
+    padding: 0 !important;
+  }
+
+  .wrap {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  /* Paper is narrower than a screen; let prose use the full measure. */
+  .prose,
+  .measure {
+    max-width: none;
+  }
+
+  /* ------------------------------------------------------------------
+     The print header. Hidden on screen, printed at the top of the sheet
+     so a loose page still says what paper it belongs to.
+     ------------------------------------------------------------------ */
+  .print-header {
+    display: block !important;
+    border-bottom: 1pt solid #000000;
+    padding-bottom: 6pt;
+    margin-bottom: 12pt;
+  }
+
+  .print-header .print-title {
+    font-family: var(--font-serif);
+    font-size: 13pt;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 3pt;
+  }
+
+  .print-header .print-line {
+    font-size: 8.5pt;
+    color: #000000;
+    margin: 0;
+  }
+
+  .print-header .print-doi {
+    font-family: var(--font-mono);
+  }
+
+  /* ------------------------------------------------------------------
+     Keeping blocks whole.
+     ------------------------------------------------------------------ */
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+    page-break-after: avoid;
+    color: #000000;
+  }
+
+  h1 {
+    font-size: 15pt;
+  }
+  h2 {
+    font-size: 12pt;
+  }
+  h3 {
+    font-size: 10.5pt;
+  }
+
+  p,
+  li,
+  blockquote {
+    orphans: 3;
+    widows: 3;
+  }
+
+  figure,
+  .figure,
+  .lay-glossary,
+  .lay-glossary div,
+  .lay-analogy,
+  .key-number,
+  .figure-notice,
+  .pub-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* ------------------------------------------------------------------
+     Links. In body copy the URL is worth having on paper; in navigation,
+     lists of links, and headings it is noise.
+     ------------------------------------------------------------------ */
+  a {
+    color: #000000 !important;
+    text-decoration: underline;
+  }
+
+  .prose a[href^='http']::after,
+  .lay a[href^='http']::after,
+  .print-url a[href^='http']::after {
+    content: ' <' attr(href) '>';
+    font-family: var(--font-mono);
+    font-size: 8pt;
+    word-break: break-all;
+  }
+
+  /* Never expand a URL inside these. */
+  h1 a::after,
+  h2 a::after,
+  h3 a::after,
+  .link-list a::after,
+  .tag a::after,
+  .pub-card a::after,
+  .cv a::after {
+    content: '' !important;
+  }
+
+  /* ------------------------------------------------------------------
+     Surfaces become rules rather than fills.
+     ------------------------------------------------------------------ */
+  .card,
+  .figure-notice,
+  .lay-analogy,
+  .key-number {
+    background: none !important;
+    border: 0.5pt solid #999999 !important;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+}

@@ -1,0 +1,200 @@
+---
+/**
+ * Research overview.
+ *
+ * NOTE: the opening paragraph and the first paragraph of "Counting every
+ * rotation" are Jackson's own words. Claude.md rule 3 covers them: fact-check
+ * only, never rewrite or restyle.
+ *
+ * The remaining prose is still placeholder, written only from the published
+ * abstracts so the page does not sit empty. It makes no claim that is not in
+ * one of the six papers. Jackson should replace it with his own account of the
+ * work; those sections are still marked with a TODO.
+ */
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const research = (await getEntry('site', 'research'))!.data;
+const interests: string[] = research.interests ?? [];
+---
+
+<BaseLayout
+  title="Research"
+  description="Pulsar timing, millisecond pulsars in binaries, and searches for unseen companions."
+>
+  <div class="wrap">
+    <div class="page-head">
+      <h1>Research</h1>
+      {
+        interests.length > 0 && (
+          <p class="interests">
+            {interests.map((item: string, i: number) => (
+              <>
+                {i > 0 ? <span aria-hidden="true"> · </span> : ''}
+                <span>{item}</span>
+              </>
+            ))}
+          </p>
+        )
+      }
+    </div>
+
+    {/* Jackson's own words. Claude.md rule 3: do not rewrite or restyle. */}
+    <p class="opening">
+      I work with millisecond pulsars, which are pulsars that spin at up to 716 times per second.
+      In particular, I study what we can learn about when their
+      pulses arrive on earth, known as "times of arrival."
+    </p>
+
+    <section class="topic" aria-labelledby="t-timing">
+      <h2 id="t-timing">Counting every rotation</h2>
+      {/* First paragraph is Jackson's own words. Claude.md rule 3: do not rewrite or restyle. */}
+      <p>
+        Pulsar timing accounts for every rotation of a pulsar between observations. By doing so, we
+        can learn about how fast the pulsar is rotating, its position in the sky, the nature of how
+        it orbits another star, and even properties of the Milky Way galaxy. Getting the count right
+        normally takes tightly scheduled monitoring and a good deal of practice. I wrote an
+        algorithm that does the phase connection for binary pulsars on its own, using the
+        statistical F-test and the quadratic behaviour of the reduced χ² near a minimum.
+      </p>
+      <p>
+        It produced timing solutions for two newly discovered binary pulsars in
+        the globular cluster Terzan 5, from about 70 Green Bank Telescope observations spanning 13
+        years. A run can take hours. That is less of a problem than it sounds:
+      </p>
+      <blockquote class="quote">
+        <p>
+          This may seem like a long runtime, but a human would likely take much longer and give up
+          from frustration after many incorrect attempts.
+        </p>
+        <cite>Algorithmic Pulsar Timer for Binaries, 2024</cite>
+      </blockquote>
+      <p class="more">
+        <a href="/publications/algorithmic-pulsar-timer/">Algorithmic Pulsar Timer for Binaries</a>
+      </p>
+    </section>
+
+    {/* TODO: replace with Jackson's own wording */}
+    <section class="topic" aria-labelledby="t-trojans">
+      <h2 id="t-trojans">What else might be in the orbit</h2>
+      <p>
+        Trojan asteroids sit at the equilateral Lagrange points of the Sun–Jupiter system in great
+        number. Trojans of up to planetary mass have been predicted in other systems, and none has
+        been confirmed. I took that search to radio pulsars with very low-mass companions, where
+        pulse arrival times are measured well enough to register the reflex motion a librating
+        Trojan would cause. Eight pulsars from the NANOGrav 15 yr dataset gave upper limits near one
+        Earth mass. Two of them show weak signals consistent with a few Jupiter masses, which most
+        likely have some other source.
+      </p>
+      <p>
+        Why the answer might be no is a separate question, and the paper offers a few
+        possibilities. This is the one I like best:
+      </p>
+      <blockquote class="quote">
+        <p>
+          Mass transfer and disk dynamics in pulsar binary systems are clearly turbulent, and so,
+          any interloping Trojan may find itself ejected from the system or torn apart.
+        </p>
+        <cite>Searching for Exotrojans in Pulsar Systems, 2026</cite>
+      </blockquote>
+      <p class="more">
+        <a href="/publications/exotrojans/">Searching for Exotrojans in Pulsar Systems</a>
+      </p>
+    </section>
+
+    {/* TODO: replace with Jackson's own wording */}
+    <section class="topic" aria-labelledby="t-ffo">
+      <h2 id="t-ffo">Objects bound to nothing</h2>
+      <p>
+        Rogue planets, brown dwarfs and large asteroids that belong to no star are expected
+        throughout the Milky Way, and three interstellar objects have already been caught passing
+        through the solar system on hyperbolic orbits. If one of them goes close enough to a
+        millisecond pulsar, its gravity shifts the pulse arrival times by an amount that can be
+        measured. We searched the NANOGrav 15 yr narrowband dataset, 68 pulsars in all, for those
+        encounters. Nothing turned up at statistical significance, and the non-detection sets upper
+        limits on the number density of such objects nearby. They are the first limits of that kind
+        from pulsar timing data.
+      </p>
+      <p class="more">
+        <a href="/publications/free-floating-objects/">
+          Search for Gravitational Scattering of Pulsars by Free-floating Objects
+        </a>
+      </p>
+    </section>
+
+    {/* TODO: replace with Jackson's own wording */}
+    <section class="topic" aria-labelledby="t-discovery">
+      <h2 id="t-discovery">Finding new pulsars</h2>
+      <p>
+        Some of the work is discovery. A targeted search with the Green Bank Telescope for radio
+        pulsations from a redback candidate turned up the 1.68 ms binary pulsar
+        <span class="mono">PSR J2053+6905</span>, and multi-epoch optical photometry and
+        spectroscopy of the same system constrain the two component masses. The CHIME fast radio
+        burst instrument found <span class="mono">PSR J2108+5055</span>, a sporadic mode-changing
+        source whose brightest pulse reached a flux density of 3.1 kJy. MeerKAT observations of
+        Terzan 5 produced ten more millisecond pulsars, bringing the count for that cluster to 49.
+      </p>
+      <p class="more">
+        <a href="/publications/redback-j2053/">Redback pulsar PSR J2053+6905</a>
+        <a href="/publications/sporadic-radio-pulsar/">An extremely luminous sporadic radio pulsar</a>
+        <a href="/publications/terzan5-ten-pulsars/">Ten new millisecond pulsars in Terzan 5</a>
+      </p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .interests {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .opening {
+    max-width: var(--measure);
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .topic {
+    margin-top: 3rem;
+    max-width: var(--measure);
+  }
+
+  .topic h2 {
+    margin-bottom: 0.7rem;
+  }
+
+  .topic p + p {
+    margin-top: 1rem;
+  }
+
+  .quote {
+    margin: 1.1rem 0 0;
+    padding: 0.1rem 0 0.1rem 1.1rem;
+    border-left: 3px solid var(--accent);
+  }
+
+  .quote p {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  .quote cite {
+    display: block;
+    margin-top: 0.45rem;
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .more {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+  }
+</style>

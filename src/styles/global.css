@@ -1,0 +1,591 @@
+/* ==========================================================================
+   Global stylesheet.
+
+   Everything visual starts here: the fonts, the design tokens, the base
+   typography, and the handful of layout helpers the pages share. Components
+   keep their own scoped styles; nothing below hardcodes a colour outside the
+   token blocks.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Fonts
+
+   Self-hosted in /public/fonts. No third-party requests are made by this
+   site at any point. All three families are SIL Open Font License 1.1:
+     Source Serif 4  (c) Adobe
+     Inter           (c) Rasmus Andersson / The Inter Project Authors
+     IBM Plex Mono   (c) IBM Corp.
+   Each file is a Latin / Latin-Extended / Greek subset. Characters outside
+   those ranges fall back to the system font, which is what we want for the
+   odd mathematical symbol in an abstract.
+   -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/source-serif-4-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/source-serif-4-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+    U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/source-serif-4-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1,
+    U+03A3-03FF;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/inter-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+    U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/inter-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1,
+    U+03A3-03FF;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-400-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-400-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+    U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-500-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-500-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+    U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+
+/* --------------------------------------------------------------------------
+   2. Design tokens
+
+   Defined once on :root, then redefined for dark mode twice: once for the
+   OS preference (skipped when the reader has explicitly chosen light), and
+   once for an explicit dark choice. Nothing below this block may contain a
+   literal colour.
+   -------------------------------------------------------------------------- */
+
+:root {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --text: #1c1e26;
+  --text-muted: #5a5f6b;
+  --accent: #1f5f8b;
+  --accent-2: #c2772a;
+  --border: #e4e0d8;
+
+  --max-width: 68rem;
+  --measure: 38rem;
+
+  --font-serif: 'Source Serif 4', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    Helvetica, Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
+
+  --gutter: 1rem;
+  --radius: 4px;
+
+  /* Used only where a translucent wash reads better than a flat surface. */
+  --accent-wash: color-mix(in srgb, var(--accent) 8%, transparent);
+  --accent-2-wash: color-mix(in srgb, var(--accent-2) 10%, transparent);
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --text: #e6e1d7;
+    --text-muted: #9198a1;
+    --accent: #6fb3dc;
+    --accent-2: #e0a857;
+    --border: #2a3038;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --text: #e6e1d7;
+  --text-muted: #9198a1;
+  --accent: #6fb3dc;
+  --accent-2: #e0a857;
+  --border: #2a3038;
+  color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   3. Reset and base
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.65;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+img,
+picture,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.2;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 1.35rem + 1.8vw, 2.6rem);
+  letter-spacing: -0.01em;
+}
+h2 {
+  font-size: clamp(1.35rem, 1.2rem + 0.8vw, 1.75rem);
+}
+h3 {
+  font-size: 1.2rem;
+}
+h4 {
+  font-size: 1.05rem;
+}
+
+p,
+ul,
+ol,
+dl,
+figure,
+blockquote,
+table {
+  overflow-wrap: break-word;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+code,
+kbd,
+samp,
+pre,
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+/* Pulsar names, DOIs, parameter names: set in mono, never broken mid-token
+   unless the viewport leaves no choice. */
+.mono {
+  font-variant-ligatures: none;
+  overflow-wrap: anywhere;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin-block: 2.5rem;
+}
+
+::selection {
+  background: var(--accent-wash);
+}
+
+/* --------------------------------------------------------------------------
+   4. Focus and the skip link
+   -------------------------------------------------------------------------- */
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Browsers without :focus-visible still get a ring. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: 0;
+  z-index: 100;
+  transform: translateY(-120%);
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-top: 0;
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 120ms ease-out;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Printed at the top of a sheet, never shown on screen. See print.css. */
+.print-header {
+  display: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   5. Layout helpers
+   -------------------------------------------------------------------------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@media (min-width: 40em) {
+  :root {
+    --gutter: 1.5rem;
+  }
+}
+
+main {
+  flex: 1 0 auto;
+  padding-block: 2.5rem 4rem;
+}
+
+/* A column set to a comfortable reading width. */
+.measure {
+  max-width: var(--measure);
+}
+
+.stack > * + * {
+  margin-top: 1rem;
+}
+
+.lede {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+}
+
+.page-head {
+  margin-bottom: 2rem;
+}
+
+.page-head p {
+  margin-top: 0.75rem;
+  max-width: var(--measure);
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   6. Prose
+
+   Applied to rendered Markdown and to hand-written body copy. Headings get
+   room above them, paragraphs get a measure, lists stay readable.
+   -------------------------------------------------------------------------- */
+
+.prose {
+  max-width: var(--measure);
+}
+
+.prose > * + * {
+  margin-top: 1.1em;
+}
+
+.prose h2 {
+  margin-top: 2.2em;
+  margin-bottom: -0.3em;
+}
+
+.prose h3 {
+  margin-top: 1.8em;
+  margin-bottom: -0.4em;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.4em;
+}
+
+.prose li + li {
+  margin-top: 0.4em;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 1rem;
+  color: var(--text-muted);
+}
+
+.prose code {
+  background: var(--accent-wash);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+}
+
+.prose pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+}
+
+/* --------------------------------------------------------------------------
+   7. Small shared pieces
+   -------------------------------------------------------------------------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.tag--first {
+  color: var(--text);
+  border-color: var(--accent-2);
+  background: var(--accent-2-wash);
+}
+
+.meta {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.link-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   8. The theme toggle
+
+   The control is hidden until the head script marks the document as
+   scripted, so a reader without JavaScript never meets a dead button.
+   -------------------------------------------------------------------------- */
+
+.theme-toggle {
+  display: none;
+}
+
+:root.js .theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.theme-toggle svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* Which icon shows depends on the theme actually in force. The button
+   always offers the other one. */
+.theme-toggle .tt-sun {
+  display: none;
+}
+.theme-toggle .tt-moon {
+  display: block;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .theme-toggle .tt-sun {
+    display: block;
+  }
+  :root:not([data-theme='light']) .theme-toggle .tt-moon {
+    display: none;
+  }
+}
+:root[data-theme='dark'] .theme-toggle .tt-sun {
+  display: block;
+}
+:root[data-theme='dark'] .theme-toggle .tt-moon {
+  display: none;
+}
+:root[data-theme='light'] .theme-toggle .tt-sun {
+  display: none;
+}
+:root[data-theme='light'] .theme-toggle .tt-moon {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   9. Motion
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

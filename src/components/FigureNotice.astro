@@ -1,0 +1,55 @@
+---
+/**
+ * Standing notice above the figures on any paper that shows working figures
+ * rather than the published versions.
+ *
+ * The wording is Jackson's, in his own voice. Do not reword it.
+ */
+---
+
+<aside class="figure-notice" aria-labelledby="figure-notice-heading">
+  <h3 id="figure-notice-heading">About these figures</h3>
+  <p>
+    These are working figures — made quickly, to look at something. They have not been peer
+    reviewed and are not the versions that appear in the published papers. I'm putting them up
+    because I'd rather people see the work than not.
+  </p>
+  <p class="rights">
+    Please email me if you want the originals of any of these. The journals control the licenses
+    for any published figures.
+  </p>
+</aside>
+
+<style>
+  .figure-notice {
+    border: 1px solid var(--accent-2);
+    border-left-width: 4px;
+    border-radius: var(--radius);
+    background: var(--accent-2-wash);
+    padding: 1rem 1.15rem;
+    margin-block: 2rem 1.5rem;
+    max-width: var(--measure);
+  }
+
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.45rem;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .rights {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    margin-top: 0.7rem;
+  }
+</style>

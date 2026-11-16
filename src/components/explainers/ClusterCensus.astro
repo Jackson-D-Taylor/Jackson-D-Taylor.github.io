@@ -1,0 +1,416 @@
+---
+/**
+ * ClusterCensus — explainer for
+ * "Discovery and timing of ten new millisecond pulsars in the globular cluster
+ *  Terzan 5" (Padmanabh et al. 2024).
+ *
+ * The paper has no figures, so this is the page's main visual.
+ *
+ * Zero JavaScript. A radio group picks which of the new discoveries to pick out
+ * of the count, and CSS sibling selectors move the rings and swap the note.
+ * The default state draws all forty-nine dots with the ten new ones ringed, so
+ * the figure is complete without scripting, in print, and in Reader mode.
+ *
+ * Only three of the ten are named in the published abstract. The other seven
+ * are counted, not named, because naming them here would mean inventing them.
+ */
+
+const COLS = 7;
+const X0 = 54;
+const Y0 = 36;
+const GAP = 32;
+const KNOWN = 39;
+const TOTAL = 49;
+
+interface Dot {
+  i: number;
+  x: number;
+  y: number;
+  isNew: boolean;
+}
+
+const DOTS: Dot[] = Array.from({ length: TOTAL }, (_, i) => ({
+  i,
+  x: X0 + (i % COLS) * GAP,
+  y: Y0 + Math.floor(i / COLS) * GAP,
+  isNew: i >= KNOWN,
+}));
+
+function at(i: number): Dot {
+  return DOTS[i]!;
+}
+
+const CHOICES = [
+  {
+    n: 1,
+    label: 'All ten',
+    ring: Array.from({ length: 10 }, (_, k) => KNOWN + k),
+    text:
+      'All ten new pulsars, ringed. Terzan 5 had thirty-nine confirmed pulsars before this work. These ten bring it to forty-nine, the most of any globular cluster so far.',
+  },
+  {
+    n: 2,
+    label: 'J1748−2446ao',
+    ring: [39],
+    text:
+      'PSR J1748−2446ao spins every 2.27 milliseconds and goes round its companion once every 57.55 days on an eccentric orbit, e = 0.32. Measuring how fast the orbit turns gives a total mass for the system of 3.17 ± 0.02 solar masses, and the companion weighs at least about 0.8 solar masses. That makes it a candidate double neutron star. If it is confirmed as one, it will be both the fastest-spinning and the longest-period double neutron star on record.',
+  },
+  {
+    n: 3,
+    label: 'J1748−2446ap',
+    ring: [40],
+    text:
+      'PSR J1748−2446ap has an orbital eccentricity of about 0.905. Only one recycled pulsar is known with a higher one.',
+  },
+  {
+    n: 4,
+    label: 'J1748−2446ar',
+    ring: [41],
+    text:
+      'PSR J1748−2446ar is an eclipsing redback. Its properties confirm it as the radio counterpart of a source already published from radio and X-ray imaging, which ties two separate lines of evidence to the same object.',
+  },
+  {
+    n: 5,
+    label: 'The other seven',
+    ring: [42, 43, 44, 45, 46, 47, 48],
+    text:
+      'The remaining seven discoveries are not singled out in the abstract, so they are counted here rather than named. The paper reports phase-connected timing solutions for all ten, using nearly two decades of archival Green Bank Telescope observations for all but one of them.',
+  },
+];
+---
+
+<section class="cc-root exp" aria-labelledby="cc-title">
+  <h3 id="cc-title" class="exp-title">Forty-nine pulsars in one cluster</h3>
+
+  <p class="exp-lede">
+    Terzan 5 is a globular cluster packed tightly enough that stars interact, and those
+    interactions keep pairing neutron stars with companions they can draw material from,
+    which is what spins a pulsar up. More of them have been found there
+    than in any other cluster. This paper added ten, using MeerKAT at L-band as part of
+    the TRAPUM survey: four hours on each of two epochs, with acceleration searches run
+    on 45 of the 288 tied-array beams covering the cluster core. Every dot below is one
+    confirmed pulsar.
+  </p>
+
+  <p class="exp-fidelity">
+    <strong>Faithful:</strong> the counts. Forty-nine confirmed in total, ten of them
+    new, so thirty-nine were already known. The notes on the three pulsars the abstract
+    singles out are the paper's
+    own. <strong>Schematic:</strong> the grid. It is a way of counting. The dots
+    are not where the pulsars sit in the cluster, and their spacing means nothing.
+  </p>
+
+  <input class="cc-state" type="radio" name="cc-pick" id="cc-1" checked />
+  <input class="cc-state" type="radio" name="cc-pick" id="cc-2" />
+  <input class="cc-state" type="radio" name="cc-pick" id="cc-3" />
+  <input class="cc-state" type="radio" name="cc-pick" id="cc-4" />
+  <input class="cc-state" type="radio" name="cc-pick" id="cc-5" />
+
+  <p class="cc-prompt">Ring which of the new ones:</p>
+  <div class="cc-chips">
+    {CHOICES.map((c) => <label class="cc-chip" for={`cc-${c.n}`}>{c.label}</label>)}
+  </div>
+
+  <div class="cc-stage">
+    <figure class="cc-figure">
+      <svg
+        class="cc-svg"
+        viewBox="0 0 300 312"
+        role="img"
+        aria-label="Forty-nine dots in a seven by seven grid, one per confirmed pulsar in Terzan 5, with the ten new discoveries marked."
+      >
+        <text class="cc-tag cc-dim" x="150" y="20" text-anchor="middle"
+          >one dot per confirmed pulsar</text
+        >
+
+        {
+          DOTS.map((d) => (
+            <circle
+              class={d.isNew ? 'cc-dot cc-dot-new' : 'cc-dot cc-dot-old'}
+              cx={d.x}
+              cy={d.y}
+              r="9"
+            />
+          ))
+        }
+
+        {
+          CHOICES.map((c) => (
+            <g class={`cc-st cc-st-${c.n}`}>
+              {c.ring.map((i) => (
+                <circle class="cc-ring" cx={at(i).x} cy={at(i).y} r="14" />
+              ))}
+            </g>
+          ))
+        }
+
+        <circle class="cc-dot cc-dot-old" cx="60" cy="268" r="9" />
+        <text class="cc-tag" x="78" y="273">39 already known</text>
+        <circle class="cc-dot cc-dot-new" cx="60" cy="296" r="9" />
+        <text class="cc-tag" x="78" y="301">10 new in this paper</text>
+      </svg>
+      <figcaption class="exp-cap">
+        Thirty-nine dots in the lighter shade were on the books before this work. The ten
+        in the stronger shade are the new ones, and the rings mark whichever you picked.
+      </figcaption>
+    </figure>
+
+    <p class="exp-status" role="status" aria-live="polite">
+      {CHOICES.map((c) => <span class={`cc-st cc-st-${c.n}`}>{c.text}</span>)}
+    </p>
+  </div>
+
+  <details class="exp-describe">
+    <summary>Describe this figure in words</summary>
+    <div class="exp-prose">
+      <p>
+        The figure is a seven-by-seven grid of dots, forty-nine in all, read left to
+        right and top to bottom. The first thirty-nine are drawn in a pale neutral
+        shade. They are the pulsars already confirmed in Terzan 5 before this paper. The
+        last ten, which fill the end of the sixth row and the whole of the seventh, are
+        drawn in a stronger colour. Those are the discoveries reported here. A key under
+        the grid repeats the two counts.
+      </p>
+      <p>
+        Thin rings are drawn around whichever selection is active. By default all ten of
+        the new pulsars are ringed. Choosing one of the three named in the paper's
+        abstract moves the ring to that single dot and swaps the note underneath;
+        choosing the last option rings the seven the abstract does not name. The grid
+        itself carries no spatial information at all. The pulsars are not laid out this
+        way in the sky, and two dots next to each other have nothing to do with one
+        another.
+      </p>
+      <p>
+        The picture is there for the arithmetic. Thirty-nine plus ten is forty-nine,
+        and forty-nine is more pulsars than any other globular cluster has produced.
+        Three of the ten stand out on their own terms: one is a candidate double neutron
+        star with a 2.27-millisecond spin and a 57.55-day orbit, one has an eccentricity
+        around 0.905, and one is an eclipsing redback that turns out to be the
+        counterpart of a source found earlier in radio and X-ray images.
+      </p>
+    </div>
+  </details>
+</section>
+
+<style>
+  .exp {
+    margin: 2.5rem 0;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    position: relative;
+  }
+
+  .exp-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+    line-height: 1.3;
+  }
+
+  .exp-lede {
+    margin: 0 0 0.9rem;
+    max-width: var(--measure, 38rem);
+  }
+
+  .exp-fidelity {
+    margin: 0 0 1.1rem;
+    padding: 0.6rem 0.75rem;
+    border-left: 3px solid var(--accent-2);
+    background: var(--bg);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+
+  .exp-fidelity strong {
+    color: var(--text);
+  }
+
+  .cc-state {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .cc-prompt {
+    margin: 0 0 0.45rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .cc-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .cc-chip {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  #cc-1:checked ~ .cc-chips label[for='cc-1'],
+  #cc-2:checked ~ .cc-chips label[for='cc-2'],
+  #cc-3:checked ~ .cc-chips label[for='cc-3'],
+  #cc-4:checked ~ .cc-chips label[for='cc-4'],
+  #cc-5:checked ~ .cc-chips label[for='cc-5'] {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  #cc-1:focus-visible ~ .cc-chips label[for='cc-1'],
+  #cc-2:focus-visible ~ .cc-chips label[for='cc-2'],
+  #cc-3:focus-visible ~ .cc-chips label[for='cc-3'],
+  #cc-4:focus-visible ~ .cc-chips label[for='cc-4'],
+  #cc-5:focus-visible ~ .cc-chips label[for='cc-5'] {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .cc-st {
+    display: none;
+  }
+
+  .cc-st-1 {
+    display: inline;
+  }
+
+  #cc-2:checked ~ .cc-stage .cc-st-1,
+  #cc-3:checked ~ .cc-stage .cc-st-1,
+  #cc-4:checked ~ .cc-stage .cc-st-1,
+  #cc-5:checked ~ .cc-stage .cc-st-1 {
+    display: none;
+  }
+
+  #cc-2:checked ~ .cc-stage .cc-st-2,
+  #cc-3:checked ~ .cc-stage .cc-st-3,
+  #cc-4:checked ~ .cc-stage .cc-st-4,
+  #cc-5:checked ~ .cc-stage .cc-st-5 {
+    display: inline;
+  }
+
+  .cc-figure {
+    margin: 0 auto;
+    max-width: 26rem;
+  }
+
+  .cc-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+  }
+
+  .exp-cap {
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+
+  .cc-dot-old {
+    fill: var(--text-muted);
+    opacity: 0.38;
+  }
+
+  .cc-dot-new {
+    fill: var(--accent-2);
+  }
+
+  .cc-ring {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2.25;
+  }
+
+  .cc-tag {
+    font-size: 12.5px;
+    fill: var(--text);
+  }
+
+  .cc-dim {
+    fill: var(--text-muted);
+  }
+
+  .exp-status {
+    margin: 1.1rem 0 0;
+    padding: 0.6rem 0.75rem;
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .exp-describe {
+    margin-top: 1rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+  }
+
+  .exp-describe > summary {
+    cursor: pointer;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .exp-describe > summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .exp-prose {
+    max-width: var(--measure, 38rem);
+    font-size: 0.95rem;
+  }
+
+  .exp-prose p {
+    margin: 0 0 0.8rem;
+  }
+
+  .cc-chip {
+    transition: background-color 120ms ease, border-color 120ms ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cc-chip {
+      transition: none;
+    }
+  }
+
+  @media print {
+    .cc-prompt,
+    .cc-chips,
+    .exp-describe {
+      display: none;
+    }
+
+    .exp {
+      break-inside: avoid;
+    }
+  }
+</style>

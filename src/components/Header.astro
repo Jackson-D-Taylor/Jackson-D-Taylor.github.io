@@ -1,0 +1,110 @@
+---
+/**
+ * Site header: name, four links, theme toggle.
+ *
+ * Four links do not need a menu button. On a narrow screen they wrap onto a
+ * second line, which is less to get wrong than a disclosure widget.
+ */
+import { getEntry } from 'astro:content';
+import ThemeToggle from './ThemeToggle.astro';
+
+const profile = (await getEntry('site', 'profile'))!.data;
+
+const nav = [
+  { href: '/research/', label: 'Research' },
+  { href: '/publications/', label: 'Publications' },
+  { href: '/cv/', label: 'CV' },
+];
+
+/** Trailing slashes are forced site-wide, so a prefix test is enough. */
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => path === href || path.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="home" href="/" aria-current={path === '/' ? 'page' : undefined}>
+      {profile.shortName}
+    </a>
+
+    <nav aria-label="Main">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <ThemeToggle />
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    padding-block: 0.9rem;
+  }
+
+  .home {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    margin-right: auto;
+  }
+
+  .home:hover {
+    color: var(--accent);
+  }
+
+  nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+  }
+
+  nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.98rem;
+    padding-block: 0.15rem;
+    border-bottom: 2px solid transparent;
+  }
+
+  nav a:hover {
+    color: var(--text);
+  }
+
+  nav a[aria-current='page'] {
+    color: var(--text);
+    border-bottom-color: var(--accent-2);
+  }
+
+  /* At 320px the name sits on its own line and the links follow. */
+  @media (max-width: 26em) {
+    .home {
+      flex: 1 0 100%;
+      margin-right: 0;
+    }
+    nav {
+      margin-right: auto;
+    }
+  }
+</style>

@@ -1,0 +1,381 @@
+---
+/**
+ * CV, rendered entirely from src/data/site.yaml and the publications
+ * collection. Nothing is written in here, so adding a line to the YAML adds
+ * a line to the page.
+ *
+ * Three things are kept off this page on purpose and must not be added back
+ * from any other source: GPAs, the expected graduation date, and the
+ * accepted-but-not-yet-observed Fall 2026 telescope proposal. They are
+ * already absent from site.yaml.
+ *
+ * There is no talks section. That was Jackson's call.
+ */
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const profile = (await getEntry('site', 'profile'))!.data;
+const links = (await getEntry('site', 'links'))!.data;
+const education = (await getEntry('site', 'education'))!.data;
+const awards = (await getEntry('site', 'awards'))!.data;
+const proposals = (await getEntry('site', 'proposals'))!.data;
+const memberships = (await getEntry('site', 'memberships'))!.data;
+const skills = (await getEntry('site', 'skills'))!.data;
+const outreach = (await getEntry('site', 'outreach'))!.data;
+
+interface EducationItem {
+  institution: string;
+  credential: string;
+  location?: string;
+  dates?: string;
+  notes?: string[];
+}
+interface AwardItem {
+  year: number | string;
+  name: string;
+  note?: string;
+  grantor?: string;
+}
+interface ProposalItem {
+  title: string;
+  role?: string;
+  coauthors?: string;
+  semester?: string;
+  outcome?: string;
+}
+interface MembershipItem {
+  name: string;
+  role?: string;
+  dates?: string;
+}
+interface OutreachItem {
+  dates?: string;
+  role?: string;
+  name: string;
+  location?: string;
+}
+
+const educationItems: EducationItem[] = education.items ?? [];
+const awardItems: AwardItem[] = awards.items ?? [];
+const proposalItems: ProposalItem[] = proposals.items ?? [];
+const membershipItems: MembershipItem[] = memberships.items ?? [];
+const skillItems: string[] = skills.items ?? [];
+const outreachItems: OutreachItem[] = outreach.items ?? [];
+const departments: string[] = profile.departments ?? [];
+const emails: { address: string; label: string }[] = links.emails ?? [];
+const profileLinks: { label: string; url: string; handle?: string }[] = links.profiles ?? [];
+
+const papers = (await getCollection('publications')).sort((a, b) => {
+  if (b.data.year !== a.data.year) return b.data.year - a.data.year;
+  if (b.data.weight !== a.data.weight) return b.data.weight - a.data.weight;
+  const at = a.data.published?.getTime() ?? 0;
+  const bt = b.data.published?.getTime() ?? 0;
+  return bt - at;
+});
+
+/** Volume and article number where they exist, `status` where they do not. */
+const venueOf = (d: (typeof papers)[number]['data']) => {
+  const bits = [d.volume, d.articleNumber, d.pages].filter(Boolean) as string[];
+  if (bits.length > 0) return bits.join(', ');
+  return d.status ?? '';
+};
+---
+
+<BaseLayout title="CV" description={`Curriculum vitae for ${profile.name}.`}>
+  <div class="wrap cv">
+    <header class="cv-head">
+      <h1>{profile.name}</h1>
+      <p class="role">{profile.role}, {profile.institution}</p>
+      {departments.map((d: string) => <p class="meta">{d}</p>)}
+      {profile.location && <p class="meta">{profile.location}</p>}
+
+      <ul class="contact link-list">
+        {
+          emails.map((e) => (
+            <li>
+              <a class="mono" href={`mailto:${e.address}`}>
+                {e.address}
+              </a>
+            </li>
+          ))
+        }
+        {
+          profileLinks.map((p) => (
+            <li>
+              <a href={p.url}>{p.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </header>
+
+    <section aria-labelledby="cv-education">
+      <h2 id="cv-education">Education</h2>
+      {
+        educationItems.map((item) => (
+          <div class="row">
+            <p class="when">{item.dates}</p>
+            <div class="what">
+              <p class="line1">
+                <strong>{item.credential}</strong>
+              </p>
+              <p class="line2">
+                {item.institution}
+                {item.location ? `, ${item.location}` : ''}
+              </p>
+              {item.notes && item.notes.length > 0 && (
+                <ul class="notes">
+                  {item.notes.map((note) => (
+                    <li>{note}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </section>
+
+    {
+      papers.length > 0 && (
+        <section aria-labelledby="cv-publications">
+          <h2 id="cv-publications">Publications</h2>
+          <ol class="pubs">
+            {papers.map((paper) => {
+              const d = paper.data;
+              const venue = venueOf(d);
+              return (
+                <li>
+                  <a href={`/publications/${paper.id}/`} class="pub-title">
+                    {d.title}
+                  </a>
+                  <p class="pub-authors">
+                    {d.authors.slice(0, 3).map((name, i) => (
+                      <>
+                        {i > 0 ? ', ' : ''}
+                        {i + 1 === d.authorPosition ? <strong>{name}</strong> : name}
+                      </>
+                    ))}
+                    {d.authorCount > 3 ? ' et al.' : ''}
+                  </p>
+                  <p class="pub-venue meta">
+                    <cite>{d.journal}</cite>
+                    {venue ? ` ${venue}` : ''} ({d.year}) ·{' '}
+                    <a class="mono" href={`https://doi.org/${d.doi}`}>
+                      doi:{d.doi}
+                    </a>
+                  </p>
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      )
+    }
+
+    {
+      awardItems.length > 0 && (
+        <section aria-labelledby="cv-awards">
+          <h2 id="cv-awards">Awards and honours</h2>
+          {awardItems.map((item) => (
+            <div class="row">
+              <p class="when">{item.year}</p>
+              <div class="what">
+                <p class="line1">
+                  <strong>{item.name}</strong>
+                  {item.note ? <span class="meta">, {item.note}</span> : ''}
+                </p>
+                {item.grantor && <p class="line2">{item.grantor}</p>}
+              </div>
+            </div>
+          ))}
+        </section>
+      )
+    }
+
+    {
+      proposalItems.length > 0 && (
+        <section aria-labelledby="cv-proposals">
+          <h2 id="cv-proposals">Observing proposals</h2>
+          {proposalItems.map((item) => (
+            <div class="row">
+              <p class="when">{item.semester}</p>
+              <div class="what">
+                <p class="line1">
+                  <strong>{item.title}</strong>
+                </p>
+                <p class="line2">
+                  {item.role}
+                  {item.coauthors ? ` · with ${item.coauthors}` : ''}
+                </p>
+                {item.outcome && <p class="line2">{item.outcome}</p>}
+              </div>
+            </div>
+          ))}
+        </section>
+      )
+    }
+
+    {
+      membershipItems.length > 0 && (
+        <section aria-labelledby="cv-memberships">
+          <h2 id="cv-memberships">Memberships</h2>
+          {membershipItems.map((item) => (
+            <div class="row">
+              <p class="when">{item.dates}</p>
+              <div class="what">
+                <p class="line1">
+                  <strong>{item.name}</strong>
+                  {item.role ? <span class="meta">, {item.role}</span> : ''}
+                </p>
+              </div>
+            </div>
+          ))}
+        </section>
+      )
+    }
+
+    {
+      skillItems.length > 0 && (
+        <section aria-labelledby="cv-skills">
+          <h2 id="cv-skills">Skills</h2>
+          <ul class="skills">
+            {skillItems.map((skill) => (
+              <li>{skill}</li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      outreachItems.length > 0 && (
+        <section aria-labelledby="cv-outreach">
+          <h2 id="cv-outreach">Outreach, teaching and service</h2>
+          {outreachItems.map((item) => (
+            <div class="row">
+              <p class="when">{item.dates}</p>
+              <div class="what">
+                <p class="line1">
+                  <strong>{item.name}</strong>
+                </p>
+                <p class="line2">
+                  {item.role}
+                  {item.location ? ` · ${item.location}` : ''}
+                </p>
+              </div>
+            </div>
+          ))}
+        </section>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .cv-head {
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .role {
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  .contact {
+    margin-top: 1rem;
+    font-size: 0.92rem;
+  }
+
+  .cv section {
+    margin-top: 2.5rem;
+  }
+
+  .cv h2 {
+    font-size: 1.15rem;
+    letter-spacing: 0.01em;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.1rem;
+  }
+
+  .row {
+    display: grid;
+    gap: 0.1rem 1.5rem;
+    padding-block: 0.65rem;
+  }
+
+  @media (min-width: 38em) {
+    .row {
+      grid-template-columns: 11rem 1fr;
+    }
+  }
+
+  .when {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-family: var(--font-mono);
+    padding-top: 0.15rem;
+  }
+
+  .line1 {
+    font-size: 1rem;
+  }
+
+  .line2 {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .notes {
+    margin-top: 0.35rem;
+    padding-left: 1.1rem;
+    color: var(--text-muted);
+    font-size: 0.93rem;
+  }
+
+  .pubs {
+    padding-left: 1.3rem;
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .pub-title {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .pub-authors {
+    font-size: 0.93rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+  }
+
+  .pub-authors strong {
+    color: var(--text);
+  }
+
+  .pub-venue {
+    font-size: 0.9rem;
+  }
+
+  .pub-venue cite {
+    font-style: normal;
+  }
+
+  .skills {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .skills li {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.9rem;
+  }
+</style>

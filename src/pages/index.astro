@@ -1,0 +1,189 @@
+---
+/**
+ * Home.
+ *
+ * Jackson's bio is reproduced from src/data/site.yaml exactly as he wrote it.
+ * Do not edit a word of it here or there.
+ */
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PublicationCard from '../components/PublicationCard.astro';
+
+const profile = (await getEntry('site', 'profile'))!.data;
+const press = (await getEntry('site', 'press'))!.data;
+
+const papers = await getCollection('publications');
+const recent = papers
+  .sort((a, b) => {
+    if (b.data.year !== a.data.year) return b.data.year - a.data.year;
+    if (b.data.weight !== a.data.weight) return b.data.weight - a.data.weight;
+    const at = a.data.published?.getTime() ?? 0;
+    const bt = b.data.published?.getTime() ?? 0;
+    return bt - at;
+  })
+  .slice(0, 3);
+
+interface PressItem {
+  title: string;
+  outlet: string;
+  date: Date | string;
+  url: string;
+}
+
+const pressItems: PressItem[] = press.items ?? [];
+const departments: string[] = profile.departments ?? [];
+
+const monthYear = (value: Date | string) =>
+  new Intl.DateTimeFormat('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(
+    new Date(value),
+  );
+---
+
+<BaseLayout description={profile.tagline}>
+  <div class="wrap">
+    <section class="intro">
+      <img
+        class="headshot"
+        src={profile.headshot}
+        alt={profile.headshotAlt}
+        width="200"
+        height="200"
+        fetchpriority="high"
+      />
+
+      <div class="who">
+        <h1>{profile.name}</h1>
+        <p class="role">{profile.role}, {profile.institution}</p>
+        {departments.map((d: string) => <p class="dept meta">{d}</p>)}
+        <p class="dept meta">Advisor: {profile.advisor}</p>
+
+        {/* Jackson's own words — reproduced verbatim from site.yaml. */}
+        <p class="bio">{profile.bio}</p>
+      </div>
+    </section>
+
+    {
+      recent.length > 0 && (
+        <section class="recent" aria-labelledby="recent-heading">
+          <div class="section-head">
+            <h2 id="recent-heading">Recent papers</h2>
+            <a href="/publications/">All publications</a>
+          </div>
+          {recent.map((entry) => (
+            <PublicationCard entry={entry} />
+          ))}
+        </section>
+      )
+    }
+
+    {
+      pressItems.length > 0 && (
+        <section class="press" aria-labelledby="press-heading">
+          <h2 id="press-heading">In the press</h2>
+          <ul>
+            {pressItems.map((item) => (
+              <li>
+                <a href={item.url}>{item.title}</a>
+                <span class="meta">
+                  {item.outlet} · {monthYear(item.date)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .intro {
+    display: grid;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  @media (min-width: 38em) {
+    .intro {
+      grid-template-columns: 200px 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  .headshot {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border);
+  }
+
+  @media (min-width: 38em) {
+    .headshot {
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+  .role {
+    margin-top: 0.6rem;
+    font-size: 1.1rem;
+    color: var(--text);
+  }
+
+  .dept {
+    font-size: 0.95rem;
+  }
+
+  .bio {
+    margin-top: 1.25rem;
+    max-width: var(--measure);
+    font-size: 1.15rem;
+    line-height: 1.6;
+  }
+
+  .recent {
+    margin-top: 3.5rem;
+  }
+
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .section-head a {
+    font-size: 0.92rem;
+  }
+
+  .press {
+    margin-top: 3.5rem;
+  }
+
+  .press h2 {
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .press ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .press li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .press .meta {
+    font-size: 0.9rem;
+  }
+</style>

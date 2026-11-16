@@ -1,0 +1,206 @@
+# Site-wide information.
+# Everything here is rendered by the layouts — no content is hardcoded in pages.
+# Edit this file to change your name, links, affiliation, education, awards, or CV page.
+#
+# Each top-level key below is loaded as one entry (see src/content.config.ts).
+
+profile:
+  name: Jackson D. Taylor
+  shortName: Jackson Taylor
+  role: Physics PhD Student
+  institution: West Virginia University
+  departments:
+    - Department of Physics and Astronomy
+    - Center for Gravitational Waves and Cosmology
+  location: Morgantown, WV
+  advisor: Emmanuel Fonseca
+  # Your words, unedited.
+  bio: >-
+    Welcome to my page. I'm an early-career scientist at West Virginia University
+    who likes all things pulsars and dynamics! Shop around a little and learn
+    about my research.
+  # Short description used for search engines and link previews.
+  tagline: Pulsar timing, nanohertz gravitational waves, and dynamics.
+  headshot: /images/jackson-taylor.jpg
+  headshotAlt: Jackson D. Taylor
+
+links:
+  emails:
+    - address: jdt00012@mix.wvu.edu
+      label: University
+    - address: jacksondtaylor4@gmail.com
+      label: Personal
+  profiles:
+    - label: ORCID
+      url: https://orcid.org/0009-0006-8984-9220
+      handle: 0009-0006-8984-9220
+    - label: Google Scholar
+      url: https://scholar.google.com/citations?user=bzT1xjwAAAAJ&hl=en
+      handle: Jackson D Taylor
+    - label: GitHub
+      url: https://github.com/Jackson-D-Taylor
+      handle: Jackson-D-Taylor
+    - label: LinkedIn
+      url: https://www.linkedin.com/in/jackson-taylor-astronomy
+      handle: jackson-taylor-astronomy
+
+research:
+  # TODO: replace with Jackson's own wording.
+  # Placeholder written from the published abstracts only — no claims beyond them.
+  interests:
+    - Millisecond pulsars
+    - Pulsar timing
+    - Nanohertz gravitational waves
+    - Dynamics
+
+education:
+  items:
+    - institution: West Virginia University
+      credential: Physics PhD Student
+      location: Morgantown, WV
+      dates: Aug 2023 – present
+      notes:
+        - "Advisor: Emmanuel Fonseca"
+        - Graduate Research Assistant
+        - Instructor of Record for ASTR-A106 Descriptive Astronomy Lab
+        - Former Primary WVU Planetarium Graduate Teaching Assistant
+    - institution: Indiana University
+      credential: B.S. Degrees in Astronomy & Astrophysics (with Honors), Physics, and Mathematics
+      location: Bloomington, IN
+      dates: Aug 2019 – May 2023
+      notes:
+        - Worked with Catherine Pilachowski on astronomy image reduction and Songhu Wang on exoplanet dynamics
+    - institution: National Radio Astronomy Observatory
+      credential: Research Experience for Undergraduates (REU) Student
+      location: Charlottesville, VA
+      dates: Summer 2022
+      notes:
+        - "Advisor: Scott Ransom"
+
+awards:
+  items:
+    - year: 2025
+      name: NASA West Virginia Space Grant Consortium Graduate Research Fellowship
+      grantor: NASA WV SGC
+    - year: 2025
+      name: Oleg and Valentina Jefimenko Physics Scholarship
+      grantor: West Virginia University
+    - year: 2025
+      name: Outstanding Graduate Teaching Assistant
+      grantor: West Virginia University
+    - year: 2024
+      name: Weldon Award
+      note: for academic excellence in my first year of graduate school
+      grantor: West Virginia University
+    - year: 2023
+      name: Johnson Research Prize
+      note: for research carried out throughout my undergraduate career
+      grantor: IU Astronomy Dept.
+    - year: 2023
+      name: Robbins Prize
+      grantor: IU Math. Dept.
+    - year: 2022
+      name: Wrubel Scholarship
+      grantor: IU Astronomy Dept.
+    - year: 2021
+      name: Fleischer Research Scholarship
+      note: a grant awarded to research exoplanet formation
+      grantor: Indiana University
+    - year: 2021
+      name: Hutton Honors College Research Grant
+      grantor: Indiana University
+
+proposals:
+  # Only completed proposals are listed publicly.
+  # The accepted-but-not-yet-observed Fall 2026 proposal is deliberately omitted.
+  items:
+    - title: Targeted Searches for MSPs in Two Likely Spider Systems
+      role: PI
+      coauthors: Emmanuel Fonseca, et al.
+      semester: Fall 2025 (25B Semester)
+      outcome: "Accepted and completed: 12 hr Green Bank Telescope"
+
+memberships:
+  items:
+    - name: NANOGrav
+      role: Associate Member
+    - name: American Astronomical Society
+      role: Member
+      dates: Oct 2025 – present
+    - name: Phi Beta Kappa
+      role: Member
+      dates: May 2022 – present
+
+skills:
+  items:
+    - Python
+    - LaTeX
+    - Linux/Unix
+    - PRESTO
+    - High-performance Computing
+    - Scientific Computing
+    - Bayesian Statistics
+    - Bash
+    - Numerical Analysis
+
+outreach:
+  items:
+    - dates: Nov 2025
+      role: Student Observer
+      name: Green Bank Telescope Observer Training
+      location: Virtual
+    - dates: Oct 2025
+      role: Physics Graduate Student Representative
+      name: Discover WVU
+      location: Morgantown, WV
+    - dates: Oct 2025, Apr 2024
+      role: Physics Demonstrator
+      name: The Magic of Physics
+      location: Morgantown, WV
+    - dates: Aug 2025, Jul 2024
+      role: Mentor
+      name: Pulsar Science Collaboratory Summer Camp
+      location: Green Bank Observatory
+    - dates: Jun 2025
+      role: Student
+      name: Penn State's Summer School in Statistics for Astronomers
+      location: Virtual
+    - dates: May 2025 – present
+      role: President; Scholarship Committee Co-Chair
+      name: WVU Physics and Astronomy Graduate Student Organization
+      location: Morgantown, WV
+    - dates: Aug 2024 – May 2025
+      role: Vice President
+      name: WVU Physics and Astronomy Graduate Student Organization
+      location: Morgantown, WV
+    - dates: Jun 2024
+      role: Student
+      name: Green Bank Observatory Single Dish Summer School
+      location: Green Bank Observatory
+    - dates: Apr 2024
+      role: Solar Eclipse Task Force Co-leader
+      name: WVU April 8, 2024 Solar Eclipse Watch Event
+      location: Morgantown, WV
+    - dates: Oct 2023
+      role: Physics Demonstrator
+      name: SPARK! Science Day
+      location: Morgantown, WV
+    - dates: Aug 2019 – May 2023
+      role: Logistics Chair
+      name: Kappa Kappa Psi, Honorary Band Service Fraternity
+      location: Bloomington, IN
+
+press:
+  items:
+    - title: Trailblazing the Search for Pulsar-Bound Exotrojans
+      outlet: WVU Center for Gravitational Waves and Cosmology
+      date: 2026-03-10
+      url: https://gwac.wvu.edu/blog/news-events/2026/03/10/trailblazing-the-search-for-pulsar-bound-exotrojans
+    - title: Jackson's Ann Arbor NANOGrav Experience
+      outlet: WVU Planetarium — Mountaineer Skies Blog
+      date: 2024-12-17
+      url: https://planetarium.wvu.edu/mountaineer-skies-blog/2024/12/17/jackson-s-ann-arbor-nanograv-experience
+    - title: Counting Every Pulse
+      outlet: Indiana University Department of Astronomy
+      date: 2024-04-15
+      url: https://astro.indiana.edu/news-events/alumni-news/2024-taylor-jackson-pule.html

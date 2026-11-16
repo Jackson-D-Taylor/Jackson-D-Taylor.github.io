@@ -1,0 +1,50 @@
+# Builds the site and publishes it to GitHub Pages.
+#
+# Before the first run: GitHub repo -> Settings -> Pages -> Source -> "GitHub Actions".
+# Without that, this workflow builds fine and then fails at the deploy step.
+# Full walkthrough in DEPLOYING.md.
+#
+# Taken from https://docs.astro.build/en/guides/deploy/github/ (checked 2026-11-16).
+# If a deploy starts failing for no apparent reason, compare the action versions
+# below against that page — they get bumped every year or so.
+
+name: Deploy to GitHub Pages
+
+on:
+  # Every push to main publishes the site.
+  push:
+    branches: [main]
+  # And a manual button on the Actions tab, for re-running a deploy
+  # without having to make a commit.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# If you push twice in quick succession, let the second run finish and
+# cancel the first. Two deploys racing each other can publish the older build.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v7
+      - name: Install, build, and upload the site
+        uses: withastro/action@v6
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

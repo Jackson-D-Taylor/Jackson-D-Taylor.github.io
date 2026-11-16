@@ -1,0 +1,116 @@
+---
+/**
+ * One paper as it appears on an index page.
+ *
+ * Deliberately plain: title, a short author line, where it was published,
+ * and a mark when Jackson is first author. The paper page carries the rest.
+ */
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'publications'>;
+  /** The title is an <h2> on an index page, an <h3> inside a section. */
+  headingLevel?: 2 | 3;
+}
+
+const { entry, headingLevel = 2 } = Astro.props;
+const d = entry.data;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+
+const href = `/publications/${entry.id}/`;
+
+/* Three names then "et al." — enough to recognise the paper without
+   reprinting fifty authors on an index. */
+const SHOWN = 3;
+const shown = d.authors.slice(0, SHOWN);
+const hasMore = d.authorCount > shown.length;
+
+/* Volume and article number where they exist; `status` where they do not
+   (an advance article has neither yet). */
+const venueBits: string[] = [];
+if (d.volume) venueBits.push(d.volume);
+if (d.articleNumber) venueBits.push(d.articleNumber);
+const venueDetail = venueBits.length > 0 ? venueBits.join(', ') : (d.status ?? '');
+---
+
+<article class="pub-card">
+  <div class="top">
+    <Heading class="title">
+      <a href={href}>{d.title}</a>
+    </Heading>
+    {d.firstAuthor && <span class="tag tag--first">First author</span>}
+  </div>
+
+  <p class="authors">
+    {
+      shown.map((name, i) => (
+        <>
+          {i > 0 ? ', ' : ''}
+          {i + 1 === d.authorPosition ? <strong>{name}</strong> : name}
+        </>
+      ))
+    }{hasMore ? ' et al.' : ''}
+  </p>
+
+  <p class="venue meta">
+    <cite>{d.journal}</cite>{venueDetail ? ` ${venueDetail}` : ''} ({d.year}){
+      d.collaboration ? ` · ${d.collaboration}` : ''
+    }
+  </p>
+
+  {d.topic && <p class="topic meta">{d.topic}</p>}
+</article>
+
+<style>
+  .pub-card {
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .title {
+    font-size: 1.2rem;
+    line-height: 1.3;
+    flex: 1 1 18rem;
+  }
+
+  .title a {
+    color: var(--text);
+    text-decoration-color: var(--border);
+  }
+
+  .title a:hover {
+    color: var(--accent);
+    text-decoration-color: currentColor;
+  }
+
+  .authors {
+    margin-top: 0.4rem;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+
+  .authors strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .venue {
+    margin-top: 0.25rem;
+  }
+
+  .venue cite {
+    font-style: normal;
+  }
+
+  .topic {
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+  }
+</style>

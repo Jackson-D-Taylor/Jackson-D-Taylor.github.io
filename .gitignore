@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+
+# Source material — private, 239 MB, read-only reference only.
+# Never commit: contains unpublished figures and the full-resolution originals.
+# Approved, web-optimized copies live in public/ instead.
+source_material/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local review copy of the lay summaries — not part of the site.
+one-pagers-for-review.md

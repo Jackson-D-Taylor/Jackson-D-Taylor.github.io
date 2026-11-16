@@ -1,0 +1,48 @@
+---
+/**
+ * One number from a paper, set large, with a line saying what it is.
+ *
+ * On a paper with no figures this is the only thing on the page with any
+ * visual weight, so it is sized to carry that.
+ */
+interface Props {
+  value: string;
+  label: string;
+}
+
+const { value, label } = Astro.props;
+---
+
+<div class="key-number">
+  <p class="value">{value}</p>
+  <p class="label">{label}</p>
+</div>
+
+<style>
+  .key-number {
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent-2);
+    border-radius: var(--radius);
+    background: var(--surface);
+    padding: 1.25rem 1.25rem 1.1rem;
+    margin-block: 1.75rem;
+    max-width: var(--measure);
+  }
+
+  .value {
+    font-family: var(--font-serif);
+    font-size: clamp(2.2rem, 1.6rem + 3vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: var(--accent-2);
+    overflow-wrap: anywhere;
+  }
+
+  .label {
+    margin-top: 0.5rem;
+    font-size: 0.98rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+</style>

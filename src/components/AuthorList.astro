@@ -1,0 +1,132 @@
+---
+/**
+ * An author list in paper order, with Jackson's own name picked out.
+ *
+ * Two of these papers have more than fifty authors. Printing all of them
+ * above the abstract buries the paper, so a truncated list shows the first
+ * ten and the rest sit behind a <details>. Where the content file only
+ * carries the first ten names, the count still tells the reader how many
+ * there are; nothing is invented to fill the gap.
+ */
+interface Props {
+  authors: string[];
+  /** 1-based position of Jackson in the full author list. */
+  authorPosition: number;
+  authorsTruncated?: boolean;
+  authorCount: number;
+  /** How many names to show before collapsing. */
+  limit?: number;
+}
+
+const {
+  authors,
+  authorPosition,
+  authorsTruncated = false,
+  authorCount,
+  limit = 10,
+} = Astro.props;
+
+const collapse = authorsTruncated && authors.length > limit;
+const shown = collapse ? authors.slice(0, limit) : authors;
+const rest = collapse ? authors.slice(limit) : [];
+
+/** Authors we know exist but have no name for in the content file. */
+const unnamed = Math.max(0, authorCount - shown.length - rest.length);
+/** Authors not printed in the first block, named or not. */
+const remaining = rest.length + unnamed;
+
+const isSelf = (index: number) => index + 1 === authorPosition;
+---
+
+<div class="authors">
+  <p class="line">
+    {
+      shown.map((name, i) => (
+        <>
+          {i > 0 ? ', ' : ''}
+          {isSelf(i) ? <strong class="self">{name}</strong> : <span>{name}</span>}
+        </>
+      ))
+    }{
+      remaining > 0 && rest.length === 0 && (
+        <span class="more-plain">, and {remaining} others</span>
+      )
+    }
+  </p>
+
+  {
+    remaining > 0 && rest.length > 0 && (
+      <details class="more">
+        <summary>
+          <span class="summary-closed">and {remaining} others</span>
+          <span class="summary-open">Hide the full author list</span>
+        </summary>
+        <p class="line rest">
+          {rest.map((name, i) => (
+            <>
+              {i > 0 ? ', ' : ''}
+              {isSelf(shown.length + i) ? (
+                <strong class="self">{name}</strong>
+              ) : (
+                <span>{name}</span>
+              )}
+            </>
+          ))}
+          {unnamed > 0 && <span class="more-plain">, and {unnamed} others</span>}
+        </p>
+      </details>
+    )
+  }
+</div>
+
+<style>
+  .authors {
+    color: var(--text-muted);
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .line {
+    max-width: 60rem;
+  }
+
+  .self {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .more-plain {
+    white-space: nowrap;
+  }
+
+  .more {
+    margin-top: 0.35rem;
+  }
+
+  .more summary {
+    cursor: pointer;
+    display: inline-block;
+    color: var(--accent);
+    font-size: 0.92rem;
+  }
+
+  .more summary::marker {
+    color: var(--text-muted);
+  }
+
+  .summary-open {
+    display: none;
+  }
+
+  .more[open] .summary-closed {
+    display: none;
+  }
+
+  .more[open] .summary-open {
+    display: inline;
+  }
+
+  .rest {
+    margin-top: 0.5rem;
+  }
+</style>

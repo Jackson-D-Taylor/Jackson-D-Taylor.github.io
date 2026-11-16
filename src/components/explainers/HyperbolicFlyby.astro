@@ -1,0 +1,556 @@
+---
+/**
+ * HyperbolicFlyby — explainer for
+ * "The NANOGrav 15 yr Dataset: Search for Gravitational Scattering of Pulsars
+ *  by Free-floating Objects in Interstellar Space" (Dey et al. 2026).
+ *
+ * One interaction: a slider for how close a free-floating object passes a
+ * pulsar. The left panel draws the flyby path, the right panel draws the
+ * disturbance it would leave in the pulse arrival times.
+ *
+ * The SVG is server-rendered at the default slider position and is complete on
+ * its own, so the figure still teaches the idea with JavaScript off, in Reader
+ * mode, and on paper. The script only moves what the slider moves.
+ *
+ * This paper is a non-detection. Nothing here should read as a discovery.
+ */
+
+// --- geometry, panel A (viewBox 300 x 236) ---------------------------------
+const PX = 150; // pulsar
+const PY = 128;
+const A_FOCUS = 12.8; // schematic focusing scale, viewBox units
+const B_MIN = 19;
+const B_MAX = 110;
+const B_DEFAULT = 32;
+
+// --- geometry, panel B (viewBox 300 x 236) ---------------------------------
+const BASE = 120; // zero line for the arrival-time residuals
+const A_FULL = 85; // largest wobble we draw
+const R_REF = 19.2; // reference closest approach for the wobble scaling
+const NOISE = 18; // schematic half-height of the timing-noise band
+
+interface Flyby {
+  d: string;
+  rmin: number;
+  cx: number;
+  cy: number;
+}
+
+function flyby(b: number): Flyby {
+  const a = A_FOCUS;
+  const e = Math.sqrt(1 + (b / a) ** 2);
+  const p = a * (e * e - 1);
+  const thInf = Math.acos(-1 / e);
+  const phi = Math.PI + thInf; // rotate so the object arrives from the left
+  const pts: string[] = [];
+  for (let i = 0; i <= 220; i++) {
+    const th = -thInf + (2 * thInf * i) / 220;
+    const denom = 1 + e * Math.cos(th);
+    if (denom <= 0.0005) continue;
+    const r = p / denom;
+    if (r > 460) continue;
+    const x = PX + r * Math.cos(th + phi);
+    const y = PY + r * Math.sin(th + phi);
+    pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+  }
+  const rmin = a * (e - 1);
+  return {
+    d: pts.length ? `M${pts.join(' L')}` : '',
+    rmin,
+    cx: PX + rmin * Math.cos(phi),
+    cy: PY + rmin * Math.sin(phi),
+  };
+}
+
+function wobble(rmin: number): { d: string; amp: number } {
+  const amp = Math.min(A_FULL, Math.max(0.3, A_FULL * (R_REF / rmin) ** 2));
+  const t = Math.min(110, Math.max(22, 16 + rmin * 0.6));
+  const pts: string[] = [];
+  for (let i = 0; i <= 150; i++) {
+    const x = 12 + (276 * i) / 150;
+    const u = (x - 150) / t;
+    const g = u / Math.pow(1 + u * u, 1.5) / 0.3849;
+    pts.push(`${x.toFixed(1)},${(BASE - amp * g).toFixed(1)}`);
+  }
+  return { d: `M${pts.join(' L')}`, amp };
+}
+
+function verdict(amp: number): string {
+  if (amp >= NOISE * 2) {
+    return 'A close pass. The disturbance is far larger than the timing noise, so a search like this one would see it.';
+  }
+  if (amp >= NOISE) {
+    return 'A moderate pass. The disturbance is about the size of the timing noise, so it would be near the limit of what the data can pick out.';
+  }
+  if (amp >= NOISE * 0.35) {
+    return 'A wide pass. The disturbance has dropped below the timing noise and would be missed.';
+  }
+  return 'A distant pass. The disturbance is now so small that no amount of looking at these data would turn it up.';
+}
+
+const start = flyby(B_DEFAULT);
+const startWobble = wobble(start.rmin);
+const startText = verdict(startWobble.amp);
+---
+
+<section class="hf-root exp" aria-labelledby="hf-title">
+  <h3 id="hf-title" class="exp-title">What a close pass would look like</h3>
+
+  <p class="exp-lede">
+    A free-floating object has no star to hold it. It drifts through the galaxy on its
+    own, and if its path happens to take it near a millisecond pulsar, its gravity gives
+    the pulsar a small shove. That shove shows up as a disturbance in when the pulses
+    arrive. The slider sets how close the object passes.
+  </p>
+
+  <p class="exp-fidelity">
+    <strong>Faithful:</strong> the path is a hyperbola with the pulsar at one focus, and
+    it bends more sharply the closer the object comes. <strong>Schematic:</strong> the
+    distance scale, the size of the disturbance, and the noise band. They are drawn to
+    show how fast the signal falls away. None of the three is calculated from the paper.
+  </p>
+
+  <div class="hf-control">
+    <label class="hf-label" for="hf-range">How close the object passes</label>
+    <input
+      class="hf-range"
+      id="hf-range"
+      type="range"
+      min={B_MIN}
+      max={B_MAX}
+      step="1"
+      value={B_DEFAULT}
+    />
+    <p class="hf-ends" aria-hidden="true"><span>grazing</span><span>far away</span></p>
+  </div>
+
+  <div class="exp-panels">
+    <figure class="exp-panel">
+      <svg
+        class="hf-svg"
+        viewBox="0 0 300 236"
+        role="img"
+        aria-label="The object's path curving past the pulsar."
+      >
+        <defs>
+          <clipPath id="hf-clip"><rect x="0" y="0" width="300" height="236" /></clipPath>
+        </defs>
+        <g clip-path="url(#hf-clip)">
+          <path class="hf-path" d={start.d} />
+          <line class="hf-rmin" x1={PX} y1={PY} x2={start.cx} y2={start.cy} />
+          <circle class="hf-closest" cx={start.cx} cy={start.cy} r="4" />
+          <circle class="hf-pulsar" cx={PX} cy={PY} r="5" />
+        </g>
+        <text class="hf-tag" x="150" y="20" text-anchor="middle">the flyby</text>
+        <text class="hf-tag" x={PX + 12} y={PY + 20}>pulsar</text>
+      </svg>
+      <figcaption class="exp-cap">
+        The object comes in from the left, bends around the pulsar, and leaves. It is
+        not captured: it passes once and is gone.
+      </figcaption>
+    </figure>
+
+    <figure class="exp-panel">
+      <svg
+        class="hf-svg"
+        viewBox="0 0 300 236"
+        role="img"
+        aria-label="The disturbance left in the pulse arrival times, against a band showing the timing noise."
+      >
+        <rect
+          class="hf-noise"
+          x="12"
+          y={BASE - NOISE}
+          width="276"
+          height={NOISE * 2}
+          rx="3"
+        />
+        <line class="hf-zero" x1="12" y1={BASE} x2="288" y2={BASE} />
+        <path class="hf-resid" d={startWobble.d} />
+        <text class="hf-tag" x="150" y="20" text-anchor="middle">pulse arrival times</text>
+        <text class="hf-tag hf-dim" x="12" y={BASE + NOISE + 16}>timing noise</text>
+        <text class="hf-tag hf-dim" x="288" y="228" text-anchor="end">time &#8594;</text>
+      </svg>
+      <figcaption class="exp-cap">
+        Pulses arrive a little early, then a little late. Inside the shaded band the
+        wobble is smaller than the ordinary scatter in the data and cannot be told apart
+        from it.
+      </figcaption>
+    </figure>
+  </div>
+
+  <p class="exp-status hf-status" role="status" aria-live="polite">{startText}</p>
+
+  <p class="exp-note">
+    Move the slider out and the wobble collapses quickly. Only very close passes leave
+    anything a telescope could find, which is the reason a search that finds nothing
+    still says something. Dey et al. looked at 68 millisecond pulsars in the NANOGrav
+    15 yr narrowband dataset and found no event of this kind. From that silence they set
+    the first limits on how many free-floating objects can be packed into our part of
+    the galaxy: for Jupiter-mass objects, fewer than 6.03 &#215; 10<sup>5</sup> per cubic
+    parsec once all the pulsars are combined.
+  </p>
+
+  <details class="exp-describe">
+    <summary>Describe this figure in words</summary>
+    <div class="exp-prose">
+      <p>
+        Two panels sit side by side. The left one is a flat view of a single encounter.
+        A dot in the middle is the pulsar. A curve enters from the left edge, bends as it
+        rounds the dot, and leaves again by another edge. A short straight line joins the
+        pulsar to the point of closest approach, marked with a small open circle. As the
+        slider moves right, that line gets longer and the curve straightens out, until at
+        the far end of the slider the object barely notices the pulsar at all and goes by
+        in almost a straight line.
+      </p>
+      <p>
+        The right panel plots the mark that encounter leaves on the data. A horizontal
+        line across the middle is where the pulses would arrive if nothing disturbed the
+        pulsar. A shaded band of fixed height straddles that line and stands for the
+        ordinary scatter in the measurements. The curve rises above the line on one side
+        of the encounter and dips below it on the other: pulses arrive early for a while,
+        then late. The height of that swing is what changes with the slider, and it
+        changes much faster than the distance does. By the middle of the slider's range
+        the swing has already shrunk inside the shaded band, and past that point the
+        encounter leaves nothing a search could recover.
+      </p>
+      <p>
+        That is the whole argument of the paper in one picture. Only objects that come
+        very close are detectable at all, so finding nothing across 68 pulsars does not
+        mean the Galaxy is empty of them. It means there cannot be so many that one of
+        these rare close passes should have happened while the pulsars were watched, and
+        that upper bound is the result.
+      </p>
+    </div>
+  </details>
+</section>
+
+<style>
+  .exp {
+    margin: 2.5rem 0;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+  }
+
+  .exp-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+    line-height: 1.3;
+  }
+
+  .exp-lede {
+    margin: 0 0 0.9rem;
+    max-width: var(--measure, 38rem);
+  }
+
+  .exp-fidelity {
+    margin: 0 0 1.1rem;
+    padding: 0.6rem 0.75rem;
+    border-left: 3px solid var(--accent-2);
+    background: var(--bg);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+
+  .exp-fidelity strong {
+    color: var(--text);
+  }
+
+  .hf-control {
+    margin: 0 0 1.25rem;
+  }
+
+  .hf-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .hf-range {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  .hf-range:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .hf-ends {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.1rem 0 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .exp-panels {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 46rem) {
+    .exp-panels {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .exp-panel {
+    margin: 0;
+  }
+
+  .hf-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+  }
+
+  .exp-cap {
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+
+  /* --- svg pieces --- */
+  .hf-zero {
+    stroke: var(--border);
+    stroke-width: 1;
+  }
+
+  .hf-path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2.25;
+    stroke-linecap: round;
+  }
+
+  .hf-rmin {
+    stroke: var(--text-muted);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+  }
+
+  .hf-closest {
+    fill: var(--bg);
+    stroke: var(--accent);
+    stroke-width: 1.75;
+  }
+
+  .hf-pulsar {
+    fill: var(--accent-2);
+  }
+
+  .hf-noise {
+    fill: var(--text-muted);
+    opacity: 0.16;
+  }
+
+  .hf-resid {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2.25;
+    stroke-linejoin: round;
+  }
+
+  .hf-tag {
+    font-size: 13px;
+    fill: var(--text);
+  }
+
+  .hf-dim {
+    fill: var(--text-muted);
+  }
+
+  .exp-status {
+    margin: 1.1rem 0 0;
+    padding: 0.6rem 0.75rem;
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .exp-note {
+    margin: 1rem 0 0;
+    max-width: var(--measure, 38rem);
+    font-size: 0.95rem;
+  }
+
+  .exp-describe {
+    margin-top: 1rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+  }
+
+  .exp-describe > summary {
+    cursor: pointer;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .exp-describe > summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .exp-prose {
+    max-width: var(--measure, 38rem);
+    font-size: 0.95rem;
+  }
+
+  .exp-prose p {
+    margin: 0 0 0.8rem;
+  }
+
+  .hf-path,
+  .hf-resid,
+  .hf-rmin,
+  .hf-closest {
+    transition: opacity 120ms ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hf-path,
+    .hf-resid,
+    .hf-rmin,
+    .hf-closest {
+      transition: none;
+    }
+  }
+
+  @media print {
+    .hf-control,
+    .exp-describe {
+      display: none;
+    }
+
+    .exp {
+      break-inside: avoid;
+    }
+  }
+</style>
+
+<script>
+  const PX = 150;
+  const PY = 128;
+  const A_FOCUS = 12.8;
+  const BASE = 120;
+  const A_FULL = 85;
+  const R_REF = 19.2;
+  const NOISE = 18;
+
+  function flyby(b: number) {
+    const a = A_FOCUS;
+    const e = Math.sqrt(1 + (b / a) ** 2);
+    const p = a * (e * e - 1);
+    const thInf = Math.acos(-1 / e);
+    const phi = Math.PI + thInf;
+    const pts: string[] = [];
+    for (let i = 0; i <= 220; i++) {
+      const th = -thInf + (2 * thInf * i) / 220;
+      const denom = 1 + e * Math.cos(th);
+      if (denom <= 0.0005) continue;
+      const r = p / denom;
+      if (r > 460) continue;
+      pts.push(
+        (PX + r * Math.cos(th + phi)).toFixed(1) +
+          ',' +
+          (PY + r * Math.sin(th + phi)).toFixed(1)
+      );
+    }
+    const rmin = a * (e - 1);
+    return {
+      d: pts.length ? 'M' + pts.join(' L') : '',
+      rmin: rmin,
+      cx: PX + rmin * Math.cos(phi),
+      cy: PY + rmin * Math.sin(phi),
+    };
+  }
+
+  function wobble(rmin: number) {
+    const amp = Math.min(A_FULL, Math.max(0.3, A_FULL * (R_REF / rmin) ** 2));
+    const t = Math.min(110, Math.max(22, 16 + rmin * 0.6));
+    const pts: string[] = [];
+    for (let i = 0; i <= 150; i++) {
+      const x = 12 + (276 * i) / 150;
+      const u = (x - 150) / t;
+      const g = u / Math.pow(1 + u * u, 1.5) / 0.3849;
+      pts.push(x.toFixed(1) + ',' + (BASE - amp * g).toFixed(1));
+    }
+    return { d: 'M' + pts.join(' L'), amp: amp };
+  }
+
+  function verdict(amp: number) {
+    if (amp >= NOISE * 2) {
+      return 'A close pass. The disturbance is far larger than the timing noise, so a search like this one would see it.';
+    }
+    if (amp >= NOISE) {
+      return 'A moderate pass. The disturbance is about the size of the timing noise, so it would be near the limit of what the data can pick out.';
+    }
+    if (amp >= NOISE * 0.35) {
+      return 'A wide pass. The disturbance has dropped below the timing noise and would be missed.';
+    }
+    return 'A distant pass. The disturbance is now so small that no amount of looking at these data would turn it up.';
+  }
+
+  function shortText(amp: number) {
+    if (amp >= NOISE * 2) return 'close pass, clearly detectable';
+    if (amp >= NOISE) return 'moderate pass, borderline';
+    if (amp >= NOISE * 0.35) return 'wide pass, below the noise';
+    return 'distant pass, nothing to find';
+  }
+
+  document.querySelectorAll('.hf-root').forEach((root) => {
+    const range = root.querySelector('.hf-range');
+    const path = root.querySelector('.hf-path');
+    const rmin = root.querySelector('.hf-rmin');
+    const closest = root.querySelector('.hf-closest');
+    const resid = root.querySelector('.hf-resid');
+    const status = root.querySelector('.hf-status');
+    if (
+      !(range instanceof HTMLInputElement) ||
+      !path ||
+      !rmin ||
+      !closest ||
+      !resid ||
+      !status
+    ) {
+      return;
+    }
+
+    const draw = () => {
+      const f = flyby(Number(range.value));
+      const w = wobble(f.rmin);
+      path.setAttribute('d', f.d);
+      rmin.setAttribute('x2', f.cx.toFixed(1));
+      rmin.setAttribute('y2', f.cy.toFixed(1));
+      closest.setAttribute('cx', f.cx.toFixed(1));
+      closest.setAttribute('cy', f.cy.toFixed(1));
+      resid.setAttribute('d', w.d);
+      range.setAttribute('aria-valuetext', shortText(w.amp));
+      const words = verdict(w.amp);
+      if (status.textContent !== words) status.textContent = words;
+    };
+
+    range.addEventListener('input', draw);
+    draw();
+  });
+</script>
