@@ -42,13 +42,13 @@ figures:
       the left reaches the bottom. Compared with the first tree, many more wrong rotation
       counts hold on for a while before the data rule them out.
     caption: >-
-      A harder case. Wrong branches persist much longer here, so the tree grows deep before
-      the data single out one solution.
+      In this harder case, wrong branches persist much longer and the tree grows deep before
+      only one solution is left.
   - src: "/figures/algorithmic-pulsar-timer/aptb-logo.webp"
     kind: "logo"
     unpublished: true
     alt: >-
-      The APTB project logo: the letters A, P, T and B set along a tilted elliptical orbit,
+      The APTB project logo: the letters A, P, T, and B set along a tilted elliptical orbit,
       with a red star at one end of the ellipse and a small clock face at the other.
 lay:
   reviewed: true

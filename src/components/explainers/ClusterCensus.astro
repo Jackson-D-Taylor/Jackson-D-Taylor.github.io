@@ -46,14 +46,14 @@ const CHOICES = [
     label: 'All ten',
     ring: Array.from({ length: 10 }, (_, k) => KNOWN + k),
     text:
-      'All ten new pulsars, ringed. Terzan 5 had thirty-nine confirmed pulsars before this work. These ten bring it to forty-nine, the most of any globular cluster so far.',
+      'All ten new pulsars are ringed. Pick one to read more about it.',
   },
   {
     n: 2,
     label: 'J1748−2446ao',
     ring: [39],
     text:
-      'PSR J1748−2446ao spins every 2.27 milliseconds and goes round its companion once every 57.55 days on an eccentric orbit, e = 0.32. Measuring how fast the orbit turns gives a total mass for the system of 3.17 ± 0.02 solar masses, and the companion weighs at least about 0.8 solar masses. That makes it a candidate double neutron star. If it is confirmed as one, it will be both the fastest-spinning and the longest-period double neutron star on record.',
+      'PSR J1748−2446ao spins every 2.27 milliseconds and goes around its companion once every 57.55 days on an eccentric orbit, e = 0.32. Measuring how fast the orbit turns gives a total mass for the system of 3.17 ± 0.02 solar masses, and the companion weighs at least about 0.8 solar masses. That makes it a candidate double neutron star.',
   },
   {
     n: 3,
@@ -67,14 +67,14 @@ const CHOICES = [
     label: 'J1748−2446ar',
     ring: [41],
     text:
-      'PSR J1748−2446ar is an eclipsing redback. Its properties confirm it as the radio counterpart of a source already published from radio and X-ray imaging, which ties two separate lines of evidence to the same object.',
+      'PSR J1748−2446ar is an eclipsing redback. Its properties confirm it as the radio counterpart of a source already published from radio and X-ray imaging.',
   },
   {
     n: 5,
     label: 'The other seven',
     ring: [42, 43, 44, 45, 46, 47, 48],
     text:
-      'The remaining seven discoveries are not singled out in the abstract, so they are only counted here. The paper reports phase-connected timing solutions for all ten, using nearly two decades of archival Green Bank Telescope observations for all but one of them.',
+      'These are the other seven discoveries. The team worked out timing solutions for all ten pulsars, using nearly two decades of archival Green Bank Telescope observations for all but one of them.',
   },
 ];
 ---
@@ -85,19 +85,8 @@ const CHOICES = [
   <p class="exp-lede">
     Terzan 5 is a globular cluster packed tightly enough that stars interact, and those
     interactions keep pairing neutron stars with companions they can draw material from,
-    which is what spins a pulsar up. More of them have been found there
-    than in any other cluster. This paper added ten, using MeerKAT at L-band as part of
-    the TRAPUM survey: four hours on each of two epochs, with acceleration searches run
-    on 45 of the 288 tied-array beams covering the cluster core. Every dot below is one
-    confirmed pulsar.
-  </p>
-
-  <p class="exp-fidelity">
-    <strong>Faithful:</strong> the counts. Forty-nine confirmed in total, ten of them
-    new, so thirty-nine were already known. The notes on the three pulsars the abstract
-    singles out are the paper's
-    own. <strong>Schematic:</strong> the grid. It is a way of counting. The dots
-    are not where the pulsars sit in the cluster, and their spacing means nothing.
+    which is what spins a pulsar up. Every dot below is one confirmed pulsar. The grid is only a way of counting them
+    and doesn't show where they sit in the cluster.
   </p>
 
   <input class="cc-state" type="radio" name="cc-pick" id="cc-1" checked />
@@ -106,7 +95,7 @@ const CHOICES = [
   <input class="cc-state" type="radio" name="cc-pick" id="cc-4" />
   <input class="cc-state" type="radio" name="cc-pick" id="cc-5" />
 
-  <p class="cc-prompt">Ring which of the new ones:</p>
+  <p class="cc-prompt">Pick which of the new ones to ring:</p>
   <div class="cc-chips">
     {CHOICES.map((c) => <label class="cc-chip" for={`cc-${c.n}`}>{c.label}</label>)}
   </div>
@@ -150,8 +139,7 @@ const CHOICES = [
         <text class="cc-tag" x="78" y="301">10 new in this paper</text>
       </svg>
       <figcaption class="exp-cap">
-        Thirty-nine dots in the lighter shade were on the books before this work. The ten
-        in the stronger shade are the new ones, and the rings mark whichever you picked.
+        The rings mark whichever of the new pulsars you picked.
       </figcaption>
     </figure>
 
@@ -168,26 +156,15 @@ const CHOICES = [
         right and top to bottom. The first thirty-nine are drawn in a pale neutral
         shade. They are the pulsars already confirmed in Terzan 5 before this paper. The
         last ten, which fill the end of the sixth row and the whole of the seventh, are
-        drawn in a stronger colour. Those are the discoveries reported here. A key under
+        drawn in a stronger color. Those are the discoveries reported here. A key under
         the grid repeats the two counts.
       </p>
       <p>
         Thin rings are drawn around whichever selection is active. By default all ten of
-        the new pulsars are ringed. Choosing one of the three named in the paper's
-        abstract moves the ring to that single dot and swaps the note underneath;
-        choosing the last option rings the seven the abstract does not name. The grid
-        carries no spatial information, and the pulsars are not laid out this way in the
-        sky.
+        the new pulsars are ringed. Choosing one of the three named pulsars moves the ring to that single dot and
+        swaps the note underneath, and choosing the last option rings the other seven.
       </p>
-      <p>
-        The picture is there for the counting. Thirty-nine plus ten is forty-nine,
-        which is more pulsars than are known in any other globular cluster.
-        Three of the ten stand out: one is a candidate double neutron
-        star with a 2.27-millisecond spin and a 57.55-day orbit, one has an eccentricity
-        around 0.905, and one is an eclipsing redback that turns out to be the
-        counterpart of a source found earlier in radio and X-ray images.
-      </p>
-    </div>
+      </div>
   </details>
 </section>
 

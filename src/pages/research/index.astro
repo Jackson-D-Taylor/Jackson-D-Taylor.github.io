@@ -54,13 +54,13 @@ const interests: string[] = research.interests ?? [];
         can learn about how fast the pulsar is rotating, its position in the sky, the nature of how
         it orbits another star, and even properties of the Milky Way galaxy. Getting the count right
         normally takes tightly scheduled monitoring and a good deal of practice. I wrote an
-        algorithm that does the phase connection for binary pulsars on its own, using the
-        statistical F-test and the quadratic behaviour of the reduced χ² near a minimum.
+        algorithm that does the phase connection for binary pulsars on its own, employing a
+        depth-first tree traversal strategy.
       </p>
       <p>
         It produced timing solutions for two newly discovered binary pulsars in
         the globular cluster Terzan 5, from about 70 Green Bank Telescope observations spanning 13
-        years. A run can take hours, but as we wrote in the paper:
+        years. Running our algorithm can take hours.
       </p>
       <blockquote class="quote">
         <p>
@@ -82,17 +82,18 @@ const interests: string[] = research.interests ?? [];
         ahead of and behind the planet. Trojans of up to planetary mass have been predicted around
         other stars, but none have been confirmed. I searched for them around radio pulsars with
         very low-mass companions, where the times of arrival are measured well enough to pick up the
-        wobble a Trojan would give the pulsar. Eight pulsars from the NANOGrav 15 yr dataset gave
-        upper limits near one Earth mass. Two of them show weak evidence for signals consistent with Trojans of a
-        few Jupiter masses, but those signals most likely have some other source.
+        wobble a Trojan would give the pulsar. Across eight pulsars from the NANOGrav 15 yr dataset we found no Trojans,
+        which gave us upper limits near one Earth mass. Two of the pulsars show weak evidence for signals consistent with Trojans of a
+        few Jupiter masses, but those signals likely have some other source.
       </p>
       <p>
-        The paper offers a few possible reasons for why we didn't find any. This is the one I like
-        best:
+        The paper offers a few possible reasons for why we didn't find any. One such reason is that
       </p>
+      {/* Verbatim from the paper. The opening capital is lowered because the quote now
+          finishes Jackson's sentence (standard practice for a run-in quotation). */}
       <blockquote class="quote">
         <p>
-          Mass transfer and disk dynamics in pulsar binary systems are clearly turbulent, and so,
+          mass transfer and disk dynamics in pulsar binary systems are clearly turbulent, and so,
           any interloping Trojan may find itself ejected from the system or torn apart.
         </p>
         <cite>Searching for Exotrojans in Pulsar Systems, 2026</cite>
@@ -106,13 +107,12 @@ const interests: string[] = research.interests ?? [];
     <section class="topic" aria-labelledby="t-ffo">
       <h2 id="t-ffo">Free-floating objects</h2>
       <p>
-        Rogue planets, brown dwarfs and large asteroids that don't orbit any star are expected
-        throughout the Milky Way, and three interstellar objects have already been caught passing
-        through the solar system on hyperbolic orbits. If one passes close enough to a
-        millisecond pulsar, its gravity shifts the times of arrival by a measurable amount. We searched the NANOGrav 15 yr narrowband dataset, 68 pulsars in all, for those
-        encounters. We found no statistically significant events, which lets us set upper
-        limits on how many of these objects there can be nearby. These are the first such limits
-        from pulsar timing data.
+        Rogue planets, brown dwarfs, and large asteroids that don't orbit any star are expected
+        throughout the Milky Way, and three interstellar objects (<a href="https://science.nasa.gov/solar-system/comets/oumuamua/">1I/'Oumuamua</a>, <a href="https://science.nasa.gov/solar-system/comets/2i-borisov/">2I/Borisov</a>, and <a href="https://science.nasa.gov/solar-system/comets/3i-atlas/">3I/ATLAS</a>) have
+        already been caught passing through the solar system on hyperbolic orbits. If one passes close enough to a
+        millisecond pulsar, its gravity shifts the times of arrival by a measurable amount. We searched the NANOGrav 15 yr narrowband dataset, 68 pulsars in all, for these
+        encounters. We found no statistically significant events, which lets us set the first upper limits from pulsar timing data
+        on how many of these objects there can be in our pocket of the Galaxy.
       </p>
       <p class="more">
         <a href="/publications/free-floating-objects/">
@@ -121,17 +121,18 @@ const interests: string[] = research.interests ?? [];
       </p>
     </section>
 
-    {/* TODO: replace with Jackson's own wording */}
+    {/* Jackson's own words. Claude.md rule 3: do not rewrite or restyle. */}
     <section class="topic" aria-labelledby="t-discovery">
       <h2 id="t-discovery">Finding new pulsars</h2>
       <p>
-        Some of my work is finding new pulsars. A targeted search with the Green Bank Telescope for
-        radio pulsations from a redback candidate turned up the 1.68 ms binary pulsar
-        <span class="mono">PSR J2053+6905</span>, and multi-epoch optical photometry and
-        spectroscopy of the same system constrain the two component masses. The CHIME fast radio
-        burst instrument found <span class="mono">PSR J2108+5055</span>, a sporadic mode-changing
-        source whose brightest pulse reached a flux density of 3.1 kJy. MeerKAT observations of
-        Terzan 5 produced ten more millisecond pulsars, bringing the count for that cluster to 49.
+        Some of my first work and recent work too is finding new pulsars. A targeted search with the
+        Green Bank Telescope for radio pulsations from a <a href="https://en.wikipedia.org/wiki/Spider_pulsar">redback</a> candidate turned up the
+        1.68 ms binary pulsar <span class="mono">PSR J2053+6905</span>, and multi-epoch optical
+        photometry and spectroscopy of this system were able to constrain the mass of the pulsar and
+        its binary companion. In a different project, the <a href="https://chime-experiment.ca/">CHIME</a> radio telescope found <span class="mono">PSR J2108+5055</span>, a sporadic mode-changing source whose brightest
+        pulse reached a flux density of 3.1 kJy. In one of the first papers I was on, colleagues used
+        the <a href="https://www.sarao.ac.za/science/meerkat/">MeerKAT</a> telescope on <a href="https://en.wikipedia.org/wiki/Terzan_5">Terzan 5</a> to discover ten millisecond
+        pulsars, bringing the count for that cluster to 49.
       </p>
       <p class="more">
         <a href="/publications/redback-j2053/">Redback pulsar PSR J2053+6905</a>

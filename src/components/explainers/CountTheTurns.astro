@@ -25,8 +25,8 @@ const CENTERS = [10, 50, 90, 430, 470]; // observing session centres, days
 const PER = 5; // arrival times per session
 const HALF = 7; // half-length of a session, days
 const GAP_T = 257; // a day inside the long gap
-const K = 40; // microseconds of phase per missed turn (arbitrary units)
-const SIG = 1; // microsecond uncertainty on each arrival time
+const K = 40; // phase per missed turn (arbitrary units)
+const SIG = 1; // uncertainty on each arrival time (arbitrary units)
 const TRUE_N = 2; // the count that actually happened
 const START_N = -3; // where the slider starts: wrong, so there is something to do
 const NMIN = -6;
@@ -178,8 +178,7 @@ const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? sta
   <svg class="main" viewBox="0 0 660 392" role="img" aria-labelledby="ct-t ct-d" preserveAspectRatio="xMidYMid meet">
     <title id="ct-t">Observing sessions above, timing residuals below</title>
     <desc id="ct-d">
-      Five short observing sessions spread over 480 days, with one gap of about
-      {gapDays} days. Underneath, the difference between each measured arrival
+      Five short observing sessions spread over 480 days, with one gap of about {gapDays} days. Underneath, the difference between each measured arrival
       time and the one predicted by the fit, for the count currently chosen.
     </desc>
     <defs>
@@ -217,14 +216,15 @@ const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? sta
   </svg>
 
   <p class="scalenote">
-    Vertical scale: <span id="ct-scale">±{S0.toFixed(0)}</span> microseconds (arbitrary units),
-    the same for every count. The grey band is one uncertainty wide.
+    Vertical scale: <span id="ct-scale">±{S0.toFixed(0)}</span> in arbitrary units,
+    the same for every count. The gray band reaches one uncertainty above and below zero.
   </p>
 
   <noscript>
     <p class="note">
-      This figure is interactive. With JavaScript off it stays on one guess, three
-      turns short of the right answer. The written walkthrough below covers the rest.
+      This figure is interactive. With JavaScript off it stays on one guess, {sayN(START_N)},
+      which is {words[Math.abs(START_N - TRUE_N)]} turns away from the
+      right answer of {sayN(TRUE_N)}. The written walkthrough below covers the rest.
     </p>
   </noscript>
 
@@ -245,9 +245,9 @@ const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? sta
     <div class="scoretext">
       <p class="score">Fit score (reduced χ²): <strong id="ct-chi">{start.c.toFixed(2)}</strong></p>
       <p class="tinyp">
-        One is what you get when the leftovers are the size of the measurement
-        uncertainty and nothing else. Anything much larger means there is still a
-        shape in the data that the fit cannot account for.
+        A score near one means the points miss the fit by about their measurement
+        uncertainty. A much larger score means there is still a pattern in the data
+        that the fit can't account for.
       </p>
       <p class="pred" id="ct-pred">Try three or more counts and a curve appears through the scores.</p>
     </div>
@@ -281,23 +281,13 @@ const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? sta
 
   <p class="status" id="ct-status" role="status" aria-live="polite">{startSay}</p>
 
-  <p class="caption">An illustration of the idea. Real data are fit with a full timing model.</p>
-
   <div class="honesty">
     <p>
-      <strong>Really true of the method.</strong> The count can only be a whole
-      number. A wrong count leaves a smooth pattern in the residuals. The fit
-      score follows a parabola near its lowest point, and the curve in the small
-      panel is fitted to the scores you have tried.
-      A longer gap leaves more counts that fit almost as well as each other.
-    </p>
-    <p>
-      <strong>Made up for the picture.</strong> The arrival times are invented.
-      The fit is a three-term polynomial, not a timing model, and there is no
-      binary orbit in it. The units are arbitrary. The order the search tries
-      candidates shows how a tree gets pruned. The paper also prunes on reduced
-      χ², but before cutting a branch it uses an F-test to decide whether adding
-      a fit parameter rescues it. That step is not shown here.
+      This is a simplified version of the problem. The arrival times are made up, the
+      units are arbitrary, and the fit is a three-term polynomial with no binary orbit
+      in it. Real data are fit with a full timing model. Our algorithm also prunes on
+      reduced χ², but before cutting a branch it uses an F-test to decide whether adding
+      a fit parameter rescues it, and that step is left out here.
     </p>
   </div>
 
@@ -307,45 +297,38 @@ const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? sta
       <p>
         The upper strip is a calendar. Five short observing sessions, five arrival
         times each, are marked as vertical ticks. The first three sessions sit
-        close together in the first three months. Then nothing for about
-        {gapDays} days. The last two sessions sit at the far right. The shaded
-        block is the long gap.
+        close together in the first three months. Then there is nothing for about {gapDays} days,
+        which is the shaded block, and the last two sessions sit at the far right.
       </p>
       <p>
         The lower panel plots, for each arrival time, how far it landed from where
-        the fit said it would. The horizontal line is zero. The grey band is one
-        measurement uncertainty either side of it. The smooth line through the
+        the fit said it would. The horizontal line is zero. The gray band is one measurement uncertainty on either side of it. The smooth line through the
         points is what the chosen count predicts before the noise is added.
       </p>
       <p>
-        At the correct count the points sit inside or near the grey band with no
-        order to them. The smooth line is flat on
+        At the correct count the points sit inside or near the gray band with no order to them. The smooth line is flat on
         zero, and the fit score is about one.
       </p>
       <p>
         At any other count, the points leave the band and lie along a curve that
-        sags on one side and rises on the other. That curve is the signature of a
-        count that is off by a whole number, and it is easy to see, which is what
-        makes the right answer findable.
+        sags on one side and rises on the other.
       </p>
       <p>
-        The small panel on the right keeps a record. Every whole number from
-        {NMIN} to {NMAX} is a dot on the axis. When you try one, its dot rises to
+        The small panel on the right keeps track of the counts you have tried. Every whole number from {NMIN} to {NMAX} is a dot on the axis. When you try one, its dot rises to
         the fit score it earned. After three tries the dots turn out to lie on a
         parabola, and once you know the parabola you can read off where its lowest
-        point is without trying every value. That is the shortcut the paper uses.
+        point is without trying every value, which is the shortcut the paper uses.
       </p>
       <p>
         The button walks a search outward from wherever you left the slider. It
         takes a step, keeps going in that direction while the score falls, and
         stops that direction as soon as the score rises. Both directions close in
-        on the same answer. Here it is {TRUE_N} turns, with a fit score near one.
+        on the same answer, which here is {TRUE_N} turns with a fit score near one.
       </p>
       <p>
         The longer the gap, the more counts give a score close to the best one, and
         the harder the problem gets. A gap of a few days can usually be bridged by
-        eye. A gap of a year, with a binary orbit on top of it, is where an
-        automated search helps the most.
+        eye.
       </p>
     </div>
   </details>
@@ -786,7 +769,7 @@ const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? sta
         const s = st(cur);
         const e = Math.abs(cur - M.trueN);
         let shape: string;
-        if (e === 0) shape = 'The points scatter above and below the line with no shape left in them. This is the count that fits.';
+        if (e === 0) shape = 'This count fits, and the points scatter above and below the line with no shape left in them.';
         else if (e === 1) shape = 'The points lean into a shallow curve.';
         else shape = 'The points curve away from the line, and the bend is deeper than it was.';
         status.textContent =
@@ -855,7 +838,7 @@ const startSay = `Missed turns: ${sayN(START_N)}. Fit score ${start.c < 10 ? sta
       const b = search ? search.best() : cur;
       tried.set(b, 'best');
       setN(b, false);
-      announce('Search finished.');
+      announce('The search has finished.');
       stopRun();
     }
 

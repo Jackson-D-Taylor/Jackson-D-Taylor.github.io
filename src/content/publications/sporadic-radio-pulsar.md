@@ -29,37 +29,34 @@ figures: []
 lay:
   reviewed: false
   hook: >-
-    We found a pulsar that is silent almost all of the time and then, very occasionally, lets
-    out a single pulse bright enough that a telescope in another galaxy could pick it up.
+    A team using the CHIME radio telescope found a pulsar that is silent almost all of the time.
+    Very occasionally it lets out a single pulse so bright that the most sensitive radio
+    telescopes could still detect it if the pulsar were in another galaxy.
   keyNumber:
     value: "3.1 kJy"
-    label: "the brightest pulse we recorded, strong enough that FAST could still catch it from the edge of the Local Group"
+    label: "the brightest single pulse recorded from this pulsar"
   whatWeDid: >-
     Some neutron stars go quiet for long stretches and then emit a single burst, which makes
-    them easy to miss and hard to study. Astronomers call them rotating radio transients, or
-    RRATs. We found one with CHIME, a radio telescope in British Columbia, using the instrument
-    built there to catch fast radio bursts. The star is PSR J2108+5055 and it turns once every
-    0.495 seconds. It also changes modes, meaning its emission switches between different
-    states.
+    them hard to find. Astronomers call them rotating radio transients, or
+    RRATs. This one was found with CHIME, a radio telescope in British Columbia, using the
+    instrument built there to catch fast radio bursts. The star is PSR J2108+5055 and it turns once every
+    0.495 seconds. Its emission also switches between different modes.
   whatWeFound: >-
     Its brightest pulse reached 3.1 kilojanskys. At an estimated distance of 1.6 kiloparsecs,
     about 5,000 light years, that works out to a spectral luminosity of 7.5 × 10²³ erg per
     second per hertz. Its duty cycle (the fraction of the time it is emitting) is below 0.002.
-    We measured a surface magnetic field of 5.8 × 10¹¹ gauss and a characteristic age of 12
+    Its surface magnetic field comes out at 5.8 × 10¹¹ gauss and its characteristic age at 12
     million years. If the star sat at the edge of the Local Group of galaxies, the FAST
     telescope would still catch that brightest pulse. The second brightest, at 1.5 kilojanskys,
     would be detectable out to about a megaparsec, which takes in Andromeda.
   whyItMatters: >-
-    A source that is switched off more than 99.8 percent of the time is easy to miss. Using a
-    simple model of the Green Bank North Celestial Cap survey, we put an upper limit of about 80
-    on the number of sources like this one in that survey's patch of sky. A pulse this strong
-    could also be detected from well outside our own galaxy, at distances where an ordinary
-    pulsar is far out of range.
+    A simple model of the Green Bank North Celestial Cap survey puts an upper limit of about 80
+    on the number of sources like this one in that survey's patch of sky.
   analogy: >-
     Imagine a lighthouse that turns as steadily as any other, but whose lamp almost never
-    lights. Most nights nothing happens. Then, once in a long while, it fires off a single flash
-    bright enough to see from the next county, and you only catch it if you happen to be looking
-    in the right direction at the right second. Finding one takes a lot of staring at empty sky.
+    lights. Once in a long while it fires off a single flash bright enough to see from the next
+    county, and you only catch it if you happen to be looking in the right direction at the
+    right second.
   glossary:
     - term: "RRAT"
       definition: >-

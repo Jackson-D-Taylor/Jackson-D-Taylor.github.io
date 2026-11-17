@@ -44,48 +44,43 @@ figures: []
 lay:
   reviewed: false
   hook: >-
-    Terzan 5 is a crowded ball of old stars toward the centre of the Galaxy. We found ten more
-    pulsars in it, which brings the count there to 49, more than in any other cluster.
+    Terzan 5 is a crowded ball of old stars toward the center of the Galaxy. The team found ten more
+    pulsars in it, which brings the count there to 49.
   keyNumber:
     value: "49"
     label: "pulsars now known in Terzan 5, the highest number for any globular cluster"
   whatWeDid: >-
-    Globular clusters are dense, ancient swarms of stars, and they are good places to go
-    looking for millisecond pulsars. Terzan 5 has more of them than anywhere else. We observed
-    it with MeerKAT, a radio array in South Africa, for four hours on each of two separate
+    Globular clusters are good places to go looking for millisecond pulsars. The team observed
+    Terzan 5 with MeerKAT, a radio array in South Africa, for four hours on each of two separate
     occasions, as part of the TRAPUM survey. The array's output was formed into 288 narrow beams
-    covering different parts of the cluster, and we searched the 45 that cover the crowded
-    core. The search had to allow for orbital motion, because a pulsar in a binary is
-    accelerating the whole time it is being watched, which smears the signal out. We got a
-    timing solution for
-    all ten discoveries, and for nine of them it reaches back through nearly twenty years of
-    archived Green Bank Telescope observations.
+    covering different parts of the cluster, and the team searched the 45 that cover the crowded
+    core. The search had to allow for orbital motion, because a pulsar in a binary is accelerating
+    the whole time it is being watched, which smears the signal out. All ten discoveries now have a
+    timing solution, and for nine of them it reaches back through nearly twenty years of archived
+    Green Bank Telescope observations.
   whatWeFound: >-
-    Ten new millisecond pulsars, bringing Terzan 5 to 49 confirmed, more than any other
-    globular cluster. Three stand out. PSR J1748−2446ao is on a wide, stretched 57.55-day
-    orbit, and because we could measure how slowly that orbit turns, we got a total system
-    mass of 3.17 solar masses. With a companion of at least 0.8 solar masses, it is a
+    The search turned up ten new millisecond pulsars, which brings Terzan 5 to 49 confirmed, and
+    three of them stand out. PSR J1748−2446ao is on a wide, stretched 57.55-day orbit, and
+    because the team could measure how slowly that orbit turns, the total system mass comes out
+    at 3.17 solar masses. With a companion of at least 0.8 solar masses, it is a
     candidate double neutron star. If that is confirmed, it would be the fastest spinning
     double neutron star known, at 2.27 milliseconds, and the one with the longest orbit.
     PSR J1748−2446ap has the second most stretched orbit of any recycled pulsar.
     PSR J1748−2446ar is an eclipsing redback, and its properties confirm it as the counterpart
     of a source already seen in radio and X-ray images.
   whyItMatters: >-
-    Each new pulsar is another clock inside the same cluster, and the unusual ones are
-    interesting in their own right. The one to watch is the candidate double neutron star. If
-    confirmed, it would have both the fastest spin and the longest orbit among known double
-    neutron star systems, and formation models would have to account for that.
+    With 49 pulsars in one cluster, there is more to work with for studying how binary stars
+    evolve and how the stars in a cluster move.
   analogy: >-
-    Imagine a globular cluster as a city centre, and the part of the Galaxy the Sun lives in as
-    a quiet suburb. Hundreds of thousands of stars are packed into a space that would hold only
-    a handful out where we are. Listening for pulsars in there is like trying to pick out
-    individual ticking watches in a crowded hall. MeerKAT split its view of the cluster into 288
-    narrow beams, so each beam listens to a small part of the crowd at a time.
+    Imagine a globular cluster as a city center, and the part of the Galaxy the Sun lives in as a
+    quiet suburb. Hundreds of thousands of stars are packed into a space that would hold only a
+    handful out where we are. Finding one pulsar in there is like listening for one voice on a
+    packed downtown street.
   glossary:
     - term: "Globular cluster"
       definition: >-
         A dense, roughly spherical group of hundreds of thousands of old stars orbiting a
-        galaxy. Terzan 5 is one, and it is the richest in pulsars.
+        galaxy. Terzan 5 is one.
     - term: "Eccentricity"
       definition: >-
         How stretched an orbit is, where zero is a circle. PSR J1748−2446ap, at 0.905, moves on

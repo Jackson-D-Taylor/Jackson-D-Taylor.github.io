@@ -77,15 +77,15 @@ function wobble(rmin: number): { d: string; amp: number } {
 
 function verdict(amp: number): string {
   if (amp >= NOISE * 2) {
-    return 'A close pass. The disturbance is far larger than the timing noise, so a search like this one would see it.';
+    return 'On a close pass the disturbance is far larger than the timing noise, so a search like this one would see it.';
   }
   if (amp >= NOISE) {
-    return 'A moderate pass. The disturbance is about the size of the timing noise, so it would be near the limit of what the data can pick out.';
+    return 'Here the disturbance is about the size of the timing noise, so it would be near the limit of what the data can pick out.';
   }
   if (amp >= NOISE * 0.35) {
-    return 'A wide pass. The disturbance has dropped below the timing noise and would be missed.';
+    return 'On a wide pass the disturbance has dropped below the timing noise and would be missed.';
   }
-  return 'A distant pass. The disturbance is far too small to find in these data.';
+  return 'This far out, the disturbance is far too small to find in these data.';
 }
 
 const start = flyby(B_DEFAULT);
@@ -97,17 +97,15 @@ const startText = verdict(startWobble.amp);
   <h3 id="hf-title" class="exp-title">What a close pass would look like</h3>
 
   <p class="exp-lede">
-    A free-floating object has no star to hold it. It drifts through the galaxy on its
-    own, and if its path happens to take it near a millisecond pulsar, its gravity gives
+    A free-floating object drifts through the Galaxy on its own, and if its path happens to take it near a millisecond pulsar, its gravity gives
     the pulsar a small shove. That shove shows up as a disturbance in when the pulses
     arrive. The slider sets how close the object passes.
   </p>
 
   <p class="exp-fidelity">
-    <strong>Faithful:</strong> the path is a hyperbola with the pulsar at one focus, and
-    it bends more sharply the closer the object comes. <strong>Schematic:</strong> the
-    distance scale, the size of the disturbance, and the noise band. They are drawn to
-    show how fast the signal falls away. None of the three is calculated from the paper.
+    The path is a hyperbola with the pulsar at one focus, and it bends more sharply the
+    closer the object comes. The distance scale, the size and shape of the disturbance,
+    and the noise band are just for the picture.
   </p>
 
   <div class="hf-control">
@@ -145,7 +143,7 @@ const startText = verdict(startWobble.amp);
         <text class="hf-tag" x={PX + 12} y={PY + 20}>pulsar</text>
       </svg>
       <figcaption class="exp-cap">
-        The object comes in from the left, bends around the pulsar, and leaves for good.
+        The object comes in from the left, bends around the pulsar, and heads off again.
       </figcaption>
     </figure>
 
@@ -171,8 +169,8 @@ const startText = verdict(startWobble.amp);
         <text class="hf-tag hf-dim" x="288" y="228" text-anchor="end">time &#8594;</text>
       </svg>
       <figcaption class="exp-cap">
-        Pulses arrive a little early, then a little late. Inside the shaded band the
-        wobble is smaller than the ordinary scatter in the data and cannot be told apart
+        In this example the pulses arrive a little early, then a little late. Inside the shaded band the
+        disturbance is smaller than the ordinary scatter in the data and cannot be told apart
         from it.
       </figcaption>
     </figure>
@@ -181,12 +179,8 @@ const startText = verdict(startWobble.amp);
   <p class="exp-status hf-status" role="status" aria-live="polite">{startText}</p>
 
   <p class="exp-note">
-    Move the slider out and the wobble shrinks quickly, so only very close passes leave
-    anything a telescope could find. We looked at 68 millisecond pulsars in the NANOGrav
-    15 yr narrowband dataset and found no event of this kind. From that we set the first pulsar-timing
-    limits on how many free-floating objects there can be in our part of the galaxy. For
-    Jupiter-mass objects, that is fewer than 6.03 &#215; 10<sup>5</sup> per cubic
-    parsec once all the pulsars are combined.
+    Move the slider out and the disturbance shrinks quickly, so only very close passes
+    would show up in a telescope's data.
   </p>
 
   <details class="exp-describe">
@@ -198,27 +192,19 @@ const startText = verdict(startWobble.amp);
         rounds the dot, and leaves again by another edge. A short straight line joins the
         pulsar to the point of closest approach, marked with a small open circle. As the
         slider moves right, that line gets longer and the curve straightens out, until at
-        the far end of the slider the object barely notices the pulsar at all and goes by
-        in almost a straight line.
+        the far end of the slider the object goes by in almost a straight line.
       </p>
       <p>
-        The right panel plots the mark that encounter leaves on the data. A horizontal
+        The right panel plots what that encounter does to the data. A horizontal
         line across the middle is where the pulses would arrive if nothing disturbed the
         pulsar. A shaded band of fixed height straddles that line and stands for the
         ordinary scatter in the measurements. The curve rises above the line on one side
         of the encounter and dips below it on the other: pulses arrive early for a while,
         then late. The height of that swing is what changes with the slider, and it
         changes much faster than the distance does. By the middle of the slider's range
-        the swing has already shrunk inside the shaded band, and past that point the
-        encounter leaves nothing a search could recover.
+        the swing has already shrunk inside the shaded band.
       </p>
-      <p>
-        Only objects that come very close are detectable at all. Finding nothing across
-        68 pulsars means there cannot be so many of them that one of these rare close
-        passes should have happened while the pulsars were watched. That upper bound is
-        the result of the paper.
-      </p>
-    </div>
+      </div>
   </details>
 </section>
 
@@ -497,15 +483,15 @@ const startText = verdict(startWobble.amp);
 
   function verdict(amp: number) {
     if (amp >= NOISE * 2) {
-      return 'A close pass. The disturbance is far larger than the timing noise, so a search like this one would see it.';
+      return 'On a close pass the disturbance is far larger than the timing noise, so a search like this one would see it.';
     }
     if (amp >= NOISE) {
-      return 'A moderate pass. The disturbance is about the size of the timing noise, so it would be near the limit of what the data can pick out.';
+      return 'Here the disturbance is about the size of the timing noise, so it would be near the limit of what the data can pick out.';
     }
     if (amp >= NOISE * 0.35) {
-      return 'A wide pass. The disturbance has dropped below the timing noise and would be missed.';
+      return 'On a wide pass the disturbance has dropped below the timing noise and would be missed.';
     }
-    return 'A distant pass. The disturbance is far too small to find in these data.';
+    return 'This far out, the disturbance is far too small to find in these data.';
   }
 
   function shortText(amp: number) {

@@ -33,15 +33,13 @@ figures:
     alt: >-
       A plot headed "Pulsar, companion, and trojan position (rotating frame)", with both axes
       marked in units of the orbital separation. A black dot sits at the origin and a short red
-      streak at x = 1.0, y = 0. Between and above them, at about x = 0.5, y = 0.87, a grey dot is
-      labelled the stable point. A thick blue band curves around that grey dot, broad and rounded
-      at its lower-right end near x = 0.75 and tapering towards the upper left at x = 0.13, with a
+      streak at x = 1.0, y = 0. Between and above them, at about x = 0.5, y = 0.87, a gray dot is
+      labeled the stable point. A thick blue band curves around that gray dot, broad and rounded
+      at its lower-right end near x = 0.75 and tapering toward the upper left at x = 0.13, with a
       narrow split running along its middle.
     caption: >-
-      This is a computed path of a Trojan that starts away from the stable point, followed for
-      many orbits in a frame that turns with the binary so only the Trojan moves. It swings
-      around the point and comes back, tracing the same tadpole as the explainer above. We
-      looked for this signal around eight pulsars and found no Trojan.
+      Here a Trojan that starts away from the stable point is followed for many orbits, and its
+      path builds up the thick tadpole-shaped band around the point.
   - src: "/figures/exotrojans/trojan-libration-poster.webp"
     kind: "animation"
     unpublished: true
@@ -50,19 +48,18 @@ figures:
       webm: "/figures/exotrojans/trojan-libration.webm"
       poster: "/figures/exotrojans/trojan-libration-poster.webp"
     alt: >-
-      An animation of a three-body system seen from above. A green pulsar sits at the centre, a
+      An animation of a three-body system seen from above. A green pulsar sits at the center, a
       red planet orbits it, and a blue asteroid starts 60 degrees ahead of the planet on the
-      same orbit. As the animation runs, the asteroid drifts slowly back and forth around that
-      point while the planet keeps circling.
+      same orbit. As the animation runs, the asteroid stays 60 degrees ahead and circles the
+      pulsar along with the planet.
     caption: >-
-      A Trojan sits near one of the two points 60 degrees ahead of or behind a companion in its
-      orbit, and swings slowly back and forth about that point. The slow swing, called
-      libration, is what tugs on the pulsar and shows up in the arrival times of its pulses.
+      Seen from above in a frame that doesn't rotate, a Trojan placed on the point 60 degrees
+      ahead of the companion keeps that spot as both circle the pulsar.
   - src: "/figures/exotrojans/zombies-logo.webp"
     kind: "logo"
     unpublished: true
     alt: >-
-      The ZOMBIES project logo: a small grey clock face at the centre of a set of nested
+      The ZOMBIES project logo: a small gray clock face at the center of a set of nested
       orbits, with a red star and a tiny green companion circling each other on one side, a
       blue body on a wider shared orbit, and a black body on the outermost circle, while a
       pale blue object swings past from outside on an open curve.
@@ -86,7 +83,7 @@ lay:
     leave a unique marker in those arrival times. We searched the arrival times of eight
     pulsars in the NANOGrav 15 year dataset.
   whatWeFound: >-
-    No Trojans. Across all eight pulsars nothing in the times of arrival indicates Trojans.
+    We found no Trojans unfortunately. Across all eight pulsars nothing in the times of arrival indicates Trojans.
     However, we found that a Trojan in those systems could be lighter than the Earth and
     still not detectable. Two systems, PSR J0023+0923 and PSR J1705−1903, show a weak signal
     of the sort a Trojan of two to four Jupiter masses would make, but we think that these

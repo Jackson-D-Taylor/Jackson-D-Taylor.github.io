@@ -15,7 +15,7 @@
 const RUNGS = [
   { id: 1, y: 180, big: '1.6 ± 0.3 kpc', small: 'where the pulsar actually is' },
   { id: 2, y: 112, big: 'about 1 Mpc', small: 'Andromeda, the inner Local Group' },
-  { id: 3, y: 44, big: 'edge of the Local Group', small: 'the far edge of our galaxy group' },
+  { id: 3, y: 44, big: 'edge of the Local Group', small: 'out past Andromeda' },
 ];
 
 // Bar panel (viewBox 300 x 236). Heights are schematic.
@@ -32,17 +32,13 @@ const BARS = [
   <h3 id="dl-title" class="exp-title">How far away could it still be seen?</h3>
 
   <p class="exp-lede">
-    PSR J2108+5055 spends almost all of its time silent. It spends less than 0.2 percent
-    of its time in its bright mode, so most of the time there is nothing to catch. When it does flash,
-    it is bright enough that the paper asks how far away it could be moved and still be
-    found. Pick a stop.
+    PSR J2108+5055 only flashes once in a while, but when it does, it is bright enough
+    to ask how far away it could be moved and still be found. Pick one of the
+    three distances below.
   </p>
 
   <p class="exp-fidelity">
-    <strong>Faithful:</strong> the three distances, the flux densities quoted in the
-    text, and both statements about what FAST would detect come straight from the
-    paper. <strong>Schematic:</strong> the spacing of the rungs and the height of the bars.
-    Neither is to scale. They are spaced so the labels fit.
+    The rungs and the bars are not drawn to scale.
   </p>
 
   <input class="dl-state" type="radio" name="dl-stop" id="dl-1" checked />
@@ -61,7 +57,7 @@ const BARS = [
     </label>
     <label class="dl-chip" for="dl-3">
       <span class="dl-chip-big">Local Group edge</span>
-      <span class="dl-chip-small">as far as the paper goes</span>
+      <span class="dl-chip-small">the farthest stop</span>
     </label>
   </div>
 
@@ -163,19 +159,16 @@ const BARS = [
       one from here.</span
     >
     <span class="dl-s dl-s3"
-      >The pulsar has been moved to the edge of the Local Group. FAST would still detect
-      its brightest pulse. The second-brightest is past the roughly one-megaparsec reach
-      the paper gives for it, so that one would be lost.</span
+      >At the edge of the Local Group, FAST would still detect the brightest pulse. The
+      second-brightest can only be detected out to roughly one megaparsec, so that one would
+      be lost.</span
     >
   </p>
 
   <div class="dl-notes">
     <p class="dl-n dl-n1">
-      Everything else in the paper is measured here: a surface magnetic field of
-      5.8 &#215; 10<sup>11</sup> G, a characteristic age of 1.2 &#215; 10<sup>7</sup> yr,
-      and a spindown luminosity of 2.2 &#215; 10<sup>32</sup> erg s<sup>&#8722;1</sup>.
-      The distance itself comes from the dispersion measure, which is why it carries an
-      error bar.
+      The distance comes from the dispersion measure and a model of the electrons in the
+      Galaxy, so it carries a sizable error bar.
     </p>
     <p class="dl-n dl-n2">
       A megaparsec is roughly six hundred times further than the pulsar's real distance.
@@ -183,8 +176,7 @@ const BARS = [
       source can still be detected from that far.
     </p>
     <p class="dl-n dl-n3">
-      This is where the paper's title comes from. If this rotating radio transient sat
-      at the outer edge of the Local Group, FAST would still detect its brightest pulse. The spectral luminosity of the brightest
+      The spectral luminosity of the brightest
       pulse is (7.5 &#177; 2.3) &#215; 10<sup>23</sup> erg s<sup>&#8722;1</sup> Hz<sup
         >&#8722;1</sup
       >.
@@ -200,8 +192,7 @@ const BARS = [
         distance of 1.6 plus or minus 0.3 kiloparsecs. The middle rung is about one
         megaparsec, the range that takes in Andromeda and the inner part of the Local
         Group. The top rung is the edge of the Local Group. A filled marker sits on
-        whichever rung is selected. The gaps between rungs are drawn evenly so the
-        labels fit; the real gaps are enormous and get bigger as you go up.
+        whichever rung is selected. The gaps between rungs are drawn evenly so the labels fit, and the real gaps are enormous and get bigger as you go up.
       </p>
       <p>
         On the right are two bars, one for the brightest pulse the paper measured and one
@@ -211,14 +202,7 @@ const BARS = [
         sits only just above. At the third stop the brightest pulse still clears the line
         while the second-brightest has dropped underneath it.
       </p>
-      <p>
-        These are single pulses from one rotating
-        radio transient in our own galaxy, and the brighter of them would still be
-        detectable if the source were sitting at the outer edge of the Local Group. It
-        took a wide-field instrument like CHIME to find it because the pulsar is in its bright mode less than 0.2 percent of the time, so you have
-        to be watching a long time or watching a lot of sky.
-      </p>
-    </div>
+      </div>
   </details>
 </section>
 

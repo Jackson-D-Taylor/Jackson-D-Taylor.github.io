@@ -14,7 +14,8 @@
  * complete on its own.
  *
  * The paper is an unedited advance article, so this stays conceptual. Every
- * number quoted below is in the published abstract.
+ * number quoted below is in the published abstract, except the four observing
+ * sessions, which come from Section 2.1 of the paper.
  */
 
 const CX = 150;
@@ -28,28 +29,28 @@ const STEPS = [
     phi: 0,
     eclipse: false,
     text:
-      'The companion is on the far side of the pulsar. Its heated face is turned towards us, so the system looks as bright as it gets, and the radio pulses arrive without interruption.',
+      'The companion is on the far side of the pulsar. Its heated face is turned toward us, so the system looks as bright as it gets, and the radio pulses arrive without interruption.',
   },
   {
     n: 2,
     phi: 45,
     eclipse: false,
     text:
-      'The companion has moved a step past the far side. Most of the heated face still points our way and the pulses keep coming.',
+      'Most of the heated face still points our way, and the pulses keep coming.',
   },
   {
     n: 3,
     phi: 90,
     eclipse: false,
     text:
-      'The companion is off to one side of the pulsar as we see it. Half the heated face and half the cool face are in view, so the optical brightness is partway down.',
+      'Now the companion is off to one side of the pulsar as we see it. Half the heated face and half the cool face are in view, so the optical brightness is partway down.',
   },
   {
     n: 4,
     phi: 135,
     eclipse: true,
     text:
-      'The companion is coming round towards the front. This is where material around it would start to cover the line of sight and cut off the radio pulses.',
+      'As the companion comes around toward the front, the material around it would start to cover the line of sight and cut off the radio pulses.',
   },
   {
     n: 5,
@@ -63,21 +64,21 @@ const STEPS = [
     phi: 225,
     eclipse: true,
     text:
-      'The companion is moving out from in front. If the pulses were eclipsed, they would come back about here.',
+      'If the pulses were eclipsed, they would come back about here, as the companion moves out from in front.',
   },
   {
     n: 7,
     phi: 270,
     eclipse: false,
     text:
-      'The companion is off to the other side. Half lit again, and the pulses are clear.',
+      'The pulses are clear, and the companion is half lit again on the other side.',
   },
   {
     n: 8,
     phi: 315,
     eclipse: false,
     text:
-      'The companion is nearly back behind the pulsar. The system is brightening towards maximum.',
+      'The system is brightening toward maximum as the companion heads back behind the pulsar.',
   },
 ];
 
@@ -151,22 +152,20 @@ const SYMMETRIC = curve((p) => (1 + Math.cos(2 * Math.PI * p)) / 2);
 ---
 
 <section class="rb-root exp" aria-labelledby="rb-title">
-  <h3 id="rb-title" class="exp-title">One orbit, measured two ways</h3>
+  <h3 id="rb-title" class="exp-title">What radio and optical telescopes see over one orbit</h3>
 
   <p class="exp-lede">
     PSR J2053+6905 is a 1.68-millisecond pulsar with a companion close enough that the
-    pulsar's radiation heats the side of it that faces the pulsar. A radio telescope may lose the pulses for part of the orbit: in one of our four
-    observing sessions the pulsar faded out partway through, most likely in an eclipse. An optical telescope sees the system brighten and fade as the heated face
-    turns towards us and away. Step around the orbit and watch both at once.
+    pulsar's radiation heats the side of it that faces the pulsar. A radio telescope may lose the pulses for part of the orbit, and in one of our four
+    observing sessions the pulsar faded out partway through, possibly in an eclipse. An optical telescope sees the system brighten and fade as the heated face
+    turns toward us and away. Step around the orbit and watch both at once.
   </p>
 
   <p class="exp-fidelity">
-    <strong>Faithful:</strong> an eclipse would line up with the minimum of the light
-    curve, for the reason the diagram shows, and the asymmetry in the optical curve is
-    reported in the paper. <strong>Schematic:</strong> the viewing angle (the paper fits
-    an inclination of about 66 degrees), the sizes, the separation, the width of the
-    possible eclipse, and the shape and size of the asymmetry. Apart from the inclination,
-    none of those are fitted values, and this paper is an unedited advance article.
+    An eclipse would line up with the minimum of the light curve because both happen
+    when the companion is between us and the pulsar, and the real light curve is
+    asymmetric too. The viewing angle, the sizes, the width and placement of the possible eclipse, and
+    the exact shape of the asymmetry are just for the picture.
   </p>
 
   <input class="rb-state" type="radio" name="rb-step" id="rb-1" checked />
@@ -223,8 +222,7 @@ const SYMMETRIC = curve((p) => (1 + Math.cos(2 * Math.PI * p)) / 2);
           </text>
         </svg>
         <figcaption class="exp-cap">
-          Earth is off to the left. The companion can only get in the way when it
-          passes between us and the pulsar.
+          Earth is off to the left.
         </figcaption>
       </figure>
 
@@ -269,9 +267,8 @@ const SYMMETRIC = curve((p) => (1 + Math.cos(2 * Math.PI * p)) / 2);
           }
         </svg>
         <figcaption class="exp-cap">
-          The dashed curve is a symmetric heating model. The solid curve is the kind of
-          asymmetry the paper reports; the paper fits only the stable stretches of the
-          real light curves.
+          The dashed curve is a symmetric heating model, and the solid curve shows the kind
+          of asymmetry our collaborators saw.
         </figcaption>
       </figure>
     </div>
@@ -282,30 +279,21 @@ const SYMMETRIC = curve((p) => (1 + Math.cos(2 * Math.PI * p)) / 2);
   </div>
 
   <p class="exp-note">
-    The two measurements constrain different things, which is why the paper uses both.
-    Radio timing gives the spin period, the dispersion measure, the Keplerian orbital
-    parameters and the pulsar mass function. Optical spectroscopy from the 10.4-m Gran
-    Telescopio Canarias gives a radial velocity semi-amplitude of K = 337(4) km s<sup
-      >&#8722;1</sup
-    >, and putting that together with the mass function fixes the ratio of the two
-    masses at M<sub>p</sub>/M<sub>c</sub> = 7.05(8). Fitting the stable segments of the
-    light curves with a symmetric direct heating model then gives masses of about
-    2.1 and about 0.3 solar masses. The light curves also change shape from epoch to
-    epoch, which the paper puts down to a cold spot on the companion dissipating or
-    moving.
+    The radio timing gives the pulsar's spin and orbit, the optical spectra give how fast
+    the companion moves, and fitting the light curves then gives estimates of the two masses.
   </p>
 
   <details class="exp-describe">
     <summary>Describe this figure in words</summary>
     <div class="exp-prose">
       <p>
-        The left panel is the orbit seen from the side. A dot at the centre is the
+        The left panel is the orbit seen from the side. A dot at the center is the
         pulsar, and a long flattened ellipse is the path the companion follows around
-        it. Earth is off to the left, and a line runs from the pulsar towards it to mark
-        the line of sight. The companion is drawn as a small disc with one half shaded
+        it. Earth is off to the left, and a line runs from the pulsar toward it to mark
+        the line of sight. The companion is drawn as a small disk with one half shaded
         orange: that is the side facing the pulsar, the side being heated. Around it is a
         faint ring standing for the material shed from its surface. As you step through
-        the eight positions, the companion travels round the ellipse and the orange half
+        the eight positions, the companion travels around the ellipse and the orange half
         rotates with it, always pointing at the pulsar.
       </p>
       <p>
@@ -318,10 +306,9 @@ const SYMMETRIC = curve((p) => (1 + Math.cos(2 * Math.PI * p)) / 2);
         marks the step you are on.
       </p>
       <p>
-        The thing to notice is that the gap in the radio pulses and the dip in the
-        optical curve happen at the same place. Both come from the companion being
-        between us and the pulsar. At that point its material would block the radio pulses,
-        and the face it turns towards us is the cool one, pointing away from the heat.
+        The gap in the radio pulses and the dip in the optical curve happen at the same
+        place, because both come from the companion being between us and the pulsar. At that point its material would block the radio pulses,
+        and the face it turns toward us is the cool one, pointing away from the heat.
         Half an orbit later the companion is behind the pulsar, the pulses are clear, and
         the heated face is in full view. The asymmetry in the solid curve is the part a simple heating model
         does not account for.

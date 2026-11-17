@@ -38,8 +38,8 @@ figures:
       light-seconds, where the added scatter falls to a tenth of the scatter already present
       in the data.
     caption: >-
-      Past the critical distance, a passing object no longer leaves a mark this pulsar's timing
-      could pick up. That distance sets how much space around each pulsar the search covers.
+      Past the critical distance, a passing object is too far away for this pulsar's timing to
+      pick up. That distance sets how much space around each pulsar the search covers.
   - src: "/figures/free-floating-objects/critical-impact-parameter.webp"
     kind: "result"
     unpublished: true
@@ -47,7 +47,7 @@ figures:
       A three-dimensional plot of the critical distance against two properties of each binary
       pulsar: the mass of its companion and the separation of its orbit. A tilted plane rises
       from near zero to about 1,400 light-seconds as both quantities grow. The pulsars of the
-      search are drawn as points around the plane, coloured by the mass of the pulsar itself.
+      search are drawn as points around the plane, colored by the mass of the pulsar itself.
     caption: >-
       Pulsars in wider orbits with heavier companions can be disturbed from further away, so
       each of them watches a larger volume of space.
@@ -69,20 +69,21 @@ figures:
     unpublished: true
     alt: >-
       A top-down image of the Milky Way with pulsar positions plotted over it in kiloparsecs.
-      Grey dots mark all known pulsars, scattered across the whole disc. Coloured dots mark
+      Gray dots mark all known pulsars, scattered across the whole disk. Colored dots mark
       the 68 pulsars used in this search, nearly all of them packed into a small region around
-      the Sun's position, and coloured by the density limit each one sets.
+      the Sun's position, and colored by the density limit each one sets.
     caption: >-
-      The pulsars used here are all relatively close by, so the limits only apply to our own
-      part of the Galaxy.
+      Each colored dot is one of the 68 pulsars, colored by the limit it sets by itself on how many
+      free-floating objects there can be per cubic parsec. They are all relatively close by, so the
+      limits only apply to our own part of the Galaxy.
   - src: "/figures/free-floating-objects/all-sky-aitoff.webp"
     kind: "result"
     unpublished: true
     alt: >-
-      An oval all-sky map in Galactic coordinates. Grey dots, marking all known pulsars, bunch
-      tightly along the plane of the Milky Way through the middle of the oval. Coloured dots,
+      An oval all-sky map in Galactic coordinates. Gray dots, marking all known pulsars, bunch
+      tightly along the plane of the Milky Way through the middle of the oval. Colored dots,
       the 68 pulsars in this search, are spread far more evenly across the whole sky and
-      coloured by the limit each one sets.
+      colored by the limit each one sets.
     caption: >-
       Most pulsars are found along the Galactic plane, but the millisecond pulsars timed
       precisely enough for this search sit all over the sky.
@@ -94,12 +95,12 @@ figures:
       webm: "/figures/free-floating-objects/hyperbolic-flyby.webm"
       poster: "/figures/free-floating-objects/hyperbolic-flyby-poster.webp"
     alt: >-
-      An animation of a flyby. A star sits at the centre with a companion on a small circular
+      An animation of a flyby. A star sits at the center with a companion on a small circular
       orbit around it. A second body comes in from the bottom of the frame on a fading track,
       bends sharply as it rounds the star at closest approach, and leaves in a new direction off
       the top.
     caption: >-
-      A hyperbolic flyby. The passing object is deflected, and the star is pulled in return by
+      In a hyperbolic flyby the passing object is deflected, and the star is pulled in return by
       a far smaller amount. That return tug is what would show up in the pulse arrival times.
   - src: "/figures/free-floating-objects/niso-milky-way-poster.webp"
     kind: "animation"
@@ -110,12 +111,11 @@ figures:
       poster: "/figures/free-floating-objects/niso-milky-way-poster.webp"
     alt: >-
       A slowly rotating three-dimensional plot with an image of the Milky Way laid flat as a
-      plane through the middle. Grey dots are all known pulsars, sitting above and below the
-      disc. Coloured dots are the pulsars used in this search, clustered close to the Sun and
-      coloured by the density limit each one sets.
+      plane through the middle. Gray dots are all known pulsars, sitting above and below the
+      disk. Colored dots are the pulsars used in this search, clustered close to the Sun and
+      colored by the density limit each one sets.
     caption: >-
-      Each of the 68 pulsars gives its own limit on how many free-floating objects can be
-      packed into a cubic parsec. The colours are those individual limits.
+      The same pulsars as the top-down map, now seen in three dimensions.
   - src: "/figures/free-floating-objects/niso-zoomed-poster.webp"
     kind: "animation"
     unpublished: true
@@ -124,9 +124,11 @@ figures:
       webm: "/figures/free-floating-objects/niso-zoomed.webm"
       poster: "/figures/free-floating-objects/niso-zoomed-poster.webp"
     alt: >-
-      A rotating three-dimensional box a few kiloparsecs across, centred on the Sun's
-      neighbourhood. Faint grey dots are all known pulsars in that volume. The coloured dots
-      are the pulsars used in this search, coloured by the limit each one sets.
+      A rotating three-dimensional box a few kiloparsecs across, centered on the Sun's
+      neighborhood. Faint gray dots are all known pulsars in that volume. The colored dots
+      are the pulsars used in this search, colored the same way as in the maps above.
+    caption: >-
+      A closer view of the same map, zoomed in on the Sun's neighborhood.
   - src: "/figures/free-floating-objects/critical-impact-parameter-3d-poster.webp"
     kind: "animation"
     unpublished: true
@@ -139,6 +141,8 @@ figures:
       passing object would still disturb the timing, plotted against each binary's companion
       mass and orbital separation, with the pulsars of the search shown as points around the
       surface.
+    caption: >-
+      The critical-distance surface from the plot above, shown rotating.
   - src: "/figures/free-floating-objects/pulsar-map-flythrough-poster.webp"
     kind: "animation"
     unpublished: true
@@ -147,10 +151,12 @@ figures:
       webm: "/figures/free-floating-objects/pulsar-map-flythrough.webm"
       poster: "/figures/free-floating-objects/pulsar-map-flythrough-poster.webp"
     alt: >-
-      A three-dimensional map of pulsar positions turning slowly, with a grey image of the
-      Milky Way as the background plane. Small grey points are all known pulsars. The larger
-      coloured points are the pulsars in this search, coloured by the limit each one sets on
-      the number of Jupiter-mass free-floating objects per cubic parsec.
+      A three-dimensional map of pulsar positions turning slowly, with a gray image of the
+      Milky Way as the background plane. Small gray points are all known pulsars. The larger
+      colored points are the pulsars in this search, colored by their limits for Jupiter-mass
+      objects.
+    caption: >-
+      The whole pulsar map, turning slowly.
 lay:
   reviewed: false
   hook: >-
@@ -159,36 +165,31 @@ lay:
     pulsar timing on how many are out there.
   keyNumber:
     value: "68 pulsars"
-    label: "watched for up to fifteen years for the tug of a passing rogue planet, with no events found"
+    label: "watched for up to 15.9 years for the tug of a passing rogue planet, with no events found"
   whatWeDid: >-
-    Rogue planets, brown dwarfs and large asteroids can drift between the stars without orbiting
-    any of them, and they are expected to be everywhere in the Galaxy. Some have been
-    seen. Microlensing surveys have turned up free-floating planets, and three objects
-    (1I/'Oumuamua, 2I/Borisov and 3I/ATLAS) have passed through our own solar system on paths
-    that will never bring them back. We tried a different way of finding them. If one of these
-    objects swings past a millisecond pulsar, its gravity nudges the pulsar and the pulses
-    arrive slightly early or slightly late. We searched for that signature in up to fifteen
-    years of timing data on 68 millisecond pulsars.
+    Rogue planets, brown dwarfs, and large asteroids can drift between the stars without orbiting
+    any of them, and they are expected to be everywhere in the Galaxy. Microlensing surveys have
+    already turned up free-floating planets, and three objects (1I/'Oumuamua, 2I/Borisov, and
+    3I/ATLAS) have passed through our own solar system on paths that will never bring them back. We
+    tried a different way of finding them. If one of these objects swings past a millisecond pulsar,
+    its gravity nudges the pulsar and the pulses arrive slightly early or slightly late. We searched
+    for that signature in up to 15.9 years of timing data on 68 millisecond pulsars.
   whatWeFound: >-
-    No flybys detected. None of the 68 pulsars shows a statistically significant event. That still tells
-    us something, because if there were enough rogue planets nearby we should have caught a
-    nudge somewhere in up to fifteen years of data. Combining all 68 pulsars, there can be no more
-    than about 600,000 Jupiter-mass objects per cubic parsec near us. Taken one at a time, the
-    pulsars give weaker limits, from about five million to about five billion per cubic parsec
-    depending on the pulsar.
+    We found no statistically significant flyby event in any of the 68 pulsars. Combining all of
+    them, there can be no more than about 600,000 Jupiter-mass objects per cubic parsec near us.
+    Taken one at a time, the pulsars give weaker limits, from about five million to about five
+    billion per cubic parsec depending on the pulsar.
   whyItMatters: >-
-    These are the first limits on the free-floating object population to come out of pulsar
-    timing. They are not tight yet. Microlensing has found many of the free-floating planets we
-    know about, so it is worth checking that count with a completely different method.
+    Microlensing has found many of the free-floating planets we know about, and pulsar timing is
+    a completely different way to check that count. Our limits are not tight yet.
   analogy: >-
-    Imagine a metronome ticking in a dark room. You can't see anything, but if somebody heavy
-    walks past, the floor flexes a little and the next tick comes slightly early or late. We
-    listened to 68 metronomes for up to fifteen years and none of them slipped, so there can only be
-    so many people wandering around the building.
+    Imagine a metronome ticking in a dark room. You can't see anything, but if somebody heavy walks
+    past, the floor flexes a little and the next tick comes slightly early or late. If none of your
+    metronomes ever slips, there can only be so many people walking around in the dark.
   glossary:
     - term: "Free-floating object"
       definition: >-
-        A planet, brown dwarf or large asteroid moving through the Galaxy without orbiting any
+        A planet, brown dwarf, or large asteroid moving through the Galaxy without orbiting any
         star.
     - term: "Millisecond pulsar"
       definition: >-
@@ -204,8 +205,7 @@ lay:
         the next star over. Densities here are counted per cubic parsec.
     - term: "Upper limit"
       definition: >-
-        The largest value still consistent with having seen nothing. It is the normal result of
-        a search that finds no signal.
+        The largest value still consistent with having seen nothing.
 ---
 
 ## Abstract

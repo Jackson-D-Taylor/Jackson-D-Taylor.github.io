@@ -31,7 +31,7 @@ const captionId = `fig-${src.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}
 
 {
   kind === 'logo' && (
-    <img class="logo" src={src} alt={alt} width="220" height="220" loading="lazy" decoding="async" />
+    <img class="logo" src={src} alt={alt} width="380" height="380" loading="lazy" decoding="async" />
   )
 }
 
@@ -148,7 +148,7 @@ const captionId = `fig-${src.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}
      read as white rectangles in dark mode. Sitting them on an explicit white
      card with a border makes that deliberate in both themes. */
   .logo {
-    width: 220px;
+    width: 380px;
     max-width: 100%;
     height: auto;
     object-fit: contain;

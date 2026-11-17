@@ -24,18 +24,25 @@ for (const paper of papers) {
 const years = [...byYear.keys()];
 
 const firstAuthorCount = papers.filter((p) => p.data.firstAuthor).length;
+const coAuthorCount = papers.length - firstAuthorCount;
+const NUMBER_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+const spell = (n: number) => NUMBER_WORDS[n] ?? String(n);
 ---
 
 <BaseLayout
   title="Publications"
-  description="Refereed papers by Jackson D. Taylor on pulsar timing, millisecond pulsars and dynamics."
+  description="Refereed papers by Jackson D. Taylor on pulsar timing, millisecond pulsars, and dynamics."
 >
   <div class="wrap">
     <div class="page-head">
       <h1>Publications</h1>
+      {/* Jackson's own words. The counts come from the content files so they stay right
+          as papers are added; first-author count spelled out, co-author count as a
+          numeral, the way he wrote it. Claude.md rule 3: do not rewrite or restyle. */}
       <p>
-        {papers.length} refereed {papers.length === 1 ? 'paper' : 'papers'}, {firstAuthorCount} of
-        them as first author. Each one links to a page with the abstract and any figures.
+        I've led and first-authored {spell(firstAuthorCount)} {firstAuthorCount === 1 ? 'paper' : 'papers'} and
+        have co-authored {coAuthorCount} {coAuthorCount === 1 ? 'other' : 'others'}. Find and read about
+        them below!
       </p>
     </div>
 

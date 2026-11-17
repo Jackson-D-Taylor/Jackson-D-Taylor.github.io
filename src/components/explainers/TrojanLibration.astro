@@ -44,28 +44,28 @@ const presets = [
     label: 'At the stable point',
     deg: 0,
     words:
-      'Started exactly on the point. It stays at sixty degrees and does not move in this frame. The pulsar traces the same small shift once per orbit, over and over.',
+      'The asteroid starts exactly on the point. It stays at sixty degrees and does not move in this frame. The pulsar traces the same small shift once per orbit, over and over.',
   },
   {
     id: 'd5',
     label: '5° off',
     deg: 5,
     words:
-      'Started five degrees off the point. It swings between about fifty-five and sixty-six degrees and takes roughly four orbits to complete one swing. The pulsar trace gains a slow rise and fall on top of its once-per-orbit motion.',
+      'The asteroid starts five degrees off the point. It swings between about fifty-five and sixty-six degrees and takes roughly four orbits to complete one swing. The pulsar trace gains a slow rise and fall on top of its once-per-orbit motion.',
   },
   {
     id: 'd20',
     label: '20° off',
     deg: 20,
     words:
-      'Started twenty degrees off the point. It swings between about forty-two and eighty-two degrees, still taking about four orbits per swing, and the loop it traces is the tadpole shape. The slow rise and fall in the pulsar trace is much larger.',
+      'The asteroid starts twenty degrees off the point. It swings between about forty-two and eighty-two degrees, still taking about four orbits per swing, and the loop it traces is the tadpole shape. The slow rise and fall in the pulsar trace is much larger.',
   },
   {
     id: 'far',
     label: 'Far away',
     deg: 120,
     words:
-      'Started a hundred and twenty degrees off the point, which is too far to be held. It drifts all the way around the orbit, and its distance from the pulsar changes a lot. The pulsar trace wanders and never repeats.',
+      'The asteroid starts a hundred and twenty degrees off the point, which is too far to be held. It drifts all the way around the orbit, and its distance from the pulsar changes a lot. The pulsar trace wanders and never repeats.',
   },
 ];
 const START = 'd20';
@@ -74,20 +74,16 @@ const startWords = presets.find((p) => p.id === START)!.words;
 
 <figure class="ex" data-explainer="trojan-libration">
   <figcaption>
-    <b class="ex-title">A Trojan that works, and what it would do to the pulsar</b>
+    <b class="ex-title">How a Trojan moves, and what it would do to the pulsar</b>
     <p>
       Two bodies in orbit make two places, sixty degrees ahead of and behind the
       smaller one, where a third object can stay put. Thousands of asteroids sit
       in those places in the Sun–Jupiter system. An object parked there swings
       slowly around the point, and its pull shifts the pulsar by a small amount.
-      That shift is the only part of this a telescope can measure.
+      We didn't find a Trojan around any of the pulsars we searched. The figure below
+      shows how one moves and the shift it gives the pulsar.
     </p>
   </figcaption>
-
-  <p class="nondetect">
-    <strong>We did not find any.</strong>{' '}
-    This is what one would have looked like.
-  </p>
 
   <svg class="geo" viewBox="0 0 340 300" role="img" aria-labelledby="tl-t tl-d">
     <title id="tl-t">Where a Trojan sits, and the loop it traces</title>
@@ -130,17 +126,16 @@ const startWords = presets.find((p) => p.id === START)!.words;
   </ul>
 
   <p class="geocap">
-    Drawn in a frame that turns once per orbit, so the companion stays put and
-    only the asteroid moves. The loop is calculated for a Trojan started twenty
-    degrees off L4 and followed for one complete swing. The swing is wide and slow,
-    taking about four orbits of the binary.
+    This is drawn in a frame that turns once per orbit, so the companion stays put and
+    only the asteroid moves. The loop is the path of a Trojan started twenty
+    degrees off L4 and followed for one complete swing, which takes about four orbits
+    of the binary.
   </p>
 
   <noscript>
     <p class="note">
-      There is a running version of this with the motion animated. It needs
-      JavaScript. The diagram above and the written walkthrough below carry the
-      same idea.
+      The animated version of this figure needs JavaScript. The diagram above and the
+      written description below cover the same idea.
     </p>
   </noscript>
 
@@ -173,36 +168,22 @@ const startWords = presets.find((p) => p.id === START)!.words;
       <p class="striplbl">What the telescope measures: the pulsar's own small shift, along the line of sight</p>
       <canvas id="tl-strip" class="strip-c" aria-hidden="true"></canvas>
       <p class="tinyp">
-        Faint vertical lines mark one orbit of the binary. The repeating part is
-        the orbit itself. The slow swell on top of it is the Trojan.
+        Faint vertical lines mark one orbit of the binary. The Trojan causes
+        both the part that repeats every orbit and the slow swell on top of it. The
+        repeating part blends into the orbit itself, and the slow swell is what a search
+        can pick out.
       </p>
     </div>
 
     <p class="status" id="tl-status" role="status" aria-live="polite">{startWords}</p>
   </div>
 
-  <p class="caption">
-    The orbital motion here is really calculated. The sizes and the signal strength
-    are not to scale.
-  </p>
-
   <div class="honesty">
     <p>
-      <strong>Really calculated.</strong> The path comes from the circular
-      restricted three-body problem in the rotating frame, integrated with a
-      fourth-order Runge–Kutta step that is fixed and does not depend on how fast
-      your screen refreshes. The mass ratio is the one the paper works with: a
-      companion of about 0.01 solar masses against a 1.4 solar-mass pulsar. That
-      is far below the ratio at which these points stop being stable, so the
-      slow swing around L4 holds up for as long as you care to watch.
-    </p>
-    <p>
-      <strong>Not to scale.</strong> Lengths are set so the separation is one and
-      the orbit takes one period. The bodies are drawn enormously larger than they
-      are. The trace at the bottom is proportional to the pulsar's displacement
-      with an arbitrary tilt and an arbitrary size, so the shape is right and the
-      amplitude means nothing; the real search was sensitive to about one Earth
-      mass. There is no relativity in any of it.
+      The asteroid's motion is a three-body calculation using the mass ratio from the
+      paper, a companion of about 0.01 solar masses against a 1.4 solar-mass pulsar.
+      The sizes of the bodies and the height of the trace at the bottom are just for
+      the picture.
     </p>
   </div>
 
@@ -210,16 +191,15 @@ const startWords = presets.find((p) => p.id === START)!.words;
     <summary>Describe this figure in words</summary>
     <div class="prose">
       <p>
-        The diagram is drawn in a frame that turns once per orbit, so the two
-        heavy bodies stay where they are and only the asteroid moves. The pulsar
+        The diagram uses the rotating frame described above. The pulsar
         is the small filled circle on the left. The companion, about a hundredth
         of a solar mass, is the larger circle on the right. The dashed circle is
         the companion's orbit.
       </p>
       <p>
         Sixty degrees around from the companion, measured at the pulsar, is the
-        point marked L4. The dashed triangle joining the pulsar, the companion and
-        L4 has three equal sides, which is the condition that defines the point.
+        point marked L4. The dashed triangle joining the pulsar, the companion, and
+        L4 has three equal sides.
         L5 is the mirror image of it below the line. Both are places where the
         pull of the two bodies and the turning of the frame cancel out.
       </p>
@@ -228,7 +208,7 @@ const startWords = presets.find((p) => p.id === START)!.words;
         swings around the point and comes back.
         The closed loop drawn around L4 is one of those swings, for an object
         started twenty degrees away. The shape is why these are called tadpole
-        orbits. Going round the loop once takes about four orbits of
+        orbits. Going around the loop once takes about four orbits of
         the binary, so the motion is slow compared with the orbit it sits in.
       </p>
       <p>
@@ -237,20 +217,15 @@ const startWords = presets.find((p) => p.id === START)!.words;
         and never settles into a loop around sixty degrees.
       </p>
       <p>
-        The strip below the running version is the part that matters for the
-        search. The asteroid pulls on the pulsar, so the pulsar is not quite where
+        The strip below the animation shows the pulsar's own motion.
+        The asteroid pulls on the pulsar, so the pulsar is not quite where
         it would be without it, and that shows up as a change in when its pulses
         arrive. The trace repeats once per orbit, and a
         signal at exactly the orbital period is difficult to separate from the
-        orbit itself, since fitting the binary absorbs it. The part that would
-        give a Trojan away is the slow swell riding on top, at the libration
-        period. That is what we looked for.
+        orbit itself, since fitting the binary absorbs it. The slow swell riding on top, at the libration period, is the part that would
+        give a Trojan away, and it is what we looked for.
       </p>
-      <p>
-        Eight pulsars were searched and no Trojan held up in any of them, which is where the
-        mass limits in the paper come from.
-      </p>
-    </div>
+      </div>
   </details>
 
   <script type="application/json" data-tl-presets is:inline set:html={JSON.stringify({ presets, start: START })} />

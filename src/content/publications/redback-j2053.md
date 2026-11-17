@@ -35,12 +35,12 @@ lay:
     value: "1.68 ms"
     label: "one full rotation of the pulsar, which means it turns nearly 600 times every second"
   whatWeDid: >-
-    Gamma-ray surveys have catalogued many sources with no identified counterpart. A few of them
+    Gamma-ray surveys have cataloged many sources with no identified counterpart. A few of them
     turn out to be pulsars in close binaries. One such source, 4FGL J2054.2+6904, had already
     been flagged as a candidate from optical and X-ray observations, so we aimed the Green Bank
-    Telescope at it and searched for radio pulsations, which we found. We then followed the
-    system with photometry from a 2.1 metre telescope in Mexico and a 1.5 metre in Uzbekistan,
-    to watch the companion brighten and fade, and with spectroscopy from the 10.4 metre Gran
+    Telescope at it and searched for radio pulsations, which we found. Our collaborators then followed the
+    system with photometry from a 2.1 meter telescope in Mexico and a 1.5 meter in Uzbekistan,
+    to watch the companion brighten and fade, and with spectroscopy from the 10.4 meter Gran
     Telescopio Canarias, to measure how fast the companion moves toward and away from us.
   whatWeFound: >-
     PSR J2053+6905 turns once every 1.68 milliseconds. From the radio timing we measured the
@@ -52,22 +52,19 @@ lay:
     with the timing gives a mass ratio of 7.05 to 1 and component masses near 2.1 and 0.3 times
     the Sun.
   whyItMatters: >-
-    The mass of a neutron star is hard to measure, and this system gives an estimate near 2.1
-    times the Sun which, if it holds up, puts it at the heavy end for neutron stars. The number comes from combining radio
-    timing with optical photometry and spectroscopy, so three different kinds of observation
-    have to agree before it holds. The light curve is also still changing from year to year, so
-    it is worth continuing to watch.
+    The mass of a neutron star is hard to measure, and this system gives an estimate near 2.1 times
+    the Sun which, if it holds up, puts it at the heavy end for neutron stars. The light curve is
+    also still changing from year to year.
   analogy: >-
     Imagine holding a marshmallow a few inches from a campfire without turning it. One side gets
     scorched and the other stays cool. Now make the marshmallow a small star and the campfire a
-    neutron star spinning nearly 600 times a second, and the same thing happens. Watching the
-    light rise and fall as the hot side turns toward us and away again gives the size of the
-    companion, the temperature of each side of it, and the masses of both.
+    neutron star spinning nearly 600 times a second, and the same thing happens. Optical telescopes watch the
+    light rise and fall as the hot side turns toward us and away again.
   glossary:
     - term: "Redback"
       definition: >-
         A millisecond pulsar in a close orbit with a companion of a few tenths of a solar
-        mass. The companion is heated by the pulsar and blocks its radio signal for part of
+        mass. The companion is heated by the pulsar and can block its radio signal for part of
         each orbit.
     - term: "Millisecond pulsar"
       definition: >-
@@ -76,15 +73,11 @@ lay:
     - term: "Radial velocity"
       definition: >-
         The speed of a star toward or away from us, read off the shift in its spectrum. Here
-        it swings by 337 kilometres per second.
+        it swings by 337 kilometers per second.
     - term: "Mass function"
       definition: >-
         A quantity from the timing that ties together the two masses and the tilt of the
         orbit. On its own it only sets a minimum mass for the companion.
-    - term: "Roche lobe"
-      definition: >-
-        The region around a star inside which its own gravity wins. A star that fills its
-        Roche lobe is on the verge of losing material to its partner.
 ---
 
 ## Abstract
