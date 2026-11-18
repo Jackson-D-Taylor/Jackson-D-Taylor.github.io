@@ -1,0 +1,286 @@
+---
+/**
+ * Brambourgland, the board game Jackson is designing.
+ *
+ * The opening paragraph, "The setting", and the Status line are Jackson's own
+ * words (18 Nov 2026); each is marked below. The rest of the prose was drafted
+ * from his own game files (the rulebook and the project notes in
+ * ~/Desktop/Brambourgland) for him to edit. He cut the rules walkthrough on
+ * 18 Nov 2026, so the page doesn't explain how the game plays.
+ *
+ * One quotation, copied exactly: the epigraph is Jackson's own words, from the
+ * rulebook title page he exported from Overleaf on 18 Nov 2026 (Claude.md
+ * rule 3: never reword it).
+ *
+ * Jackson approved both board images on 18 Nov 2026, as sneak peeks of a work
+ * in progress. Sources: ~/Desktop/Brambourgland/board_polished.pdf (the
+ * playtest board) and Board.pdf (his hand-drawn original).
+ *
+ * He also approved the rulebook's title page (18 Nov 2026) as a small sneak
+ * peek, rendered from the one-page PDF he exported from Overleaf. The full
+ * rulebook stays off the site: he said no.
+ *
+ * Still left off until Jackson says otherwise: card images, the full rulebook,
+ * and anything about how the game has been playtested.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const facts = [
+  { term: 'Players', detail: '4' },
+  { term: 'Length', detail: '2 to 4 hours' },
+  { term: 'Ages', detail: '14 and up' },
+  { term: 'Years covered', detail: '400 to 1200' },
+  // Jackson's own words (18 Nov 2026). Claude.md rule 3: do not reword.
+  { term: 'Status', detail: 'Work in progress, with the first playtests coming soon' },
+];
+---
+
+<BaseLayout
+  title="Brambourgland"
+  description="Brambourgland, a four-player board game Jackson D. Taylor is designing."
+>
+  <div class="wrap">
+    <div class="page-head">
+      <h1>Brambourgland</h1>
+      <p>A board game I'm designing</p>
+    </div>
+
+    {/* TODO: a sentence or two on how the game got started, if Jackson wants one. */}
+    {/* Jackson's own words (18 Nov 2026). Claude.md rule 3: do not reword. */}
+    <p class="opening">
+      Brambourgland is my board game about four rival Houses that all want to be King. A round
+      covers fifty years, and in that time the Houses win vassals, trade, and pass laws.
+    </p>
+
+    <dl class="facts">
+      {
+        facts.map((f) => (
+          <div>
+            <dt>{f.term}</dt>
+            <dd>{f.detail}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <aside class="wip" aria-labelledby="wip-heading">
+      <h2 id="wip-heading">Sneak peek</h2>
+      <p>
+        The rules, names, and board will keep changing as I playtest the game.
+      </p>
+    </aside>
+
+    <figure class="board">
+      <a href="/figures/board-game/board-playtest-full.webp">
+        <img
+          src="/figures/board-game/board-playtest.webp"
+          alt="Map of Brambourgland's six Friories, each in its own color, with county borders, rivers, roads, cities, garrisoned forts, and numbered landing sites. The Might track is in the top left corner, the key is on the right, and a timeline of rounds from 400 to 1200 runs along the bottom."
+          width="1600"
+          height="847"
+          decoding="async"
+        />
+      </a>
+      <figcaption>
+        The current playtest board. <a href="/figures/board-game/board-playtest-full.webp">Full size</a>
+      </figcaption>
+    </figure>
+
+    {/* Jackson's own words, verbatim from the rulebook title page. Claude.md rule 3: do not reword. */}
+    <blockquote class="quote">
+      <p>
+        “Brambourgland was bought with blood, and it will be bought again. Long after I am gone,
+        they will pay any price to tilt in their favor one question: ‘Who controls Brambourgland?’ ”
+      </p>
+      <cite>Brambourg Magnus (Brambourg the Great)</cite>
+    </blockquote>
+
+    <section class="topic" aria-labelledby="g-setting">
+      <h2 id="g-setting">The setting</h2>
+      {/* Jackson's own words (18 Nov 2026). Claude.md rule 3: do not reword. */}
+      <p>
+        The Legionarians left behind roads, forts, treasure, and stranded garrisons. Brambourgland
+        is split into six Friories, and the Friories are split into counties. Each player leads one
+        of four Houses (Torke, Godwinson, Vermillion, and Bacchus), which differ in the counties and
+        goods they start with. They spend the early rounds clearing garrisons out of the forts and
+        claiming counties with their vassals. At the year 600 the first King is crowned, and you'll
+        have to play the game to see how the story progresses from there!
+      </p>
+    </section>
+
+    <section class="topic" aria-labelledby="g-status">
+      <h2 id="g-status">Where it stands</h2>
+      {/* Jackson confirmed on 18 Nov 2026 that the physical playtest copy exists. */}
+      <p>
+        I've made a physical copy of the game, and I'll start playtesting it soon.
+      </p>
+      {/* A small sneak peek only. Jackson does not want the full rulebook on the site. */}
+      <figure class="title-page">
+        <a href="/figures/board-game/rulebook-title-page.webp">
+          <img
+            src="/figures/board-game/rulebook-title-page.webp"
+            alt="Title page of the Brambourgland rulebook, in dark red and gold on parchment: the title, the subtitle “A Game of Warlords, Vassals, & Moots”, 400 – 1200, 4 players, 2–4 hours, ages 14 and up, Designed by Jackson Taylor, and the Brambourg Magnus quote."
+            width="800"
+            height="1036"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+        <figcaption>The rulebook's title page.</figcaption>
+      </figure>
+    </section>
+
+    {/* Outside the section on purpose, so it gets the full page width like the lead board. */}
+    <figure class="board">
+      <a href="/figures/board-game/board-hand-drawn-full.webp">
+        <img
+          src="/figures/board-game/board-hand-drawn.webp"
+          alt="Hand-drawn sketch of the same map, with the six Friories numbered, rivers and sea in blue, a handwritten key, the Might track in the top left corner, and a timeline from 400 to 1200 along the bottom."
+          width="1600"
+          height="861"
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
+      <figcaption>
+        The map I drew, which the playtest board is traced from. <a href="/figures/board-game/board-hand-drawn-full.webp">Full size</a>
+      </figcaption>
+    </figure>
+  </div>
+</BaseLayout>
+
+<style>
+  .opening {
+    max-width: var(--measure);
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    margin-top: 1.5rem;
+    max-width: var(--measure);
+  }
+
+  .facts dt {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .facts dd {
+    margin: 0.15rem 0 0;
+  }
+
+  .topic {
+    margin-top: 3rem;
+    max-width: var(--measure);
+  }
+
+  .topic h2 {
+    margin-bottom: 0.7rem;
+  }
+
+  .topic p + p {
+    margin-top: 1rem;
+  }
+
+  .wip {
+    border: 1px solid var(--accent-2);
+    border-left-width: 4px;
+    border-radius: var(--radius);
+    background: var(--accent-2-wash);
+    padding: 1rem 1.15rem;
+    margin-top: 2rem;
+    max-width: var(--measure);
+  }
+
+  .wip h2 {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.45rem;
+  }
+
+  .wip p {
+    line-height: 1.6;
+  }
+
+  /* The boards are wide, so they use the full page width, not the text measure. */
+  .board {
+    margin: 2rem 0 0;
+  }
+
+  .topic + .board {
+    margin-top: 1.5rem;
+  }
+
+  /* Kept small on purpose: a peek at the rulebook, not the rulebook. */
+  .title-page {
+    margin: 1.5rem 0 0;
+    width: 13rem;
+    max-width: 60%;
+  }
+
+  .title-page img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .title-page figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .board img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: #fff;
+  }
+
+  .board figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .board figcaption a {
+    margin-left: 0.4rem;
+  }
+
+  .quote {
+    margin: 2rem 0 0;
+    max-width: var(--measure);
+    padding: 0.1rem 0 0.1rem 1.1rem;
+    border-left: 3px solid var(--accent);
+  }
+
+  .quote p {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  .quote cite {
+    display: block;
+    margin-top: 0.45rem;
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+</style>

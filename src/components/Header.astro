@@ -1,8 +1,8 @@
 ---
 /**
- * Site header: name, four links, theme toggle.
+ * Site header: name, five links, theme toggle.
  *
- * Four links do not need a menu button. On a narrow screen they wrap onto a
+ * Five links do not need a menu button. On a narrow screen they wrap onto a
  * second line, which is less to get wrong than a disclosure widget.
  */
 import { getEntry } from 'astro:content';
@@ -14,6 +14,8 @@ const nav = [
   { href: '/research/', label: 'Research' },
   { href: '/publications/', label: 'Publications' },
   { href: '/cv/', label: 'CV' },
+  { href: '/board-game/', label: 'Board Game' },
+  { href: '/3d-printing/', label: '3D Printing' },
 ];
 
 /** Trailing slashes are forced site-wide, so a prefix test is enough. */
@@ -97,14 +99,12 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
     border-bottom-color: var(--accent-2);
   }
 
-  /* At 320px the name sits on its own line and the links follow. */
+  /* On a phone the name and the theme toggle share the top line and the links
+     follow on their own line, so the toggle never ends up alone on a third. */
   @media (max-width: 26em) {
-    .home {
-      flex: 1 0 100%;
-      margin-right: 0;
-    }
     nav {
-      margin-right: auto;
+      order: 2;
+      flex: 1 0 100%;
     }
   }
 </style>

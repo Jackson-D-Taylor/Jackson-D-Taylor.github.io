@@ -49,7 +49,7 @@ source_material/          private reference material — gitignored, never publi
 
 ## URLs
 
-`/`, `/research/`, `/publications/`, `/publications/<slug>/`, `/cv/`, `/404`.
+`/`, `/research/`, `/publications/`, `/publications/<slug>/`, `/cv/`, `/board-game/`, `/3d-printing/`, `/404`.
 
 A publication's filename is its URL. Renaming the file breaks any link anyone
 has to that page, so don't — add a redirect instead.
